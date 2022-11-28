@@ -1,5 +1,21 @@
-class ItemsManage extends React.Component {
-    constructor(props) {
+import React from "react";
+import { IHaveToken } from "../shared/typings";
+
+interface IItemsManageState {
+    items: any[];
+	managers: any[]
+    edit_item: number;
+	xkey: string;
+	n: number;
+}
+
+interface IItemsManageProps extends IHaveToken {
+    items: any[];
+    managers: any[];
+}
+
+export class ItemsManage extends React.Component<IItemsManageProps, IItemsManageState> {
+    constructor(props: IItemsManageProps) {
         super(props);
         this.state = {
             items: this.props.items,
@@ -10,11 +26,11 @@ class ItemsManage extends React.Component {
         };
     }
 
-    edit_item(index, key="mentor"){
+    edit_item(index: number, key="mentor"){
 		console.log("edit_item", index, this.state.edit_item);
-        var formData = new FormData(document.getElementById("edit_item"));
+        var formData = new FormData(document.getElementById("edit_item") as HTMLFormElement);
         formData.append("csrfmiddlewaretoken", this.props.token);
-        formData.append("edit_item", this.state.edit_item);
+        formData.append("edit_item", `${this.state.edit_item}`);
 		formData.append("key", key);
         fetch("", {method: "POST", body: formData}).then(response => response.json()).then((resp) => {
                 console.log(resp);
@@ -43,20 +59,22 @@ class ItemsManage extends React.Component {
 
 
     render() {
-        this.items = this.state.items.slice();
-        this.items.push({id:0, name:'', tg:''});
-		this.managers = this.state.managers.slice();
-        this.managers.push({id:0, name:'', manager:0, tg:''});
+        // this.items = this.state.items.slice();
+        // this.items.push({id:0, name:'', tg:''});
+        const items = [...this.state.items, {id:0, name:'', tg:''}]
+		// this.managers = this.state.managers.slice();
+        // this.managers.push({id:0, name:'', manager:0, tg:''});
+        const managers = [...this.state.managers, {id:0, name:'', manager:0, tg:''}]
         return (
             <div className="container">
             <div className="row">
                 <div className="col-md-6">
                     <h2>Менторы</h2>
-                    {this.items.map((item, index) =>
+                    {items.map((item, index) =>
                         <div
-                            className={item.id === this.state.edit_item  & this.state.xkey=="mentor" ? "element-card selected" : "element-card"}
+                            className={item.id === this.state.edit_item  && this.state.xkey=="mentor" ? "element-card selected" : "element-card"}
                             onClick={() => item.id !== this.state.edit_item ? this.setState({n:this.state.n+1, edit_item: item.id, xkey:"mentor"}):""}>
-                            {item.id === this.state.edit_item & this.state.xkey=="mentor"?
+                            {item.id === this.state.edit_item && this.state.xkey === "mentor"?
                                 <form id="edit_item">
                                 <div className="row">
                                     
@@ -74,7 +92,7 @@ class ItemsManage extends React.Component {
 
 									<div className="col-md-12 mb-3">
 										<label className="form-label">Тьютор-менеджер</label>
-										<select type="text" name="manager" className="form-control form-control-lg" 
+										<select name="manager" className="form-control form-control-lg" 
 										defaultValue={item.manager}>
 										<option value="0">Не выбран</option>
 										{this.state.managers.map((item, index)=>
@@ -86,7 +104,7 @@ class ItemsManage extends React.Component {
 									</div>
                                     <div className="row">
                                     <div className="col-md-6 col-6">
-                                    <button type="button" onClick={()=>this.edit_item(index, key="mentor")} className="btn btn-success btn-lg">
+                                    <button type="button" onClick={()=>this.edit_item(index, "mentor")} className="btn btn-success btn-lg">
                                         Сохранить</button></div>
                                     <div className="col-md-6 col-6">
                                     <button type="button" onClick={()=>this.setState({edit_item:-1})} className="btn btn-secondary btn-lg">
@@ -100,11 +118,11 @@ class ItemsManage extends React.Component {
 				
 				 <div className="col-md-6">
                     <h2>Тьютор-менеджеры</h2>
-                    {this.managers.map((item, index) =>
+                    {managers.map((item, index) =>
                         <div
-                            className={item.id === this.state.edit_item  & this.state.xkey=="manager" ? "element-card selected" : "element-card"}
+                            className={item.id === this.state.edit_item  && this.state.xkey=="manager" ? "element-card selected" : "element-card"}
                             onClick={() => item.id !== this.state.edit_item ? this.setState({ n:this.state.n+1, edit_item: item.id, xkey:"manager" }):""}>
-                            {item.id === this.state.edit_item & this.state.xkey=="manager" ?
+                            {item.id === this.state.edit_item && this.state.xkey === "manager" ?
                                 <form id="edit_item">
                                 <div className="row">
                                     
@@ -123,7 +141,7 @@ class ItemsManage extends React.Component {
 									
                                     <div className="row">
                                     <div className="col-md-6 col-6">
-                                    <button type="button" onClick={()=>this.edit_item(index, key="manager")} className="btn btn-success btn-lg">
+                                    <button type="button" onClick={()=>this.edit_item(index, "manager")} className="btn btn-success btn-lg">
                                         Сохранить</button></div>
                                     <div className="col-md-6 col-6">
                                     <button type="button" onClick={()=>this.setState({edit_item:-1})} className="btn btn-secondary btn-lg">
