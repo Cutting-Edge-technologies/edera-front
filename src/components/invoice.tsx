@@ -1,22 +1,35 @@
-class InvoiceManage extends React.Component {
-    constructor(props) {
+import React from "react";
+import { IHaveToken } from "../shared/typings";
+
+interface IInvoiceManageProps extends IHaveToken {
+
+}
+
+interface IInvoiceManageState {
+	families: any[];
+	payments: any[];
+	last: string;
+}
+
+export class InvoiceManage extends React.Component<IInvoiceManageProps, IInvoiceManageState> {
+    constructor(props: IInvoiceManageProps) {
         super(props);
         this.state = {
-			families:[],
-			payments:[],
-			last:"old"
-        };
+					families:[],
+					payments:[],
+					last:"old"
+      	};
     }
 
 	componentDidMount(){
-		this.do_update(update=0)
+		this.do_update(0)
 	}
 
 	// update data from google sheets 
-	do_update(update=1){
+	do_update(update = 1){
 		var formData = new FormData();
         formData.append("csrfmiddlewaretoken", this.props.token);
-		formData.append("update", update);
+		formData.append("update", `${update}`);
 		fetch("", {method: "POST", body: formData}).then(response => response.json()).then((resp) => {
 			console.log(resp);
 			this.setState({families:resp.families,
@@ -27,7 +40,7 @@ class InvoiceManage extends React.Component {
 
 	// filter lessons from csv
 	do_filter(){
-		var formData = new FormData(document.getElementById("filter_items"));
+		var formData = new FormData(document.getElementById("filter_items") as HTMLFormElement);
         formData.append("csrfmiddlewaretoken", this.props.token);
 		formData.append("filter", 1);
 		fetch("", {method: "POST", body: formData}).then(response => response.json()).then((resp) => {
@@ -38,9 +51,9 @@ class InvoiceManage extends React.Component {
 	}
 
 	do_make_pdf(){
-		var formData = new FormData(document.getElementById("make_pdf"));
+		var formData = new FormData(document.getElementById("make_pdf") as HTMLFormElement);
         formData.append("csrfmiddlewaretoken", this.props.token);
-		formData.append("make_pdf", 1);
+		formData.append("make_pdf", '1');
 		formData.append("payments", JSON.stringify(this.state.payments.slice()));
 		fetch("", {method: "POST", body: formData}).then(response => response.json()).then((resp) => {
 			console.log(resp);
@@ -49,7 +62,7 @@ class InvoiceManage extends React.Component {
 		);
 	}
 
-    select_lesson(index){
+    select_lesson(index: number){
         var payments = this.state.payments.slice();
         payments[index].cancel = 1 - payments[index].cancel;
         this.setState({payments:payments});
@@ -57,8 +70,6 @@ class InvoiceManage extends React.Component {
 
 
     render() {
-        this.families = this.state.families.slice();
-		//console.log(this.families);
         return (
             <div className="container">
 				<h2>Making an invoice</h2>
@@ -80,7 +91,7 @@ class InvoiceManage extends React.Component {
 					<div className="col-sm-6">
 					<select name="family" className="form-control">
 						<option value="Not chosen">Not chosen</option>
-						{this.families.map((item, index)=>
+						{this.state.families.map((item, index)=>
 							<option value={item}>{item}</option>
 						)}
 					</select>
@@ -93,7 +104,7 @@ class InvoiceManage extends React.Component {
 				
 				<h4>Step 2: confirm information</h4>
 				<form id="make_pdf">
-					<div class="row">
+					<div className="row">
 						<div className="col-sm-6 my-1">
 							<input type="text" name="recipient" className="form-control"
 							 defaultValue="Alexandrov Yury Valentinovitch 11, boulevard Albert 1er, 98000 Monaco"/>
@@ -138,8 +149,7 @@ class InvoiceManage extends React.Component {
 						</tbody>
 					</table>
 				</form>
-            
-            </div>
-        )
-    }
+      </div>
+    )
+  }
 }

@@ -1,12 +1,12 @@
 import React from "react";
-import { id } from "../shared/typings";
+import { id, IHaveToken } from "../shared/typings";
 
 interface IHaveUsersAndTeachers {
     users: any[];
     teachers: any[];
 }
 
-interface IUserInfoProps extends IHaveUsersAndTeachers {
+interface IUserInfoProps extends IHaveUsersAndTeachers, IHaveToken {
     token: string;
 }
 
