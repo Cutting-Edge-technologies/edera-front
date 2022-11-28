@@ -1,5 +1,21 @@
-class UserInfo extends React.Component {
-    constructor(props) {
+import React from "react";
+import { id } from "../shared/typings";
+
+interface IHaveUsersAndTeachers {
+    users: any[];
+    teachers: any[];
+}
+
+interface IUserInfoProps extends IHaveUsersAndTeachers {
+    token: string;
+}
+
+interface IUserInfoState extends IHaveUsersAndTeachers {
+    edit_user: number;
+}
+
+export class UserInfo extends React.Component<IUserInfoProps, IUserInfoState> {
+    constructor(props: IUserInfoProps) {
         super(props);
         this.state = {
             users: this.props.users,
@@ -8,7 +24,7 @@ class UserInfo extends React.Component {
         };
     }
 
-    activate_user(user_id){
+    activate_user(user_id: id){
         var name = prompt("Do you want to activate user? To confirm type: \n yes", "no");
         if(name==="yes") {
             var formData = new FormData();
@@ -20,8 +36,6 @@ class UserInfo extends React.Component {
             });
         }
     }
-
-
 
     render() {
         return (
