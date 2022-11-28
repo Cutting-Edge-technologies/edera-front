@@ -42,7 +42,7 @@ export class InvoiceManage extends React.Component<IInvoiceManageProps, IInvoice
 	do_filter(){
 		var formData = new FormData(document.getElementById("filter_items") as HTMLFormElement);
         formData.append("csrfmiddlewaretoken", this.props.token);
-		formData.append("filter", 1);
+		formData.append("filter", '1');
 		fetch("", {method: "POST", body: formData}).then(response => response.json()).then((resp) => {
 			console.log(resp);
 			this.setState({payments:resp.payments})
