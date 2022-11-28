@@ -1,5 +1,19 @@
-class ItemsManage extends React.Component {
-    constructor(props) {
+import React from "react";
+import { IHaveToken } from "../shared/typings";
+
+interface IItemsManageProps extends IHaveToken {
+    items: any[];
+    fields: any[];
+    desc: any;
+}
+
+interface IItemsManageState {
+    items: any[];
+    edit_item: number;
+}
+
+export class ItemsManage extends React.Component<IItemsManageProps, IItemsManageState> {
+    constructor(props: IItemsManageProps) {
         super(props);
         this.state = {
             items: this.props.items,
@@ -7,11 +21,11 @@ class ItemsManage extends React.Component {
         };
     }
 
-    edit_item(index){
+    edit_item(index: number){
 		console.log("edit_item", index, this.state.edit_item);
-        var formData = new FormData(document.getElementById("edit_item"));
+        var formData = new FormData(document.getElementById("edit_item") as HTMLFormElement);
         formData.append("csrfmiddlewaretoken", this.props.token);
-        formData.append("edit_item", this.state.edit_item);
+        formData.append("edit_item", `${this.state.edit_item}`);
         fetch("", {method: "POST", body: formData}).then(response => response.json()).then((resp) => {
                 console.log(resp);
                 var items = this.state.items.slice();
@@ -26,7 +40,7 @@ class ItemsManage extends React.Component {
     }
 
 
-	item_form(item, index){
+	item_form(item: any, index: number){
         return (
 		<form id="edit_item">
 			<div className="row">
@@ -49,14 +63,17 @@ class ItemsManage extends React.Component {
         )
 	}
     render() {
-        this.items = this.state.items.slice();
-        this.items.push({id:0, name:'', account_id:'', client_id:'', client_secret:''});
+        // this.items = this.state.items.slice();
+        // this.items.push({id:0, name:'', account_id:'', client_id:'', client_secret:''});
+
+        const items = [...this.state.items, {id:0, name:'', account_id:'', client_id:'', client_secret:''}]
+
         return (
             <div className="container">
             <div className="row">
                 <div className="col-12">
                     <h2>{this.props.desc.name}</h2>
-                    {this.items.map((item, index) =>
+                    {items.map((item, index) =>
 
                         <div
                             className={item.id === this.state.edit_item ? "element-card selected" : "element-card"}
