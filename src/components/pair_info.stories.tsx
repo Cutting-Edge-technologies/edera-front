@@ -9,7 +9,7 @@ export default {
   },
 } as ComponentMeta<typeof ItemsManage>;
 
-const dummieItems: IItem[] = [
+export const dummieItems: IItem[] = [
   {
     id: 10,
     name: 'rondo1',

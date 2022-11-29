@@ -10,12 +10,12 @@ export interface IItem {
   client_id: string;
   client_secret:string;
 }
-interface IItemsManageProps extends IHaveToken {
+export interface IItemsManageProps extends IHaveToken {
   items: IItem[];
   token: string;
 };
 
-interface IItemsManageState {
+export interface IItemsManageState {
   items: IItem[];
   edit_item: number;
 };
