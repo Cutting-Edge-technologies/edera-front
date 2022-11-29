@@ -9,6 +9,7 @@ export interface IItem {
   chat_id: string;
   client_id: string;
   client_secret:string;
+  hours:number;
 }
 export interface IItemsManageProps extends IHaveToken {
   items: IItem[];

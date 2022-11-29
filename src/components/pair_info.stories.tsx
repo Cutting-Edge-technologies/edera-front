@@ -16,7 +16,8 @@ export const dummieItems: IItem[] = [
     account_id: 'rondo2',
     chat_id: 'rondo3',
     client_id: 'rondo4',
-    client_secret: 'rondo5'
+    client_secret: 'rondo5',
+    hours: 3
   },
   {
     id: 20,
@@ -24,7 +25,8 @@ export const dummieItems: IItem[] = [
     account_id: 'tango2',
     chat_id: 'tango3',
     client_id: 'tango4',
-    client_secret: 'tango5'
+    client_secret: 'tango5',
+    hours: 4
   },
   {
     id: 30,
@@ -32,7 +34,8 @@ export const dummieItems: IItem[] = [
     account_id: 'delta2',
     chat_id: 'delta3',
     client_id: 'delta4',
-    client_secret: 'delta5'
+    client_secret: 'delta5',
+    hours: 5
   },
 ]
 
