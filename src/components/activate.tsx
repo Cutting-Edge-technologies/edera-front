@@ -1,9 +1,13 @@
 import React from "react";
 import { id, IHaveToken } from "../shared/typings";
 
+export interface IUser {
+    user_id: string;
+    name: string;
+}
 interface IHaveUsersAndTeachers {
-    users: any[];
-    teachers: any[];
+    users: IUser[];
+    teachers: IUser[];
 }
 
 interface IUserInfoProps extends IHaveUsersAndTeachers, IHaveToken {
@@ -53,11 +57,11 @@ export class UserInfo extends React.Component<IUserInfoProps, IUserInfoState> {
                 </div>
                <div className="col-md-4">
                     <h2>Учителя</h2>
-                    {this.state.teachers.map((user, index) =>
+                    {this.state.teachers.map((teacher, index) =>
                         <div
                             className= {"element-card"}
-                            onClick={() => this.activate_user(user.user_id)}>
-                            {user.name}
+                            onClick={() => this.activate_user(teacher.user_id)}>
+                            {teacher.name}
                         </div>)
                     }
                 </div>
