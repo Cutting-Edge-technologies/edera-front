@@ -1,12 +1,28 @@
-class LessonLog extends React.Component {
-    constructor(props) {
+import React from "react";
+import { IHaveToken } from "../shared/typings";
+
+interface ILessonLogProps extends IHaveToken {
+	dt_from: any;
+	dt_to: any;
+}
+
+interface ILessonLogState {
+	action: string;
+	order_by: string;
+	dt_from: any;
+	dt_to: any;
+	items: any[];
+}
+
+export class LessonLog extends React.Component<ILessonLogProps, ILessonLogState> {
+    constructor(props: ILessonLogProps) {
         super(props);
         this.state = {
             action: "create",
             dt_from: this.props.dt_from,
-			dt_to: this.props.dt_to,
-			order_by:"log_date",
-			items:[]
+						dt_to: this.props.dt_to,
+						order_by:"log_date",
+						items:[],
         };
     }
 
@@ -26,7 +42,6 @@ class LessonLog extends React.Component {
 
 
     render() {
-        this.items = this.state.items.slice();
         //this.items.push({id:0, name:'', account_id:'', client_id:'', client_secret:''});
         return (
             <div className="container">
