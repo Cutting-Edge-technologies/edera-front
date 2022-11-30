@@ -1,25 +1,58 @@
-class ItemsManage extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = 
+import React from "react";
+import { IUser } from "./activate";
+import { IService, IServiceProps } from "./service";
+
+export interface ICost {
+	id: number;
+	cost: number;
+	currency: {
+		id: number;
+		name: string
+	};
+	discount: number;
+	date_from: string;
+}
+
+export interface IStudentsServiceItemsManageProps extends IServiceProps {
+	users: IUser[];
+	services: IService[];
+	costs: ICost[];
+}
+
+export interface IStudentsServiceItemsManageState{
+	items: IUser[];
+	services: IService[];
+	costs: ICost[];
+	edit_item: number;
+	edit_service: number;
+	edit_cost: number;
+	view: string;
+	n: number;
+	discount: number;
+}
+
+export class ItemsManage extends React.Component <IStudentsServiceItemsManageProps, IStudentsServiceItemsManageState> {
+  constructor(props:IStudentsServiceItemsManageProps) {
+    super(props);
+    this.state = 
 		{
 			items:this.props.users,
-			//all_services:this.props.all_services,
 			services: [],
 			costs: [],
-            edit_item: -1,
+      edit_item: -1,
 			edit_service: -1,
 			edit_cost:-1,
 			view:"edit",
-			n:0
-        };
-    }
+			n:0,
+			discount: 0
+    };
+  }
 
-	get_services(user_id){
+	get_services(user_id:number){
 		console.log("user_id", user_id, this.state.edit_item);
 		var formData = new FormData();
 		formData.append("csrfmiddlewaretoken", this.props.token);
-        formData.append("user_id", user_id);
+    formData.append("user_id", `${user_id}`);
 		formData.append("action", "get_service");
 		fetch("", {method: "POST", body: formData}).then(response => response.json()).then((resp) => {
 			console.log(resp);
@@ -27,28 +60,28 @@ class ItemsManage extends React.Component {
 		})
 	}
 
-	get_costs(service_id){
+	get_costs(service_id:number){
 		console.log("get_costs", service_id);
 		var formData = new FormData();
 		formData.append("csrfmiddlewaretoken", this.props.token);
-		formData.append("user_id", this.state.edit_item);
-		formData.append("service_id", service_id);
+		formData.append("user_id", `${this.state.edit_item}`);
+		formData.append("service_id", `${service_id}`);
 		formData.append("action", "get_cost");
 		fetch("", {method: "POST", body: formData}).then(response => response.json()).then((resp) => {
 			console.log(resp);
-			let costs = resp.costs.slice()
+			let costs: ICost[] = resp.costs.slice()
 			costs.push({id:0, cost:5000, currency:{id:0, name:'rub'}, discount:resp.discount, date_from:'2022-01-01'});
 			console.log(costs)
 			this.setState({costs:costs, n:this.state.n+1, edit_service: service_id, edit_cost:-1, discount:resp.discount})
 		})
 	}
 
-	edit_service(index, service_id, d=0){
+	edit_service(index: number, service_id: number, d=0){
 		console.log("edit_service", index, service_id);
-        var formData = new FormData(document.getElementById("edit_service"));
+        var formData = new FormData(document.getElementById("edit_service") as HTMLFormElement);
 		formData.append("csrfmiddlewaretoken", this.props.token);
 		formData.append("action", "edit_service");
-		formData.append("delete", d);
+		formData.append("delete", `${d}`);
 		fetch("", {method: "POST", body: formData}).then(response => response.json()).then((resp) => {
 			console.log(resp);
 			
@@ -68,32 +101,30 @@ class ItemsManage extends React.Component {
 		})
 	}
 
-    edit_cost(index, d=0){
+    edit_cost(index: number, d=0){
 		console.log("edit_service", index, this.state.edit_item);
-        var formData = new FormData(document.getElementById("edit_cost"));
+        var formData = new FormData(document.getElementById("edit_cost") as HTMLFormElement);
 		formData.append("csrfmiddlewaretoken", this.props.token);
 		formData.append("action", "edit_cost");
-		formData.append("delete", d);
+		formData.append("delete", `${d}`);
 		fetch("", {method: "POST", body: formData}).then(response => response.json()).then((resp) => {
 			console.log(resp);
-			//let services =  this.state.costs.slice();
-			//costs[index] = resp.cost;
 			this.setState({edit_service:-1, edit_cost:-1, costs:[]});
 		})
 	}
 
-	service_select(service_id){
+	service_select(service_id: number){
 		let all_services= this.props.all_dicts.services.slice()
 		all_services.push({id:0, name:"Not chosen"})
 		console.log(all_services);
 		return (<select name="service_code_id" className = "form-control form-control-lg my-1" defaultValue={service_id}>
 				{all_services.map((item, index) => 
-				<option value = {item.id}> {item.name} - {item.group}</option>)}|
+				<option value = {item.id}> {item.name} - {index}</option>)}|
 			</select>
 		)
 	}
 
-	currency_select(currency_id){
+	currency_select(currency_id: number){
 		let all_services= this.props.all_dicts.currency.slice()
 		all_services.push({id:0, name:"Not chosen"})
 		console.log(all_services);
