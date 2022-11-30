@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { ItemsManage } from "./zoom_account";
-import { dummieItems } from "./pair_info.stories";
+import { dummieItems } from "./dummieObj";
 
 export default {
   title: 'Components/ItemsManage from Zoom_account',

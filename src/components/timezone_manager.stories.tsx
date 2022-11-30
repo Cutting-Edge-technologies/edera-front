@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { ItemsManage } from "./timezone_manager";
-import { dummieItems } from "./pair_info.stories";
+import { dummieItems } from "./dummieObj";
 
 export default {
   title: 'Components/ItemsManage from timezone',
