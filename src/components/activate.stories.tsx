@@ -1,5 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { IUser, UserInfo } from "./activate";
+import { UserInfo } from "./activate";
+import { dummieUsers } from "./dummieObj";
 
 export default {
   title: 'Components/UserInfo',
@@ -9,21 +10,6 @@ export default {
     backgroundColor: { control: 'color' },
   },
 } as ComponentMeta<typeof UserInfo>;
-
-const dummieUsers: IUser[] = [
-  {
-    user_id: '1',
-    name: 'John Dow',
-  },
-  {
-    user_id: '2',
-    name: 'John Dow1',
-  },
-  {
-    user_id: '3',
-    name: 'John Dow2',
-  },
-]
 
 export const ActivateStory: ComponentStory<any> = () => {
   return (
