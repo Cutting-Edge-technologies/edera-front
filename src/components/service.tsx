@@ -17,6 +17,7 @@ export interface IService {
 export interface IServiceProps extends IHaveToken {
   all_dicts:{
     groups: IGroup[]
+    services: IService[];
   };
   services: IService[];
   token: string;

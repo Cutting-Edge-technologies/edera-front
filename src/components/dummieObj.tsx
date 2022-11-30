@@ -46,7 +46,8 @@ export const dummieServices: IService[] = [
 ]
 
 export const dummieAll_dicts = {
-  groups: dummieGroups
+  groups: dummieGroups,
+  services: dummieServices
 }
 
 export const dummieItems: IItem[] = [
