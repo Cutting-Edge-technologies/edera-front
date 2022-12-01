@@ -1,147 +1,144 @@
+import * as Reactstrap from "reactstrap";
+
 const Modal = Reactstrap.Modal;
 const ModalHeader = Reactstrap.ModalHeader;
 const ModalBody = Reactstrap.ModalBody;
 const ModalFooter = Reactstrap.ModalFooter;
 
 class LessonEditor extends React.Component{
-    constructor(props) {
-        super(props);
-        this.state={add_lesson:this.props.add_lesson,
-                    services:this.props.services,
-                    responsibles:this.props.responsibles,
-                    zooms:[], timezones:[]
-        }
-    
-
-        this.times = [];
-        this.hours = [];
-        this.minutes = [];
-        let i;
-        for(i=0;i<60;i+=5){
-            this.minutes = this.minutes.concat(i.toString());
-        }
-
-        for(i=0;i<24;i++) {
-            var ist = i.toString();
-            this.hours = this.hours.concat(i.toString());
-        }
-        console.log(this.state.chats);
+  constructor(props) {
+    super(props);
+    this.state={
+      add_lesson:this.props.add_lesson,
+      services:this.props.services,
+      responsibles:this.props.responsibles,
+      zooms:[],
+      timezones:[]
     }
-
-    get_zooms(){
-        var formData = new FormData(document.getElementById("add_lesson"));
-        formData.append("csrfmiddlewaretoken", this.props.token);
-        formData.append("action", "get_zooms");
-        fetch(this.props.manage_url, {method: "POST", body: formData}).then(response => response.json()).then((resp) => {
-            console.log("get_zooms", resp);
-            this.setState({zooms:resp.items})
-            });
+    this.times = [];
+    this.hours = [];
+    this.minutes = [];
+    let i;
+    for(i=0;i<60;i+=5){
+      this.minutes = this.minutes.concat(i.toString());
     }
-
-    get_timezones(){
-        var formData = new FormData();
-        formData.append("csrfmiddlewaretoken", this.props.token);
-        formData.append("action", "get_timezones");
-        fetch(this.props.manage_url, {method: "POST", body: formData}).then(response => response.json()).then((resp) => {
-            console.log("get_timezones", resp);
-            this.setState({timezones:resp.items})
-            });
+    for(i=0;i<24;i++) {
+      var ist = i.toString();
+      this.hours = this.hours.concat(i.toString());
     }
+    console.log(this.state.chats);
+  }
 
-    componentDidMount(){
-        console.log("lesson editor", this.state.add_lesson)
-        this.get_zooms();
-        this.get_timezones();
-    }
+  get_zooms(){
+    var formData = new FormData(document.getElementById("add_lesson"));
+    formData.append("csrfmiddlewaretoken", this.props.token);
+    formData.append("action", "get_zooms");
+    fetch(this.props.manage_url, {method: "POST", body: formData}).then(response => response.json()).then((resp) => {
+      console.log("get_zooms", resp);
+      this.setState({zooms:resp.items})
+    });
+  }
 
-    do_add_lesson(copy=0){
-        var formData = new FormData(document.getElementById("add_lesson"));
-        formData.append("csrfmiddlewaretoken", this.props.token);
-        formData.append("pair_id", this.state.add_lesson.pair_id);
-        
-        if(copy==0){
-        if(this.state.add_lesson.id){
-            formData.append("lesson_id", this.state.add_lesson.id);
-        }}
-        
-        formData.append("add_lesson", 1);
-        fetch(this.props.manage_url, {method: "POST", body: formData}).then(response => response.json()).then((resp) => {
-                console.log(resp);
-                this.props.save_lesson(resp);
-                //this.setState({add_lesson:{pair_id:this.state.add_lesson.pair_id, info:resp.info, old_info: this.state.add_lesson.old_info}});
-                //this.get_zooms();
-        })
-    }
+  get_timezones(){
+    var formData = new FormData();
+    formData.append("csrfmiddlewaretoken", this.props.token);
+    formData.append("action", "get_timezones");
+    fetch(this.props.manage_url, {method: "POST", body: formData}).then(response => response.json()).then((resp) => {
+      console.log("get_timezones", resp);
+      this.setState({timezones:resp.items})
+    });
+  }
 
-    
+  componentDidMount(){
+    console.log("lesson editor", this.state.add_lesson)
+    this.get_zooms();
+    this.get_timezones();
+  }
 
-    change_break(v){
-        console.log(v);
-        var lesson = this.state.add_lesson;
-        lesson.break_duration = v;
-        console.log(lesson);
-        this.setState({add_lesson:lesson});
-    }
+  do_add_lesson(copy=0){
+    var formData = new FormData(document.getElementById("add_lesson"));
+    formData.append("csrfmiddlewaretoken", this.props.token);
+    formData.append("pair_id", this.state.add_lesson.pair_id);    
+    if(copy==0){
+    if(this.state.add_lesson.id){
+      formData.append("lesson_id", this.state.add_lesson.id);
+    }}
+    formData.append("add_lesson", 1);
+    fetch(this.props.manage_url, {method: "POST", body: formData}).then(response => response.json()).then((resp) => {
+      console.log(resp);
+      this.props.save_lesson(resp);
+      //this.setState({add_lesson:{pair_id:this.state.add_lesson.pair_id, info:resp.info, old_info: this.state.add_lesson.old_info}});
+      //this.get_zooms();
+    })
+  }
 
-    change_lesson(field, value){
-        var add_lesson=this.state.add_lesson;
-        add_lesson[field]=value;
-        this.setState({add_lesson: add_lesson});
-    }
+  change_break(v){
+    console.log(v);
+    var lesson = this.state.add_lesson;
+    lesson.break_duration = v;
+    console.log(lesson);
+    this.setState({add_lesson:lesson});
+  }
 
-    render(){
-        this.zooms = this.state.zooms.slice();
-        this.zooms.push({"id":0, "name":"Без Zoom"});
-        console.log("render zooms", this.zooms);
-        return (
-            <div>
-                <form id="add_lesson">
-                    <div><h3>Урок {" "}
-                         {this.state.add_lesson.id>0 ? this.state.add_lesson.id : "Новый"},
-                         {" "} пара {this.state.add_lesson.pair_id>0 ? this.state.add_lesson.pair_id : " Empty"}
-                         </h3></div>
-                    <div className="form-group row my-1">
-                        <div className="col-md-4 col-sm-5 col-12 mb-3">
-                            <label>Дата</label>
-                    <input className="form-control form-control-lg mx-1" name="date" type="date"
-                           value={this.state.add_lesson.date ? this.state.add_lesson.date : this.props.today}
-                    onChange={(e)=>this.change_lesson("date", e.target.value)}
-                    /></div>
-                        <div className="col-md-2 col-sm-2 col-3 mb-3">
-                            <label>Начало (часы)</label>
-                            <select className="form-control form-control-lg mx-1" name="start_hour"
-                                    value={this.state.add_lesson.start_hour?this.state.add_lesson.start_hour:"9"}
-                            onChange={(e)=>this.change_lesson("start_hour", e.target.value)}>
-                                {this.hours.map((value, index)=>
-                                <option value={value}>{value}</option>)}</select></div>
-                        <div className="col-md-2 col-sm-2 col-3 mb-3">
-                            <label>(минуты)</label>
-                            <select name="start_minute" className="form-control form-control-lg mx-1"
-                            value={this.state.add_lesson.start_minute?this.state.add_lesson.start_minute:"0"}
-                            onChange={(e)=>this.change_lesson("start_minute", e.target.value)}>
-                                {this.minutes.map((value, index)=>
-                                <option value={value}>{value} минут</option>)}
-                            </select>
-                        </div>
-                        <div className="col-md-2 col-sm-2 col-3  mb-3">
-                            <label>Длительность (часы)</label>
-                            <select name="hours" className="form-control form-control-lg mx-1"
-                            value={this.state.add_lesson.hours?this.state.add_lesson.hours:""}
-                            onChange={(e)=>this.change_lesson("hours", e.target.value)}>
-                                <option value="0">0</option>
-                                <option value="1">1 час</option>
-                                <option value="2">2 часа</option>
-                                <option value="3">3 часа</option>
-                                <option value="4">4 часа</option>
-                            </select></div>
-                            <div className="col-md-2 col-sm-2 col-3 mb-3">
-                            <label>(минуты)</label>
-                                <select name="minutes" className="form-control form-control-lg mx-1"
-                            value={this.state.add_lesson.minutes?this.state.add_lesson.minutes:""}
-                            onChange={(e)=>this.change_lesson("minutes", e.target.value)}>
-                                {this.minutes.map((value, index)=>
-                                <option value={value}>{value} минут</option>)}
-                            </select>
+  change_lesson(field, value){
+    var add_lesson=this.state.add_lesson;
+    add_lesson[field]=value;
+    this.setState({add_lesson: add_lesson});
+  }
+
+  render(){
+    this.zooms = this.state.zooms.slice();
+    this.zooms.push({"id":0, "name":"Без Zoom"});
+    console.log("render zooms", this.zooms);
+    return (
+      <div>
+        <form id="add_lesson">
+          <div><h3>Урок {" "}
+               {this.state.add_lesson.id>0 ? this.state.add_lesson.id : "Новый"},
+               {" "} пара {this.state.add_lesson.pair_id>0 ? this.state.add_lesson.pair_id : " Empty"}
+               </h3></div>
+          <div className="form-group row my-1">
+              <div className="col-md-4 col-sm-5 col-12 mb-3">
+                  <label>Дата</label>
+          <input className="form-control form-control-lg mx-1" name="date" type="date"
+                 value={this.state.add_lesson.date ? this.state.add_lesson.date : this.props.today}
+          onChange={(e)=>this.change_lesson("date", e.target.value)}
+          /></div>
+              <div className="col-md-2 col-sm-2 col-3 mb-3">
+                  <label>Начало (часы)</label>
+                  <select className="form-control form-control-lg mx-1" name="start_hour"
+                            value={this.state.add_lesson.start_hour?this.state.add_lesson.start_hour:"9"}
+                    onChange={(e)=>this.change_lesson("start_hour", e.target.value)}>
+                        {this.hours.map((value, index)=>
+                        <option value={value}>{value}</option>)}</select></div>
+                <div className="col-md-2 col-sm-2 col-3 mb-3">
+                    <label>(минуты)</label>
+                    <select name="start_minute" className="form-control form-control-lg mx-1"
+                    value={this.state.add_lesson.start_minute?this.state.add_lesson.start_minute:"0"}
+                    onChange={(e)=>this.change_lesson("start_minute", e.target.value)}>
+                        {this.minutes.map((value, index)=>
+                        <option value={value}>{value} минут</option>)}
+                    </select>
+                      </div>
+                      <div className="col-md-2 col-sm-2 col-3  mb-3">
+                          <label>Длительность (часы)</label>
+                          <select name="hours" className="form-control form-control-lg mx-1"
+                          value={this.state.add_lesson.hours?this.state.add_lesson.hours:""}
+                          onChange={(e)=>this.change_lesson("hours", e.target.value)}>
+                              <option value="0">0</option>
+                              <option value="1">1 час</option>
+                              <option value="2">2 часа</option>
+                              <option value="3">3 часа</option>
+                              <option value="4">4 часа</option>
+                          </select></div>
+                          <div className="col-md-2 col-sm-2 col-3 mb-3">
+                          <label>(минуты)</label>
+                              <select name="minutes" className="form-control form-control-lg mx-1"
+                          value={this.state.add_lesson.minutes?this.state.add_lesson.minutes:""}
+                          onChange={(e)=>this.change_lesson("minutes", e.target.value)}>
+                              {this.minutes.map((value, index)=>
+                              <option value={value}>{value} минут</option>)}
+                          </select>
                             </div>
 
                         <div className="col-md-4 col-sm-6 col-12 mb-3">
