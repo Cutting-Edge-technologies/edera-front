@@ -1,6 +1,7 @@
 import { IUser } from "./activate"
 import { IItem } from "./pair_info"
 import { IGroup, IService } from "./service"
+import { ICost, IServiceWithGroup, IStudentService } from "./student_service"
 
 export const dummieGroups: IGroup[] = [
   {
@@ -47,7 +48,8 @@ export const dummieServices: IService[] = [
 
 export const dummieAll_dicts = {
   groups: dummieGroups,
-  services: dummieServices
+  services: dummieGroups,
+  currency: dummieGroups
 }
 
 export const dummieItems: IItem[] = [
@@ -92,5 +94,77 @@ export const dummieUsers: IUser[] = [
   {
     user_id: '3',
     name: 'John Dow2',
+  },
+]
+
+export const dummieCosts: ICost[] = [
+  {
+    cost: 10,
+    currency:{
+      id: 1,
+      name: 'aaaa'
+    },
+    d:11,
+    date_from: '10-12-2020',
+    discount: 12,
+    id: 13
+  },
+  {
+    cost: 20,
+    currency:{
+      id: 2,
+      name: 'bbbb'
+    },
+    d:22,
+    date_from: '10000',
+    discount: 24,
+    id: 26
+  },
+  {
+    cost: 30,
+    currency:{
+      id: 3,
+      name: 'cccc'
+    },
+    d:33,
+    date_from: '22222',
+    discount: 36,
+    id: 39
+  },
+] 
+
+export const dummieServicesWithGroup: IServiceWithGroup[] = [
+  {
+    group: 'AAAA',
+    id: 55,
+    name: 'John'
+  },
+  {
+    group: 'BBBB',
+    id: 110,
+    name: 'Down'
+  },
+  {
+    group: 'CCCC',
+    id: 165,
+    name: 'Bothare'
+  }
+]
+
+export const dummieStudentService: IStudentService[] = [
+  {
+    costs: dummieCosts,
+    id: 88,
+    service: dummieServicesWithGroup[0]
+  },
+  {
+    costs: dummieCosts,
+    id: 99,
+    service: dummieServicesWithGroup[1]
+  },
+  {
+    costs: dummieCosts,
+    id: 111,
+    service: dummieServicesWithGroup[2]
   },
 ]
