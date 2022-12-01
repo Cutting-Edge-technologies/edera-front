@@ -6,6 +6,10 @@ export interface IGroup {
   name: string;
 }
 
+export interface IServiceAll_dict extends IGroup {}
+
+export interface ICurrencyAll_dict extends IGroup {}
+
 export interface IService {
   service_id: number;
   note_id: number;
@@ -14,13 +18,14 @@ export interface IService {
   earn:number;
   group: IGroup;
 }
+
 export interface IServiceProps extends IHaveToken {
   all_dicts:{
     groups: IGroup[]
-    services: IService[];
+    services: IServiceAll_dict[];
+    currency: ICurrencyAll_dict[];
   };
   services: IService[];
-  token: string;
 };
 
 export interface IServiceState {
