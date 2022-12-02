@@ -5,7 +5,6 @@ import { ICurrencyAll_dict, IGroup, IServiceAll_dict, } from "./service";
 
 export interface ICost {
 	id: number;
-	d: number;
 	cost: number;
 	currency: {
 		id: number;
@@ -25,12 +24,16 @@ export interface IStudentService {
 	costs: ICost[];
 }
 
-export interface IStudentsServiceItemsManageProps extends IHaveToken {
+
+export interface IHaveAll_dicts {
 	all_dicts:{
     groups: IGroup[]
     services: IServiceAll_dict[];
     currency: ICurrencyAll_dict[];
   };
+}
+
+export interface IStudentsServiceItemsManageProps extends IHaveToken, IHaveAll_dicts {
 	users: IUser[];
 	services: IStudentService[];
 	costs: ICost[];
@@ -87,16 +90,13 @@ export class ItemsManage extends React.Component <IStudentsServiceItemsManagePro
 		fetch("", {method: "POST", body: formData}).then(response => response.json()).then((resp) => {
 			console.log(resp);
 			let costs: ICost[] = resp.costs.slice()
-			costs.push({
-				d: 0, cost: 5000, currency: { id: 0, name: 'rub' }, discount: resp.discount, date_from: '2022-01-01',
-				id: -1
-			});
+			costs.push({id: 0, cost: 5000, currency: { id: 0, name: 'rub' }, discount: resp.discount, date_from: '2022-01-01'});
 			console.log(costs)
 			this.setState({costs:costs, n:this.state.n+1, edit_service: service_id, edit_cost:-1, discount:resp.discount})
 		})
 	}
 
-	edit_service(index: number, service_id: number, d=0){
+	edit_service(index: number, service_id: number, d:number=0){
 		console.log("edit_service", index, service_id);
     var formData = new FormData(document.getElementById("edit_service") as HTMLFormElement);
 		formData.append("csrfmiddlewaretoken", this.props.token);
@@ -120,7 +120,7 @@ export class ItemsManage extends React.Component <IStudentsServiceItemsManagePro
 		})
 	}
 
-  edit_cost(index: number, d:number){
+  edit_cost(index: number, d:number=0){
 		console.log("edit_service", index, this.state.edit_item);
     var formData = new FormData(document.getElementById("edit_cost") as HTMLFormElement);
 		formData.append("csrfmiddlewaretoken", this.props.token);
