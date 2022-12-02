@@ -3,7 +3,7 @@ import { dummieItems } from "./dummieObj";
 import { ItemsManage } from "./pair_info";
 
 export default {
-  title: 'Components/ItemsManage',
+  title: 'Components/pair_info',
   component: ItemsManage,
   argTypes: {
     backgroundColor: { control: 'color' },

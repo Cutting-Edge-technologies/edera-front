@@ -3,7 +3,7 @@ import { ItemsManage } from "./timezone_manager";
 import { dummieItems } from "./dummieObj";
 
 export default {
-  title: 'Components/ItemsManage from timezone',
+  title: 'Components/timezone_manager',
   component: ItemsManage,
   argTypes: {
     backgroundColor: { control: 'color' },

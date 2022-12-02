@@ -3,7 +3,7 @@ import { ItemsManage } from "./zoom_account";
 import { dummieItems } from "./dummieObj";
 
 export default {
-  title: 'Components/ItemsManage from Zoom_account',
+  title: 'Components/zoom_account',
   component: ItemsManage,
   argTypes: {
     backgroundColor: { control: 'color' },
