@@ -2,14 +2,57 @@ import React from "react";
 import { IHaveToken } from "../shared/typings";
 
 interface IItemsManageProps extends IHaveToken {
-    items: any[];
-    fields: any[];
+    items: IItem[];
+    fields: IField[];
     desc: any;
 }
 
 interface IItemsManageState {
-    items: any[];
+    items: IItem[];
     edit_item: number;
+}
+
+interface IItem {
+
+}
+
+interface IField {
+  label: string;
+  name: string;
+  typ: React.HTMLInputTypeAttribute | undefined;
+}
+interface IItemFormProps {
+  item: IItem;
+  fields: IField[];
+  onSave: () => any;
+  onCancel: () => any;
+}
+
+const ItemForm: React.FC<IItemFormProps> = ({item, fields, onSave, onCancel}) => {
+  return (
+    <form id="edit_item">
+      <div className="row">
+        {fields.map((field, ind)=>
+        <div className="col-lg-6 col-md-12 mb-3">
+          <label className="form-label">{field.label}</label>
+            <input
+              type={field.typ}
+              name={field.name}
+              className="form-control form-control-lg"
+              // defaultValue={item[f.name]}
+            />
+        </div>)}
+      </div>
+      <div className="row">
+        <div className="col-md-3 col-6">
+          <button type="button" onClick={onSave} className="btn btn-success btn-lg">Save</button>
+        </div>
+        <div className="col-md-3 col-6">
+          <button type="button" onClick={onCancel} className="btn btn-secondary btn-lg">Cancel</button>
+        </div>
+      </div>
+    </form>
+  )
 }
 
 export class ItemsManage extends React.Component<IItemsManageProps, IItemsManageState> {
@@ -53,29 +96,6 @@ export class ItemsManage extends React.Component<IItemsManageProps, IItemsManage
       this.setState({edit_item:-1, items});
     };
 
-
-	item_form(item: any, onSave: () => void, onCancel: () => void): React.ReactNode {
-    return (
-		  <form id="edit_item">
-		  	<div className="row">
-		  		{this.props.fields.map((f, ind)=>
-		  		<div className="col-lg-6 col-md-12 mb-3">
-		  			<label className="form-label">{f.label}</label>
-		  		    <input type={f.typ} name={f.name} className="form-control form-control-lg" defaultValue={item[f.name]}/>
-		  		</div>)}
-		  	</div>
-		  	<div className="row">
-		  		<div className="col-md-3 col-6">
-		  			<button type="button" onClick={onSave} className="btn btn-success btn-lg">Save</button>
-          </div>
-		  		<div className="col-md-3 col-6">
-		  			<button type="button" onClick={onCancel} className="btn btn-secondary btn-lg">Cancel</button>
-		  		</div>
-		  	</div>
-		  </form>
-    )
-	}
-
     adItemName(item: any):React.ReactNode {
       const hasNoId = item.id===0;
       return (
@@ -100,7 +120,7 @@ export class ItemsManage extends React.Component<IItemsManageProps, IItemsManage
                   className={isEditing ? "element-card selected" : "element-card"}
                   onClick={() => isEditing ? this.setState({edit_item: item.id}):""}
                 >
-                  {isEditing ? this.item_form(item, onSave, onCancel) : this.adItemName(item)}
+                  {isEditing ? <ItemForm item={item} fields={this.props.fields} onSave={onSave} onCancel={onCancel} /> : this.adItemName(item)}
                 </div>
               )
             })
