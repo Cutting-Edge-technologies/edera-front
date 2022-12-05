@@ -13,7 +13,8 @@ interface IItemsManageState {
 }
 
 interface IItem {
-
+  id: number;
+  name: string;
 }
 
 interface IField {
@@ -53,6 +54,19 @@ const ItemForm: React.FC<IItemFormProps> = ({item, fields, onSave, onCancel}) =>
       </div>
     </form>
   )
+}
+
+interface IHaveItem {
+  item: IItem;
+}
+
+const AddItemName: React.FC<IHaveItem> = ({item}) => {
+  const hasNoId = item.id===0;
+  return (
+    <div>
+      { hasNoId ? <span>Добавить</span> : <span>{item.name}</span>}
+    </div>
+  );
 }
 
 export class ItemsManage extends React.Component<IItemsManageProps, IItemsManageState> {
@@ -96,50 +110,34 @@ export class ItemsManage extends React.Component<IItemsManageProps, IItemsManage
       this.setState({edit_item:-1, items});
     };
 
-    adItemName(item: any):React.ReactNode {
-      const hasNoId = item.id===0;
-      return (
-        <div>
-          { hasNoId ? <span>Добавить</span> : <span>{item.name}</span>}
-        </div>
-      );
-    }
-
-    itemsJsx(items: any[]): React.ReactNode {
-      const itemsIncludedEmptyElement = [...items, {id:0, name:'', account_id:'', client_id:'', client_secret:''}];
-
-      return (
-        <>
-          {
-            itemsIncludedEmptyElement.map((item, index) => {
-              const isEditing = item.id === this.state.edit_item;
-              const onSave = ()=>this.edit_item(index);
-              const onCancel = ()=>this.setState({edit_item:-1})
-              return (
-                <div
-                  className={isEditing ? "element-card selected" : "element-card"}
-                  onClick={() => isEditing ? this.setState({edit_item: item.id}):""}
-                >
-                  {isEditing ? <ItemForm item={item} fields={this.props.fields} onSave={onSave} onCancel={onCancel} /> : this.adItemName(item)}
-                </div>
-              )
-            })
-          }
-        </>
-      )
-    }
-
     render() {
+
+      const itemsIncludedEmptyElement = [...this.state.items, {id:0, name:'', account_id:'', client_id:'', client_secret:''}];
+
       return (
         <div className="container">
-        <div className="row">
-          <div className="col-12">
-            <h2>
-              {this.props.desc.name}
-            </h2>
-            {this.itemsJsx(this.state.items)}
+          <div className="row">
+            <div className="col-12">
+              <h2>
+                {this.props.desc.name}
+              </h2>
+              {
+                itemsIncludedEmptyElement.map((item, index) => {
+                  const isEditing = item.id === this.state.edit_item;
+                  const onSave = ()=>this.edit_item(index);
+                  const onCancel = ()=>this.setState({edit_item:-1})
+                  return (
+                    <div
+                      className={isEditing ? "element-card selected" : "element-card"}
+                      onClick={() => isEditing ? this.setState({edit_item: item.id}):""}
+                    >
+                      {isEditing ? <ItemForm item={item} fields={this.props.fields} onSave={onSave} onCancel={onCancel} /> : <AddItemName item={item} />}
+                    </div>
+                  )
+                })
+              }
+            </div>
           </div>
-        </div>
         </div>
       )
     }
