@@ -54,7 +54,7 @@ export class ItemsManage extends React.Component<IItemsManageProps, IItemsManage
     };
 
 
-	item_form(item: any, index: number){
+	item_form(item: any, index: number): React.ReactNode {
         return (
 		<form id="edit_item">
 			<div className="row">
@@ -75,7 +75,10 @@ export class ItemsManage extends React.Component<IItemsManageProps, IItemsManage
 			</div>
 		</form>
         )
-	}
+	  }
+
+    
+
     render() {
         // this.items = this.state.items.slice();
         // this.items.push({id:0, name:'', account_id:'', client_id:'', client_secret:''});
@@ -87,16 +90,27 @@ export class ItemsManage extends React.Component<IItemsManageProps, IItemsManage
             <div className="row">
                 <div className="col-12">
                     <h2>{this.props.desc.name}</h2>
-                    {items.map((item, index) =>
+                    {items.map((item, index) => {
+                      const isCurrentlyEdited = item.id === this.state.edit_item;
 
+                      const addItemName: React.FC = () => {
+
+                      }
+
+                      return (
                         <div
-                            className={item.id === this.state.edit_item ? "element-card selected" : "element-card"}
-                            onClick={() => item.id !== this.state.edit_item ? this.setState({edit_item: item.id}):""}>
+                          className={item.id === this.state.edit_item ? "element-card selected" : "element-card"}
+                          onClick={() => item.id !== this.state.edit_item ? this.setState({edit_item: item.id}):""}
+                        >
                             {item.id === this.state.edit_item ?
                                 this.item_form(item, index)
                                 :<div>{item.id===0 ? <span>Добавить</span> :
                                     <span>{item.name}</span>}</div>}
-                        </div>)
+                        </div>
+                      )
+                    }
+
+                        )
                     }
                  </div>
 
