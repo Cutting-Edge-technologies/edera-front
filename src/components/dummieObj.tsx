@@ -105,7 +105,6 @@ export const dummieCosts: ICost[] = [
       id: 1,
       name: 'aaaa'
     },
-    d:11,
     date_from: '10-12-2020',
     discount: 12,
     id: 13
@@ -116,7 +115,6 @@ export const dummieCosts: ICost[] = [
       id: 2,
       name: 'bbbb'
     },
-    d:22,
     date_from: '10000',
     discount: 24,
     id: 26
@@ -127,7 +125,6 @@ export const dummieCosts: ICost[] = [
       id: 3,
       name: 'cccc'
     },
-    d:33,
     date_from: '22222',
     discount: 36,
     id: 39
