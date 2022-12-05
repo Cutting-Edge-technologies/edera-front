@@ -54,9 +54,7 @@ export class ItemsManage extends React.Component<IItemsManageProps, IItemsManage
     };
 
 
-	item_form(item: any, index: number): React.ReactNode {
-    const onSave = ()=>this.edit_item(index);
-    const onCancel = ()=>this.setState({edit_item:-1})
+	item_form(item: any, onSave: () => void, onCancel: () => void): React.ReactNode {
     return (
 		  <form id="edit_item">
 		  	<div className="row">
@@ -95,12 +93,14 @@ export class ItemsManage extends React.Component<IItemsManageProps, IItemsManage
           {
             itemsIncludedEmptyElement.map((item, index) => {
               const isEditing = item.id === this.state.edit_item;
+              const onSave = ()=>this.edit_item(index);
+              const onCancel = ()=>this.setState({edit_item:-1})
               return (
                 <div
                   className={isEditing ? "element-card selected" : "element-card"}
                   onClick={() => isEditing ? this.setState({edit_item: item.id}):""}
                 >
-                {isEditing ? this.item_form(item, index) : this.adItemName(item)}
+                  {isEditing ? this.item_form(item, onSave, onCancel) : this.adItemName(item)}
                 </div>
               )
             })
