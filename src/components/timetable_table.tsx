@@ -138,67 +138,9 @@ export class LessonEditor extends React.Component <ILessonEditorProps, ILessonEd
     this.setState({add_lesson:lesson});
   }
 
-  change_lesson(field: string, value:string){
-    let add_lesson=this.state.add_lesson;
-    switch(field)  {
-      case("date"): {
-        add_lesson.date = value;
-        break;
-      }
-      case("start_hour"): {
-        add_lesson.start_hour = value;
-        break;
-      }
-      case("start_minute"): {
-        add_lesson.start_minute = value;
-        break;
-      }
-      case("hours"): {
-        add_lesson.hours = value;
-        break;
-      }
-      case("minutes"): {
-        add_lesson.minutes = value;
-        break;
-      }
-      case("name"): {
-        add_lesson.name = value;
-        break;
-      }
-      case("service"): {
-        add_lesson.service.name = value;
-        break;
-      }
-      case("repeat"): {
-        add_lesson.repeat = value;
-        break;
-      }
-      case("tz"): {
-        add_lesson.tz.name = value;
-        break;
-      }
-      case("break_duration"): {
-        add_lesson.break_duration = value;
-        break;
-      }
-      case("break_start"): {
-        add_lesson.break_start = value;
-        break;
-      }
-      case("responsible"): {
-        add_lesson.responsible = value;
-        break;
-      }
-      case("duration_cost"): {
-        add_lesson.duration_cost = value;
-        break;
-      }
-      case("zoom"): {
-        add_lesson.zoom = value;
-        break;
-      }
-    };
-    this.setState({add_lesson: add_lesson});
+  change_lesson(fieldDifirense: Partial<ILesson>){
+    const lesson = {...this.state.add_lesson, ...fieldDifirense};
+    this.setState({add_lesson: lesson});
   }
 
   render(){
@@ -219,14 +161,14 @@ export class LessonEditor extends React.Component <ILessonEditorProps, ILessonEd
               <label>Дата</label>
               <input className="form-control form-control-lg mx-1" name="date" type="date"
                 value={this.state.add_lesson.date ? this.state.add_lesson.date : this.props.today}
-                onChange={(e)=>this.change_lesson("date", e.target.value)}
+                onChange={(e)=>this.change_lesson({date: e.target.value})}
               />
             </div>
             <div className="col-md-2 col-sm-2 col-3 mb-3">
               <label>Начало (часы)</label>
               <select className="form-control form-control-lg mx-1" name="start_hour"
                 value={this.state.add_lesson.start_hour?this.state.add_lesson.start_hour:"9"}
-                onChange={(e)=>this.change_lesson("start_hour", e.target.value)}>
+                onChange={(e)=>this.change_lesson({start_hour: e.target.value})}>
                 {hours.map((value, index)=>
                   <option value={value}>{value}</option>)
                 }
@@ -236,7 +178,7 @@ export class LessonEditor extends React.Component <ILessonEditorProps, ILessonEd
               <label>(минуты)</label>
               <select name="start_minute" className="form-control form-control-lg mx-1"
                 value={this.state.add_lesson.start_minute?this.state.add_lesson.start_minute:"0"}
-                onChange={(e)=>this.change_lesson("start_minute", e.target.value)}>
+                onChange={(e)=>this.change_lesson({start_minute: e.target.value})}>
                 {
                   minutes.map((value, index)=>
                   <option value={value}>{value} минут</option>)
@@ -247,7 +189,7 @@ export class LessonEditor extends React.Component <ILessonEditorProps, ILessonEd
               <label>Длительность (часы)</label>
               <select name="hours" className="form-control form-control-lg mx-1"
                 value={this.state.add_lesson.hours?this.state.add_lesson.hours:""}
-                onChange={(e)=>this.change_lesson("hours", e.target.value)}>
+                onChange={(e)=>this.change_lesson({hours: e.target.value})}>
                 <option value="0">0</option>
                 <option value="1">1 час</option>
                 <option value="2">2 часа</option>
@@ -259,7 +201,7 @@ export class LessonEditor extends React.Component <ILessonEditorProps, ILessonEd
               <label>(минуты)</label>
               <select name="minutes" className="form-control form-control-lg mx-1"
                 value={this.state.add_lesson.minutes?this.state.add_lesson.minutes:""}
-                onChange={(e)=>this.change_lesson("minutes", e.target.value)}>
+                onChange={(e)=>this.change_lesson({minutes: e.target.value})}>
                 {
                   minutes.map((value, index)=>
                   <option value={value}>{value} минут</option>)
@@ -269,13 +211,17 @@ export class LessonEditor extends React.Component <ILessonEditorProps, ILessonEd
             <div className="col-md-4 col-sm-6 col-12 mb-3">
               <input name="name" className="form-control form-control-lg mx-1"
                 placeholder="Mathematics"
-                onChange={(e)=>this.change_lesson("name", e.target.value)}
+                onChange={(e)=>this.change_lesson({name: e.target.value})}
                 value={this.state.add_lesson.name?this.state.add_lesson.name:""}/>
             </div>
             <div className="col-md-4 col-sm-6 col-12 mb-3">
               <select name="service" className="form-control form-control-lg mx-1"
-                onChange={(e)=>this.change_lesson("service", e.target.value)}
-                value={`${this.state.add_lesson.service}`}>
+                onChange={(e)=>{
+                  const service_id =  parseInt(e.target.value);
+                  const target_service = this.state.services.find((item)=>item.note_id == service_id)
+                  this.change_lesson({service: target_service})
+                }}
+                value={this.state.add_lesson.service.note_id}>
                 {
                   this.state.services.map((s, index)=>
                   <option value={s.note_id}>{s.name}, ({s.cost}, {s.earn})</option>
@@ -284,7 +230,7 @@ export class LessonEditor extends React.Component <ILessonEditorProps, ILessonEd
             </div>
             <div className="col-md-4 col-sm-6 col-6 mb-3">
               <select name="repeat" className="form-control form-control-lg mx-1"
-                onChange={(e)=>this.change_lesson("repeat", e.target.value)}
+                onChange={(e)=>this.change_lesson({repeat: e.target.value})}
                 value={this.state.add_lesson.repeat?this.state.add_lesson.repeat:"0"}>
                   <option value="0">Одноразовый</option>
                   <option value="1">1 week</option>
@@ -307,8 +253,12 @@ export class LessonEditor extends React.Component <ILessonEditorProps, ILessonEd
             </div>
             <div className="col-md-4 col-sm-6 col-12 col-mb-3">
               <select name="tz" className="form-control form-control-lg mx-1"
-                value={`${this.state.add_lesson.tz}`}
-                onChange={(e)=>this.change_lesson("tz", e.target.value)}
+                value={this.state.add_lesson.tz.id}
+                onChange={(e)=>{
+                  const tz_id =  e.target.value;
+                  const target_tz = this.state.timezones.find((item)=>item.id == tz_id)
+                  this.change_lesson({tz: target_tz})
+                }}
               >
                 {this.state.timezones.map((item, index)=>
                   <option value={item.id}>{item.hours} - {item.name}</option>
@@ -318,7 +268,7 @@ export class LessonEditor extends React.Component <ILessonEditorProps, ILessonEd
             <div className="col-md-4 col-sm-6 col-12 mb-3">
               <select name="break_duration" className="form-control form-control-lg mx-1"
                 value={this.state.add_lesson.break_duration}
-                onChange={(e)=>this.change_lesson("break_duration", e.target.value)}
+                onChange={(e)=>this.change_lesson({break_duration: e.target.value})}
               >
                 <option value="0">Без перерыва</option>
                 <option value="10">10 мин</option>
@@ -331,7 +281,7 @@ export class LessonEditor extends React.Component <ILessonEditorProps, ILessonEd
             {this.state.add_lesson.break_duration ?
               <div className="col-md-4 col-sm-6 col-12 mb-3">
                 <select name="break_start" className="form-control form-control-lg mx-1"
-                  onChange={(e)=>this.change_lesson("break_start", e.target.value)}
+                  onChange={(e)=>this.change_lesson({break_start: e.target.value})}
                   value={this.state.add_lesson.break_start}
                 >
                   <option value="30">Через 30 мин</option>
@@ -344,7 +294,7 @@ export class LessonEditor extends React.Component <ILessonEditorProps, ILessonEd
             }
             <div className="col-md-4 col-sm-6 col-12 mb-3">
               <select name="responsible" className="form-control form-control-lg mx-1"
-                onChange={(e)=>this.change_lesson("responsible", e.target.value)}
+                onChange={(e)=>this.change_lesson({responsible: e.target.value})}
                 value={this.state.add_lesson.responsible?this.state.add_lesson.responsible:"A, E"}
               >
                 {this.props.responsibles.map((value, index)=>
@@ -356,7 +306,7 @@ export class LessonEditor extends React.Component <ILessonEditorProps, ILessonEd
                 <div className="col-md-4 col-sm-4 col-6  mb-3">
                   <label>Себестоимость (минуты), -1 значит как занятие</label>
                     <input name="duration_cost" type="number" className="form-control form-control-lg mx-1"
-                    onChange={(e)=>this.change_lesson("duration_cost", e.target.value)}
+                    onChange={(e)=>this.change_lesson({duration_cost: e.target.value})}
                     value={this.state.add_lesson.duration_cost}>
                   </input>
                 </div>:""
@@ -365,7 +315,7 @@ export class LessonEditor extends React.Component <ILessonEditorProps, ILessonEd
               <div className="input-group mx-1">
                 <button type="button" className="btn btn-outline-secondary" onClick={()=>this.get_zooms()}><i className="fa fa-refresh"></i></button>
                 <select name="zoom" className="form-control form-control-lg"
-                  onChange={(e)=>this.change_lesson("zoom", e.target.value)}
+                  onChange={(e)=>this.change_lesson({zoom: e.target.value})}
                   value={this.state.add_lesson.zoom?this.state.add_lesson.zoom:"0"}>                
                   {this.state.zooms.map((item, index)=>
                     <option value={item.id}>{item.name}</option>
