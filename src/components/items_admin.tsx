@@ -55,6 +55,8 @@ export class ItemsManage extends React.Component<IItemsManageProps, IItemsManage
 
 
 	item_form(item: any, index: number): React.ReactNode {
+    const onSave = ()=>this.edit_item(index);
+    const onCancel = ()=>this.setState({edit_item:-1})
     return (
 		  <form id="edit_item">
 		  	<div className="row">
@@ -66,11 +68,10 @@ export class ItemsManage extends React.Component<IItemsManageProps, IItemsManage
 		  	</div>
 		  	<div className="row">
 		  		<div className="col-md-3 col-6">
-		  			<button type="button" onClick={()=>this.edit_item(index)} className="btn btn-success btn-lg">
-		  			Save</button></div>
+		  			<button type="button" onClick={onSave} className="btn btn-success btn-lg">Save</button>
+          </div>
 		  		<div className="col-md-3 col-6">
-		  			<button type="button" onClick={()=>this.setState({edit_item:-1})} className="btn btn-secondary btn-lg">
-		  			Cancel</button>
+		  			<button type="button" onClick={onCancel} className="btn btn-secondary btn-lg">Cancel</button>
 		  		</div>
 		  	</div>
 		  </form>
