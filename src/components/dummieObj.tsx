@@ -3,6 +3,7 @@ import { IItem } from "./pair_info"
 import { IGroup, IService } from "./service"
 import { ICost, IServiceWithGroup, IStudentService } from "./student_service"
 import { ILesson, ISchaduleData} from "./timetable_table"
+import { IUserInfoFamily, IUserInfoTeacher, IUserInfoUser } from "./user"
 
 export const dummieGroups: IGroup[] = [
   {
@@ -251,4 +252,100 @@ export const dummieSchaduleData: ISchaduleData[] =[
     tz_name:"Shmaganroge",
   },
 
+]
+
+export const dummieUserInfoFamilies: IUserInfoFamily[] = [
+  {
+    note_id: 565,
+    name_sheets: "Fooo",
+    id: 686,
+    name: "Beee"
+  },
+  {
+    note_id: 754,
+    name_sheets: "Word",
+    id: 365,
+    name: "Zuuu"
+  },
+  {
+    note_id: 999,
+    name_sheets: "Nord",
+    id: 111,
+    name: "Diii"
+  },
+
+]
+export const dummieUserInfoTeachers: IUserInfoTeacher[] = [
+  {
+    id: 456,
+    name: "joan",
+    name_sheets: "Boran",
+    tg: "@Joan",
+    user_id: 4556,
+    username: "JoanBoran"
+  },
+  {
+    id: 666,
+    name: "Adam",
+    name_sheets: "Huan",
+    tg: "@Huan",
+    user_id: 999,
+    username: "AdamHuan"
+  },
+  {
+    id: 222,
+    name: "Hesus",
+    name_sheets: "Kain",
+    tg: "@Hesus",
+    user_id: 333,
+    username: "HesusKain"
+  },
+]
+
+export const dummieUserInfoUsers: IUserInfoUser[] = [
+  {
+  id:"aaa",
+  user_id: 111,
+  note_id: "bbb",
+  name: "John",
+  family: dummieUserInfoFamilies[0],
+  teacher: dummieUserInfoTeachers[0],
+  manager: dummieGroups[0],
+  name_sheets: "Pohan",
+  name_ru: "Похан",
+  parent_name_ru: "Станиславович",
+  discount: "58%",
+  tg: "@Pohan",
+  color: "white"
+  },
+  {
+    id:"bbb",
+    user_id: 222,
+    note_id: "ccc",
+    name: "Huan",
+    family: dummieUserInfoFamilies[1],
+    teacher: dummieUserInfoTeachers[1],
+    manager: dummieGroups[1],
+    name_sheets: "Kayna",
+    name_ru: "хан",
+    parent_name_ru: "славович",
+    discount: "42%",
+    tg: "@Han",
+    color: "black"
+    },
+    {
+      id:"ccc",
+      user_id: 333,
+      note_id: "ddd",
+      name: "Eve",
+      family: dummieUserInfoFamilies[2],
+      teacher: dummieUserInfoTeachers[2],
+      manager: dummieGroups[2],
+      name_sheets: "Po",
+      name_ru: "По",
+      parent_name_ru: "Станович",
+      discount: "15%",
+      tg: "@Po",
+      color: "green"
+      },
 ]
