@@ -55,39 +55,40 @@ export class ItemsManage extends React.Component<IItemsManageProps, IItemsManage
 
 
 	item_form(item: any, index: number): React.ReactNode {
-        return (
-		<form id="edit_item">
-			<div className="row">
-				{this.props.fields.map((f, ind)=>
-				<div className="col-lg-6 col-md-12 mb-3">
-					<label className="form-label">{f.label}</label>
-				    <input type={f.typ} name={f.name} className="form-control form-control-lg" defaultValue={item[f.name]}/>
-				</div>)}
-			</div>
-			<div className="row">
-				<div className="col-md-3 col-6">
-					<button type="button" onClick={()=>this.edit_item(index)} className="btn btn-success btn-lg">
-					Save</button></div>
-				<div className="col-md-3 col-6">
-					<button type="button" onClick={()=>this.setState({edit_item:-1})} className="btn btn-secondary btn-lg">
-					Cancel</button>
-				</div>
-			</div>
-		</form>
-        )
-	  }
+    return (
+		  <form id="edit_item">
+		  	<div className="row">
+		  		{this.props.fields.map((f, ind)=>
+		  		<div className="col-lg-6 col-md-12 mb-3">
+		  			<label className="form-label">{f.label}</label>
+		  		    <input type={f.typ} name={f.name} className="form-control form-control-lg" defaultValue={item[f.name]}/>
+		  		</div>)}
+		  	</div>
+		  	<div className="row">
+		  		<div className="col-md-3 col-6">
+		  			<button type="button" onClick={()=>this.edit_item(index)} className="btn btn-success btn-lg">
+		  			Save</button></div>
+		  		<div className="col-md-3 col-6">
+		  			<button type="button" onClick={()=>this.setState({edit_item:-1})} className="btn btn-secondary btn-lg">
+		  			Cancel</button>
+		  		</div>
+		  	</div>
+		  </form>
+    )
+	}
 
     adItemName(item: any):React.ReactNode {
-      const hasId = item.id===0;
+      const hasNoId = item.id===0;
       return (
         <div>
-          { hasId ? <span>Добавить</span> : <span>{item.name}</span>}
+          { hasNoId ? <span>Добавить</span> : <span>{item.name}</span>}
         </div>
       );
     }
 
     itemsJsx(items: any[]): React.ReactNode {
       const itemsIncludedEmptyElement = [...items, {id:0, name:'', account_id:'', client_id:'', client_secret:''}];
+
       return (
         <>
           {
