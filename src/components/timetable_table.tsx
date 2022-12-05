@@ -1,7 +1,6 @@
 import React from "react";
 import * as Reactstrap from "reactstrap";
 import { IHaveToken } from "../shared/typings";
-import { IUser } from "./activate";
 import { IGroup } from "./service";
 
 const Modal = Reactstrap.Modal;
@@ -141,9 +140,64 @@ export class LessonEditor extends React.Component <ILessonEditorProps, ILessonEd
 
   change_lesson(field: string, value:string){
     let add_lesson=this.state.add_lesson;
-    if ( field in add_lesson) {
-      add_lesson.field = value;
-    }
+    switch(field)  {
+      case("date"): {
+        add_lesson.date = value;
+        break;
+      }
+      case("start_hour"): {
+        add_lesson.start_hour = value;
+        break;
+      }
+      case("start_minute"): {
+        add_lesson.start_minute = value;
+        break;
+      }
+      case("hours"): {
+        add_lesson.hours = value;
+        break;
+      }
+      case("minutes"): {
+        add_lesson.minutes = value;
+        break;
+      }
+      case("name"): {
+        add_lesson.name = value;
+        break;
+      }
+      case("service"): {
+        add_lesson.service.name = value;
+        break;
+      }
+      case("repeat"): {
+        add_lesson.repeat = value;
+        break;
+      }
+      case("tz"): {
+        add_lesson.tz.name = value;
+        break;
+      }
+      case("break_duration"): {
+        add_lesson.break_duration = value;
+        break;
+      }
+      case("break_start"): {
+        add_lesson.break_start = value;
+        break;
+      }
+      case("responsible"): {
+        add_lesson.responsible = value;
+        break;
+      }
+      case("duration_cost"): {
+        add_lesson.duration_cost = value;
+        break;
+      }
+      case("zoom"): {
+        add_lesson.zoom = value;
+        break;
+      }
+    };
     this.setState({add_lesson: add_lesson});
   }
 
@@ -325,15 +379,38 @@ export class LessonEditor extends React.Component <ILessonEditorProps, ILessonEd
     )
   }
 }
-
+/*
+            <p>{show_item.startDate} - {show_item.endDate} (Moscow Time Zone)</p>
+	          { show_item.tz_name &&
+	            <p>{show_item.startDate_orig} - {show_item.endDate_orig} ({show_item.tz_name})</p>
+*/
 export interface ISchaduleData {
   id: string;
   day_of_week:number;
   start_hour: string;
   title: string;
+  date: string;
   startDate: string;
   endDate: string;
   color:string;
+  location: string;
+  student_tg?: string;
+  teacher_tg?: string;
+  teacher: string;
+  zoom?: string;
+  meeting?: string;
+  mentor?: {
+    tg?: string;
+    name: string;
+  };
+  manager?: {
+    tg?: string;
+    name: string;
+  };
+  duration_cost: number;
+  startDate_orig: string;
+  endDate_orig: string;
+  tz_name: string;
 }
 
 export interface ISchaduleLesson extends ILesson{
@@ -380,13 +457,30 @@ export const initialData: ISchaduleData = {
   id:"",
   start_hour:"",
   startDate:"",
-  title:""
+  title:"",
+  date:"",
+  duration_cost:0,
+  location:"",
+  teacher:"",
+  endDate_orig:"",
+  startDate_orig:"",
+  tz_name:"",
 };
+
+export interface ISchaduleStudent extends IGroup{}
+export interface ISchaduleFamily extends ISchaduleStudent{}
+export interface ISchaduleTeacher extends ISchaduleStudent{}
 
 export interface ISchaduleProps extends IHaveToken {
   appointments: ISchaduleData[];
   currentDate: string;
   days: string[];
+  students:ISchaduleStudent[];
+  families:ISchaduleFamily[];
+  teachers:ISchaduleTeacher[];
+  zooms:IZoom[];
+  services:ILessonEditorService[];
+  responsibles:string[];
 }
 
 export interface ISchaduleState {
@@ -399,6 +493,7 @@ export interface ISchaduleState {
   student: number;
   typ: string;
   edit: number;
+  can_edit: boolean;
   add_lesson: ISchaduleLesson;
   childKey: number;
   modal:boolean;
@@ -425,7 +520,8 @@ export class DemoSchedule extends React.Component <ISchaduleProps, ISchaduleStat
       modal:false,
       show_item: initialData,
       days:["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-      zoom:0
+      zoom:0,
+      can_edit:false
     };
 	console.log(this.state);
 
@@ -589,9 +685,9 @@ export class DemoSchedule extends React.Component <ISchaduleProps, ISchaduleStat
 	  console.log(data);
     return (
       <div className="container">
-			<Modal isOpen={this.state.modal} toggle={this.show_toggle}
+			<Modal isOpen={this.state.modal} toggle={()=>this.show_toggle}
         className="success wide-modal">
-        <ModalHeader toggle={this.show_toggle}>{show_item.title} (id = {show_item.id})</ModalHeader>
+        <ModalHeader toggle={()=>this.show_toggle}>{show_item.title} (id = {show_item.id})</ModalHeader>
         <ModalBody>
           <div className="img-container">
 	          <p>{show_item.date} </p>
@@ -649,7 +745,7 @@ export class DemoSchedule extends React.Component <ISchaduleProps, ISchaduleStat
                 <option value={student.id}>{student.name}</option>)}
             </select>
           </div>
-          {can_edit ?
+          {this.state.can_edit ?
             <div className="col-md-2 col-sm-6" >
               <label htmlFor="teacher">Families</label>
               <select name="family" id="family" className="form-control"
@@ -661,7 +757,7 @@ export class DemoSchedule extends React.Component <ISchaduleProps, ISchaduleStat
                   <option value={student.id}>{student.name}</option>)}
               </select>
             </div> : ""}
-          {can_edit ?
+          {this.state.can_edit ?
             <div className="col-md-2 col-sm-6">
               <label htmlFor="teacher">Teachers</label>
               <select name="teacher" id="teacher" className="form-control"
@@ -674,7 +770,7 @@ export class DemoSchedule extends React.Component <ISchaduleProps, ISchaduleStat
               </select>
             </div> : ""
           }
-          {can_edit ?
+          {this.state.can_edit ?
             <div className="col-md-2 col-sm-6">
               <label htmlFor="teacher">Zooms</label>
               <select name="zoom" id="zoom" className="form-control"
@@ -694,23 +790,25 @@ export class DemoSchedule extends React.Component <ISchaduleProps, ISchaduleStat
             <span className="reset-btn" onClick={()=>this.filter_student(0, "reset")}>Reset</span>
           </div>
         </div>
-        {!this.state.edit || !can_edit ?
+        {!this.state.edit || !this.state.can_edit ?
 			    this.render_timetable():
 			    <div>
 		        <LessonEditor key={this.state.childKey}
-              services={services}
+              services={this.props.services}
               responsibles={this.props.responsibles}
               token={this.props.token}
               manage_url= {manage_url}
               add_lesson={this.state.add_lesson}
               save_lesson={this.save_lesson}
-              edit_lesson={this.edit_lesson}
-              cancel_lesson={this.cancel_lesson}
+              today = "today"
+            //  edit_lesson={this.edit_lesson}
+            //  cancel_lesson={this.cancel_lesson}
             />
             <div className="row">
               <div className="col-md-3 col-sm-6 col-6 mb-3">
                 <button type="button" className="btn btn-lg btn-secondary mx-1"
-                  onClick={()=>this.setState({edit:0, add_lesson:{}, childKey:this.state.childKey+1})}>
+                                    //empty object replaced  an with initialLesson
+                  onClick={()=>this.setState({edit:0, add_lesson:initialLesson, childKey:this.state.childKey+1})}>
                   Назад
                 </button>
               </div>
