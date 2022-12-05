@@ -10,9 +10,7 @@ interface IHaveUsersAndTeachers {
     teachers: IUser[];
 }
 
-interface IUserInfoProps extends IHaveUsersAndTeachers, IHaveToken {
-    token: string;
-}
+interface IUserInfoProps extends IHaveUsersAndTeachers, IHaveToken {}
 
 interface IUserInfoState extends IHaveUsersAndTeachers {
     edit_user: number;
