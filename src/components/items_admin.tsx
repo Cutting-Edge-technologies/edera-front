@@ -21,23 +21,37 @@ export class ItemsManage extends React.Component<IItemsManageProps, IItemsManage
         };
     }
 
-    edit_item(index: number){
-		console.log("edit_item", index, this.state.edit_item);
-        var formData = new FormData(document.getElementById("edit_item") as HTMLFormElement);
-        formData.append("csrfmiddlewaretoken", this.props.token);
-        formData.append("edit_item", `${this.state.edit_item}`);
-        fetch("", {method: "POST", body: formData}).then(response => response.json()).then((resp) => {
-                console.log(resp);
-                var items = this.state.items.slice();
-                if(this.state.edit_item===0){
-                    items.push(resp.item)
-                }
-                else {
-                    items[index] = resp.item;
-                }
-                this.setState({edit_item:-1, items:items})
-                });
+    get formData(): FormData {
+      const formData = new FormData(document.getElementById("edit_item") as HTMLFormElement);
+      formData.append("csrfmiddlewaretoken", this.props.token);
+      formData.append("edit_item", `${this.state.edit_item}`);
+      return formData;
     }
+
+    async makeCreateSomethingApiRequest(data: FormData) {
+
+      const responce = await fetch("", {method: "POST", body: data});
+      const responceData = await responce.json();
+
+      return responceData;
+    }
+
+    async edit_item(index: number){
+		  console.log("edit_item", index, this.state.edit_item);
+
+      const formData = this.formData;
+      const responce = await this.makeCreateSomethingApiRequest(formData);
+
+      const isItemEdited = this.state.edit_item === 0;
+      const items = this.state.items.slice();
+      if(isItemEdited){
+        items.push(responce.item)
+      }
+      else {
+        items[index] = responce.item;
+      }
+      this.setState({edit_item:-1, items});
+    };
 
 
 	item_form(item: any, index: number){
