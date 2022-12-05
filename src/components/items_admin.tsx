@@ -77,45 +77,48 @@ export class ItemsManage extends React.Component<IItemsManageProps, IItemsManage
         )
 	  }
 
-    
+    adItemName(item: any):React.ReactNode {
+      const hasId = item.id===0;
+      return (
+        <div>
+          { hasId ? <span>Добавить</span> : <span>{item.name}</span>}
+        </div>
+      );
+    }
+
+    itemsJsx(items: any[]): React.ReactNode {
+      const itemsIncludedEmptyElement = [...items, {id:0, name:'', account_id:'', client_id:'', client_secret:''}];
+      return (
+        <>
+          {
+            itemsIncludedEmptyElement.map((item, index) => {
+              const isEditing = item.id === this.state.edit_item;
+              return (
+                <div
+                  className={isEditing ? "element-card selected" : "element-card"}
+                  onClick={() => isEditing ? this.setState({edit_item: item.id}):""}
+                >
+                {isEditing ? this.item_form(item, index) : this.adItemName(item)}
+                </div>
+              )
+            })
+          }
+        </>
+      )
+    }
 
     render() {
-        // this.items = this.state.items.slice();
-        // this.items.push({id:0, name:'', account_id:'', client_id:'', client_secret:''});
-
-        const items = [...this.state.items, {id:0, name:'', account_id:'', client_id:'', client_secret:''}]
-
-        return (
-            <div className="container">
-            <div className="row">
-                <div className="col-12">
-                    <h2>{this.props.desc.name}</h2>
-                    {items.map((item, index) => {
-                      const isCurrentlyEdited = item.id === this.state.edit_item;
-
-                      const addItemName: React.FC = () => {
-
-                      }
-
-                      return (
-                        <div
-                          className={item.id === this.state.edit_item ? "element-card selected" : "element-card"}
-                          onClick={() => item.id !== this.state.edit_item ? this.setState({edit_item: item.id}):""}
-                        >
-                            {item.id === this.state.edit_item ?
-                                this.item_form(item, index)
-                                :<div>{item.id===0 ? <span>Добавить</span> :
-                                    <span>{item.name}</span>}</div>}
-                        </div>
-                      )
-                    }
-
-                        )
-                    }
-                 </div>
-
-            </div>
-            </div>
-        )
+      return (
+        <div className="container">
+        <div className="row">
+          <div className="col-12">
+            <h2>
+              {this.props.desc.name}
+            </h2>
+            {this.itemsJsx(this.state.items)}
+          </div>
+        </div>
+        </div>
+      )
     }
 }
