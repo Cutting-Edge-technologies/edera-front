@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { LessonEditor } from "./timetable_table";
+import { LessonEditor } from "./lessonEditor";
 import { dummieLesson, dummieStrinds, dummieServices } from "./dummieObj";
 
 export default {
