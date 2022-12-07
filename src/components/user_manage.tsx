@@ -1,9 +1,10 @@
 import React from "react";
 import { IHaveToken } from "../shared/typings";
 import {ILesson, ILessonEditorService, LessonEditor, } from "./lessonEditor"
-import { initialLesson } from "./timetable_table";
+import { initialLesson, initialLessonInfo } from "./timetable_table";
 
 export interface IAddUserUser{
+  name: string;
   user_id: number;
   modal: boolean;
   tg: number;
@@ -11,16 +12,33 @@ export interface IAddUserUser{
 
 }
 export interface IAddUserPair{
+  name: string;
+  user_id: number;
+  chat_id: number;
   pair_id: number;
   student: number;
   teacher: number;
 }
+
+export interface IAddUserAdd_Pair{
+  student: number;
+  teacher: number;
+}
+
 export interface IAddUserChat{
+  text: string;
+  date: string;
+  pair:{id:number}
+  chat:{id:number}
+}
+
+export interface IAddUserAdd_Chat{
   pair:{id:number}
   chat:{id:number}
 }
 export interface IAddUserService extends ILessonEditorService{}
-export interface IAddUserLesson extends ILesson{}   
+export interface IAddUserLesson extends ILesson{
+} 
 
 export interface IAddUserProps extends IHaveToken {
   users:IAddUserUser[];
@@ -37,15 +55,15 @@ export interface IAddUserState {
   chats:IAddUserChat[];
   services:IAddUserService[];
   add_user:IAddUserUser;
-  add_pair:IAddUserPair;
-  add_chat:IAddUserChat;
+  add_pair:IAddUserAdd_Pair;
+  add_chat:IAddUserAdd_Chat;
   add_lesson:IAddUserLesson;
   user_id: number;
   user_tg: number;
   timetable_text: string;
 }
 
-class AddUser extends React.Component<IAddUserProps, IAddUserState>{
+export class AddUser extends React.Component<IAddUserProps, IAddUserState>{
   constructor(props:IAddUserProps) {
     super(props);
     this.state={childKey:0,
@@ -53,8 +71,8 @@ class AddUser extends React.Component<IAddUserProps, IAddUserState>{
       pairs:this.props.pairs,
       chats:this.props.chats,
       services:this.props.services,
-      add_user:{modal:false, user_id:0, tg:0, role:""},
-      add_pair:{pair_id:0, student:0, teacher:0},
+      add_user:{modal:false, user_id:0, tg:0, role:"", name:""},
+      add_pair:{student:0, teacher:0},
       add_chat:{pair:{id:0}, chat:{id:0}},
       add_lesson: initialLesson,
       user_id:this.props.users ? this.props.users[0].user_id : 0,
@@ -100,7 +118,7 @@ class AddUser extends React.Component<IAddUserProps, IAddUserState>{
       console.log(resp)
       var pairs = this.state.pairs.slice()
       if(resp.ok){pairs.push(resp.pair);}
-      this.setState({add_pair:{pair_id: 0, student:0, teacher:0}, pairs:pairs});
+      this.setState({add_pair:{student:0, teacher:0}, pairs:pairs});
     });
   }
 
@@ -131,7 +149,7 @@ class AddUser extends React.Component<IAddUserProps, IAddUserState>{
     formData.append("pair_id_info", `${pair_id}`);
     fetch("", {method: "POST", body: formData}).then(response => response.json()).then((resp) => {
       console.log(resp);
-      const emptyAdd_Lesson = this.add_lessonUpdate({pair_id:0, info:[], old_info:[]});
+      const emptyAdd_Lesson = this.add_lessonUpdate({pair_id:0, info:initialLessonInfo, old_info:initialLessonInfo});
       this.setState({childKey:this.state.childKey+1, add_lesson:emptyAdd_Lesson});
       const respAdd_Lesson = this.add_lessonUpdate({pair_id:pair_id, id:0, info:resp.info, old_info:resp.old_info});
       this.setState({add_lesson:respAdd_Lesson});
@@ -139,12 +157,13 @@ class AddUser extends React.Component<IAddUserProps, IAddUserState>{
   }
     
 
-  save_lesson(resp){
+  save_lesson(resp:ILesson){
     let pair_id = this.state.add_lesson.pair_id;
-    const emptyAdd_Lesson = this.add_lessonUpdate({pair_id:0, info:[], old_info:[]});
+    const emptyAdd_Lesson = this.add_lessonUpdate({pair_id:0, info:initialLessonInfo, old_info:initialLessonInfo});
     this.setState({childKey:this.state.childKey+1, add_lesson:emptyAdd_Lesson});
-    this.setState({add_lesson:{pair_id:pair_id, id:0, info:resp.info,
-      old_info: this.state.add_lesson.old_info}, childKey:this.state.childKey+1});
+    const respAdd_Lesson = this.add_lessonUpdate({pair_id:pair_id, id:0, info:resp.info,
+      old_info: this.state.add_lesson.old_info});
+    this.setState({add_lesson:respAdd_Lesson, childKey:this.state.childKey+1});
   }
 
   edit_lesson(lesson:ILesson){
@@ -171,7 +190,7 @@ class AddUser extends React.Component<IAddUserProps, IAddUserState>{
     })
   }
 */  
-  cancel_lesson(lesson_id, single=0){
+  cancel_lesson(lesson_id:number, single:number=0){
     var msg;
     if(single){
       msg = "Этот урок будет одноразово отменен, но если включено повторение, следующие останутся.\n"
@@ -181,11 +200,12 @@ class AddUser extends React.Component<IAddUserProps, IAddUserState>{
     if(confirm === "yes"){
       var formData = new FormData();
       formData.append("csrfmiddlewaretoken", this.props.token);
-      formData.append("cancel_lesson", lesson_id);
-      formData.append("single", single);
+      formData.append("cancel_lesson", `${lesson_id}`);
+      formData.append("single", `${single}`);
       fetch("", {method: "POST", body: formData}).then(response => response.json()).then((resp) => {
         console.log(resp);
-        this.setState({add_lesson:{pair_id:this.state.add_lesson.pair_id, info:resp.info, old_info: this.state.add_lesson.old_info}})
+        const respAdd_Lesson = this.add_lessonUpdate({pair_id:this.state.add_lesson.pair_id, info:resp.info, old_info: this.state.add_lesson.old_info});
+        this.setState({add_lesson:respAdd_Lesson})
       });
     }
   }
@@ -198,7 +218,8 @@ class AddUser extends React.Component<IAddUserProps, IAddUserState>{
       formData.append("notification", `${lesson_id}`);
       fetch("", {method: "POST", body: formData}).then(response => response.json()).then((resp) => {
         console.log(resp);
-        this.setState({add_lesson:{pair_id:this.state.add_lesson.pair_id, info:resp.info, old_info: this.state.add_lesson.old_info}})
+        const respAdd_Lesson = this.add_lessonUpdate({pair_id:this.state.add_lesson.pair_id, info:resp.info, old_info: this.state.add_lesson.old_info});
+        this.setState({add_lesson:respAdd_Lesson})
       });
     }
   }
@@ -216,15 +237,16 @@ class AddUser extends React.Component<IAddUserProps, IAddUserState>{
     }
   }
 
-  delete_pair(pair_id){
+  delete_pair(pair_id:number){
     var confirm = prompt("Для подтверждения введите: yes", "no")
     if(confirm=== "yes"){
       var formData = new FormData()
       formData.append("csrfmiddlewaretoken", this.props.token);
-      formData.append("delete_pair", pair_id);
+      formData.append("delete_pair", `${pair_id}`);
       fetch("", {method: "POST", body: formData}).then(response => response.json()).then((resp) => {
         console.log(resp);
-        this.setState({pairs:resp.pairs, add_lesson:{pair_id:0, date:0}});
+        const emptyAdd_Lesson = this.add_lessonUpdate({pair_id:0, date:`0`});
+        this.setState({pairs:resp.pairs, add_lesson:emptyAdd_Lesson});
       });
     }
   }
@@ -235,10 +257,10 @@ class AddUser extends React.Component<IAddUserProps, IAddUserState>{
     this.setState({add_lesson: add_lesson});
   }
 */
-  get_timetable_text(source){
+  get_timetable_text(source:string){
     var formData = new FormData();
     formData.append("csrfmiddlewaretoken", this.props.token);
-    formData.append("user_id",this.state.user_id);
+    formData.append("user_id",`${this.state.user_id}`);
     formData.append("timetable_text", source);
     fetch("", {method: "POST", body: formData}).then(response => response.json()).then((resp) => {
       console.log(resp);
@@ -258,7 +280,7 @@ class AddUser extends React.Component<IAddUserProps, IAddUserState>{
         <div className="row">
           <div className="col-md-6">
             <select className="form-control form-control-lg"
-              onChange={(e)=>this.choose_user(e.target.value)}>
+              onChange={(e)=>this.choose_user(parseInt(e.target.value))}>
               {this.state.users.filter(function (user) {return user.role === "student"}).map((user, index)=>
                 <option value={user.user_id}>{user.name}</option>)
               }
@@ -269,22 +291,22 @@ class AddUser extends React.Component<IAddUserProps, IAddUserState>{
           </div>
           <div className="col-md-12">
             {this.state.user_id ?
-              <div class="btn-group my-1">      
-                <button  type="button" class="btn btn-info" onClick={(e)=>this.get_timetable_text("telegram")}>Telegram timetable</button>
-                <button  type="button" class="btn btn-success"  onClick={(e)=>this.get_timetable_text("whatsapp")}>Whats App timetable</button>
+              <div className="btn-group my-1">      
+                <button  type="button" className="btn btn-info" onClick={(e)=>this.get_timetable_text("telegram")}>Telegram timetable</button>
+                <button  type="button" className="btn btn-success"  onClick={(e)=>this.get_timetable_text("whatsapp")}>Whats App timetable</button>
                 {this.state.timetable_text ? 
-                  <button  type="button" class="btn btn-warning"  onClick={(e)=>this.setState({timetable_text:""})}>Close</button> : ""}
+                  <button  type="button" className="btn btn-warning"  onClick={(e)=>this.setState({timetable_text:""})}>Close</button> : ""}
               </div>:""
             }
             {this.state.timetable_text ? 
               <div className="row">
                 <div className="col-md-6">
                   <h5>Студенту</h5>
-                  <textarea value={this.state.timetable_text[0]} cols="50" rows="30"></textarea>
+                  <textarea value={this.state.timetable_text[0]} cols={50} rows={30}></textarea>
                 </div>
                 <div className="col-md-6">
                   <h5>Учителю</h5>
-                  <textarea value={this.state.timetable_text[1]} cols="50" rows="30"></textarea>
+                  <textarea value={this.state.timetable_text[1]}  cols={50} rows={30}></textarea>
                 </div>
               </div>:""
             }
@@ -323,35 +345,34 @@ class AddUser extends React.Component<IAddUserProps, IAddUserState>{
                   <tr><th>Текст</th><th>Повтор</th><th>Уведомление<br/> отправлено</th><th>Timezone</th><th>Действие</th></tr>
                 </thead>
                 <tbody>
-                  {this.state.add_lesson.info.map((el, index)=>
-                    <tr><td>{el.start} - {el.end} {el.name} {el.break ? ", перерыв "+el.break :""}
-                      {el.duration_cost>=0?
-                        <div><br/><strong className={"text-danger"}>Себестоимость {el.duration_cost} мин</strong>
+                    <tr><td>{this.state.add_lesson.info.start} - {this.state.add_lesson.info.end} {this.state.add_lesson.info.name}
+                     {this.state.add_lesson.info.break ? ", перерыв "+this.state.add_lesson.info.break :""}
+                      {parseInt(this.state.add_lesson.info.duration_cost)>=0?
+                        <div><br/><strong className={"text-danger"}>Себестоимость {this.state.add_lesson.info.duration_cost} мин</strong>
                         </div>:""
                       }
                       </td>
-                      <td>{el.repeat!="0" ? <span> {el.repeat!="30" ? el.repeat+'w' : '1m'}</span> : ""}</td>
-                      <td>{el.notification ? <div className={"click"}> <span onClick={()=>this.send_notification(el.id)}
+                      <td>{this.state.add_lesson.info.repeat!="0" ? <span> {this.state.add_lesson.info.repeat!="30" ? this.state.add_lesson.info.repeat+'w' : '1m'}</span> : ""}</td>
+                      <td>{this.state.add_lesson.info.notification ? <div className={"click"}> <span onClick={()=>this.send_notification(this.state.add_lesson.info.id)}
                           className="text-secondary">ReSend</span></div> :
-                          <div className={"click"}> <span onClick={()=>this.send_notification(el.id)}
+                          <div className={"click"}> <span onClick={()=>this.send_notification(this.state.add_lesson.info.id)}
                           className="text-primary">Send</span></div>}
                       </td>
-                      <td>{el.tz_name}</td>
+                      <td>{this.state.add_lesson.info.tz_name}</td>
                       <td >
                         <strong className="click-block">
-                          <div className="click" onClick={()=>this.edit_lesson(el)}><i className="fa fa-edit text-primary fa-lg"/></div> &nbsp;
-                          <div className="click" onClick={()=>this.cancel_lesson(el.id)}><i className="fa fa-trash text-danger fa-lg"/></div> &nbsp;
-                          {el.repeat==="1"?<div className="click" onClick={()=>this.cancel_lesson(el.id, 1)}><i className="fa fa-power-off text-danger fa-lg"/></div>:""}</strong></td>
+                          <div className="click" onClick={()=>this.edit_lesson(this.state.add_lesson)}><i className="fa fa-edit text-primary fa-lg"/></div> &nbsp;
+                          <div className="click" onClick={()=>this.cancel_lesson(this.state.add_lesson.id)}><i className="fa fa-trash text-danger fa-lg"/></div> &nbsp;
+                          {this.state.add_lesson.info.repeat==="1"?<div className="click" onClick={()=>this.cancel_lesson(this.state.add_lesson.id, 1)}><i className="fa fa-power-off text-danger fa-lg"/></div>:""}</strong></td>
                     </tr>
-                  )}
                 </tbody>
               </table>
               <button type="button" onClick={()=>this.delete_pair(this.state.add_lesson.pair_id)} className="btn btn-outline-danger">Расформировать пару</button><br/>
               <strong>Текст для копирования</strong>
-              {this.state.add_lesson.old_info.map((el, index)=>
-                <p className="text-success">{el.start} - {el.end} {el.name} ({el.teacher}) </p>)}
-              {this.state.add_lesson.info.map((el, index)=>
-                <p>{el.start} - {el.end} {el.name} ({el.teacher}) </p>)}
+                <p className="text-success">{this.state.add_lesson.old_info.start} - {this.state.add_lesson.old_info.end}
+                 {this.state.add_lesson.old_info.name} ({this.state.add_lesson.old_info.teacher}) </p>
+                <p>{this.state.add_lesson.info.start} - {this.state.add_lesson.info.end}
+                 {this.state.add_lesson.info.name} ({this.state.add_lesson.info.teacher}) </p>
             </div>
           </div>:<p>Выберите пару ученик-учитель</p>
         }
@@ -393,14 +414,14 @@ class AddUser extends React.Component<IAddUserProps, IAddUserState>{
             <h2>Пары учитель-ученик без чата</h2>
             {this.state.pairs.filter(function (pair) {return pair.chat_id === 0}).map((pair, index)=>
               <div className={pair.pair_id===this.state.add_chat.pair.id?"element-card selected":"element-card"}
-                onClick={()=>this.setState({add_chat:{pair:{id:pair.pair_id, index:index}, chat:this.state.add_chat.chat}})}>{pair.name}</div>
+                onClick={()=>this.setState({add_chat:{pair:{id:pair.pair_id}, chat:this.state.add_chat.chat}})}>{pair.name}</div>
             )}
           </div>
           <div className="col-md-6">
             <h2>Чаты с ботом без пары</h2>
             {this.state.chats.map((chat, index)=>
-              <div className={chat.chat_id===this.state.add_chat.chat.id?"element-card selected":"element-card"}
-                onClick={()=>this.setState({add_chat:{pair:this.state.add_chat.pair, chat:{id:chat.chat_id, index:index}}})}><span>{chat.text} ({chat.date})</span><br/><small>{chat.chat_id}</small></div>
+              <div className={chat.chat.id===this.state.add_chat.chat.id?"element-card selected":"element-card"}
+                onClick={()=>this.setState({add_chat:{pair:this.state.add_chat.pair, chat:{id:chat.chat.id}}})}><span>{chat.text} ({chat.date})</span><br/><small>{chat.chat.id}</small></div>
             )}
             <p>Чтобы добавить групповой чат:<br/>
               <ul><li>Добавьте @Edera_bot в групповой чат</li>
