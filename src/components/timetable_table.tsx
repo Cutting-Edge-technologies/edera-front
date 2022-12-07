@@ -2,7 +2,7 @@ import React from "react";
 import * as Reactstrap from "reactstrap";
 import { IHaveToken } from "../shared/typings";
 import { IGroup } from "./service";
-import { hours, ILesson, ILessonEditorService, IZoom, LessonEditor } from "./lessonEditor";
+import { hours, ILesson, ILessonEditorService, ILessonInfo, IZoom, LessonEditor } from "./lessonEditor";
 
 const Modal = Reactstrap.Modal;
 const ModalHeader = Reactstrap.ModalHeader;
@@ -44,13 +44,26 @@ export interface ISchaduleLesson extends ILesson{
 export const url = `https://exampleURL.com`;
 export const manage_url = `https://exampleManage_URL.com`;
 
+export const initialLessonInfo: ILessonInfo = {
+  start: "",
+  end: "",
+  name: "",
+  break: "",
+  duration_cost: "",
+  repeat: "",
+  id: 0,
+  tz_name: "",
+  teacher: "",
+  notification: ""
+}
+
 export const initialLesson: ISchaduleLesson = {
   id:-1,
  // lesson_id: -1,
   pair_id: -1,
-  info: [],
+  info: initialLessonInfo,
   name: '',
-  old_info: [],
+  old_info: initialLessonInfo,
   repeat: '',
   break_duration:"",
   break_start:"",

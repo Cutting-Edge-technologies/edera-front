@@ -6,8 +6,8 @@ export interface ILesson {
   id:number;
   pair_id:number;
   name: string;
-  info: string[];
-  old_info: string[];
+  info: ILessonInfo;
+  old_info: ILessonInfo;
   repeat: string;
   break_start:string;
   break_duration:string;
@@ -22,6 +22,19 @@ export interface ILesson {
   duration_cost: string;
   zoom: string;
 }
+
+export interface ILessonInfo {
+  start: string;
+  end: string;
+  name: string;
+  break: string;
+  duration_cost: string;
+  repeat: string;
+  id:number;
+  tz_name: string;
+  teacher: string;
+  notification:string;
+} 
 
 export interface ITimeZone {
   id: string;
