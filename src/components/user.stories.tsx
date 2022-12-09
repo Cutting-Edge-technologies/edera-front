@@ -10,7 +10,7 @@ export default {
   },
 } as ComponentMeta<typeof UserInfo>;
 
-export const ActivateStory: ComponentStory<any> = () => {
+export const UserInfoStory: ComponentStory<any> = () => {
   return (
     <UserInfo
     token={""}

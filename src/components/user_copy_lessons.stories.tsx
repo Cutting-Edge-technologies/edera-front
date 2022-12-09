@@ -17,7 +17,7 @@ const dummieDubleNumberArray: number[][] = [
 ]
 
 
-export const ActivateStory: ComponentStory<any> = () => {
+export const UserCopyLessonsStory: ComponentStory<any> = () => {
   return (
     <UserCopyLessons
     token={""}

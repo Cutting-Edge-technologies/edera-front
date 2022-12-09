@@ -11,7 +11,7 @@ export default {
 } as ComponentMeta<typeof ItemsManage>;
 
 
-export const ActivateStory: ComponentStory<any> = () => {
+export const Teacher_ServiceStory: ComponentStory<any> = () => {
   return (
     <ItemsManage token={""} all_dicts={dummieAll_dicts} users ={dummieUsers} costs={dummieCosts} services={dummieStudentService} />
   )

@@ -11,7 +11,7 @@ export default {
 } as ComponentMeta<typeof Service>;
 
 
-export const ActivateStory: ComponentStory<any> = () => {
+export const ServiceteStory: ComponentStory<any> = () => {
   return (
     <Service token={""} services={dummieServices} all_dicts={dummieAll_dicts} />
   )

@@ -11,7 +11,7 @@ export default {
 } as ComponentMeta<typeof DemoSchedule>;
 
 
-export const ActivateStory: ComponentStory<any> = () => {
+export const DemoScheduleStory: ComponentStory<any> = () => {
   return (
     <DemoSchedule
     token={""}

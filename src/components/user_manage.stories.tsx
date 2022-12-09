@@ -11,7 +11,7 @@ export default {
 } as ComponentMeta<typeof AddUser>;
 
 
-export const ActivateStory: ComponentStory<any> = () => {
+export const Add_UserStory: ComponentStory<any> = () => {
   return (
     <AddUser
     token={""}

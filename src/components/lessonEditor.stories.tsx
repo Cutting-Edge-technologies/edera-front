@@ -11,7 +11,7 @@ export default {
 } as ComponentMeta<typeof LessonEditor>;
 
 
-export const ActivateStory: ComponentStory<any> = () => {
+export const LessonEditorStory: ComponentStory<any> = () => {
   return (
     <LessonEditor
     token={""}

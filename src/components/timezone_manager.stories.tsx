@@ -10,7 +10,7 @@ export default {
   },
 } as ComponentMeta<typeof ItemsManage>;
 
-export const ActivateStory: ComponentStory<any> = () => {
+export const Timezone_ManagerStory: ComponentStory<any> = () => {
   return (
     <ItemsManage token={""} items={dummieItems} />
   )
