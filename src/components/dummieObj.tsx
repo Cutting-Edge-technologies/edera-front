@@ -6,6 +6,7 @@ import { ISchaduleData} from "./timetable_table"
 import { IUserInfoFamily, IUserInfoTeacher, IUserInfoUser } from "./user"
 import { ILesson, ILessonInfo } from "./lessonEditor"
 import { IAddUserChat, IAddUserPair, IAddUserUser } from "./user_manage"
+import { ControlType, IControlDetails } from "./starter"
 
 
 export const dummieGroups: IGroup[] = [
@@ -464,4 +465,93 @@ export const dummieAddUserUsers: IAddUserUser[] = [
     name: "John Olh",
     role: "manager"
   }
+]
+
+export const dummieControls: IControlDetails[] = [
+  {
+    title: "Пары учеников",
+    controlType: ControlType.Button,
+    onClick: () => console.log("Пары учеников"),
+    isActive: false
+  },
+  {
+    title: "Ученики и семьи",
+    controlType: ControlType.Button,
+    onClick: () => console.log("Ученики и семьи"),
+    isActive: false
+  },
+  {
+    title: "Расписание",
+    controlType: ControlType.DropDown,
+    options: [
+      {
+        title: "Обычное",
+        onClick: () => console.log("Обычное")
+      },
+      {
+        title: "Таблица",
+        onClick: () => console.log("Таблица")
+      }
+    ]
+  },
+  {
+    title: "Копирова",
+    controlType: ControlType.Button,
+    onClick: () => console.log("Копировать"),
+    isActive: false
+  },
+  {
+    title: "Настройки",
+    controlType: ControlType.DropDown,
+    options: [
+      {
+        title: "Zoom аккаунты",
+        onClick: () => console.log("Zoom аккаунты")
+      },
+      {
+        title: "Тайм-зоны",
+        onClick: () => console.log("Тайм-зоны")
+      },
+      {
+        title: "Пары и чаты",
+        onClick: () => console.log("Пары и чаты")
+      },
+      {
+        title: "Менторы и менеджеры",
+        onClick: () => console.log("Менторы и менеджеры")
+      },
+      {
+        title: "Лог создания и удаления",
+        onClick: () => console.log("Лог создания и удаления")
+      },
+      {
+        title: "Currency",
+        onClick: () => console.log("Currency")
+      },
+      {
+        title: "Service Group",
+        onClick: () => console.log("Service Group")
+      }
+    ]
+  },
+  {
+    title: "Finance",
+    controlType: ControlType.DropDown,
+    options: [
+      {
+        title: "Teacher service cost",
+        onClick: () => console.log("Teacher service cost")
+      },
+      {
+        title: "Student service revenue",
+        onClick: () => console.log("Student service revenue")
+      }
+    ]
+  },
+  {
+    title: "Выйти",
+    controlType: ControlType.Button,
+    onClick: () => console.log("Выйти"),
+    isActive: false
+  },
 ]
