@@ -1,6 +1,6 @@
-import { Dropdown } from "reactstrap";
+
+import Dropdown from "react-bootstrap/Dropdown";
 import { IDropDowmOption } from "./starter";
-import {DropdownOption} from "./DropDowmOption"
 
 export interface IDropdownControlProps {
   title: string;
@@ -10,11 +10,17 @@ export interface IDropdownControlProps {
 
 export const DropdownControl: React.FC<IDropdownControlProps> = ({title, options, isActive}) => {
   return (
-    <>
-      <h1>{title}</h1>
-      {options.map((option) => {
-        <DropdownOption title={option.title} onClick={option.onClick}/>
-      })}
-    </>
-  )
+    <Dropdown>
+    <Dropdown.Toggle variant="succefull">
+      {title}
+    </Dropdown.Toggle>
+
+    <Dropdown.Menu>
+    {options.map((option) => {
+      return(
+        <Dropdown.Item onClick={option.onClick}>{option.title}</Dropdown.Item>
+      )})}
+    </Dropdown.Menu>
+  </Dropdown>
+);
 }
