@@ -8,6 +8,7 @@ import { ILesson, ILessonInfo } from "./lessonEditor"
 import { IAddUserChat, IAddUserPair, IAddUserUser } from "./user_manage"
 import { ControlType, IControlDetails } from "./starter"
 import { IField } from "./items_admin"
+import { IMentorManageItem } from "./mentors"
 
 
 export const dummieGroups: IGroup[] = [
@@ -568,4 +569,23 @@ export const dummieFelds: IField[] =[
     name: "Example Name 2",
     typ: "color"
   },
+]
+
+export const dummieMentorManageItems: IMentorManageItem[] =[
+  {
+    id:15,
+    name: "John",
+    tg: "johnTG",
+    manager: 42
+  },
+  {
+    id:45,
+    name: "Down",
+    tg: "DownTeG",
+  },
+  {
+    id:99,
+    name: "Loren",
+    tg: "ipsumTg"
+  }
 ]
