@@ -3,14 +3,14 @@ import {Starter } from "./starter";
 import { dummieControls } from "./dummieObj";
 
 export default {
-  title: 'Components/Starter',
+  title: 'Components/StarterOther',
   component: Starter,
   argTypes: {
     backgroundColor: { control: 'color' },
   },
 } as ComponentMeta<typeof Starter>;
 
-export const StarterStory: ComponentStory<any> = () => {
+export const StarterOtherStory: ComponentStory<any> = () => {
   return (
     <Starter controls={dummieControls}/>
   )
