@@ -3,14 +3,11 @@ import { UserInfo } from "./user";
 import { dummieGroups, dummieUserInfoUsers, dummieUserInfoTeachers, dummieUserInfoFamilies} from "./dummieObj";
 
 export default {
-  title: 'Components/UserInfo',
+  title: 'PageStories/1_StudentsAndFamilies',
   component: UserInfo,
-  argTypes: {
-    backgroundColor: { control: 'color' },
-  },
 } as ComponentMeta<typeof UserInfo>;
 
-export const UserInfoStory: ComponentStory<any> = () => {
+export const StudentsAndFamiliesStory: ComponentStory<any> = () => {
   return (
     <UserInfo
     token={""}
