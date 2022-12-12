@@ -1,17 +1,24 @@
 import React from "react";
 import { IHaveToken } from "../shared/typings";
 
+export interface IMentorManageItem {
+    id: number;
+    name: string;
+    tg: string;
+    manager?: number;
+}
+
 interface IItemsManageState {
-    items: any[];
-	managers: any[]
+    items: IMentorManageItem[];
+	managers: IMentorManageItem[]
     edit_item: number;
 	xkey: string;
 	n: number;
 }
 
 interface IItemsManageProps extends IHaveToken {
-    items: any[];
-    managers: any[];
+    items: IMentorManageItem[];
+    managers: IMentorManageItem[];
 }
 
 export class ItemsManage extends React.Component<IItemsManageProps, IItemsManageState> {
@@ -93,10 +100,10 @@ export class ItemsManage extends React.Component<IItemsManageProps, IItemsManage
 									<div className="col-md-12 mb-3">
 										<label className="form-label">Тьютор-менеджер</label>
 										<select name="manager" className="form-control form-control-lg" 
-										defaultValue={item.manager}>
+										defaultValue={item?.manager}>
 										<option value="0">Не выбран</option>
-										{this.state.managers.map((item, index)=>
-											<option value={item.id}>{item.name}</option>
+										{this.state.managers.map((manager, index)=>
+											<option value={manager.id}>{manager.name}</option>
 										)}
 										</select>
 
@@ -118,23 +125,23 @@ export class ItemsManage extends React.Component<IItemsManageProps, IItemsManage
 				
 				 <div className="col-md-6">
                     <h2>Тьютор-менеджеры</h2>
-                    {managers.map((item, index) =>
+                    {managers.map((manager, index) =>
                         <div
-                            className={item.id === this.state.edit_item  && this.state.xkey=="manager" ? "element-card selected" : "element-card"}
-                            onClick={() => item.id !== this.state.edit_item ? this.setState({ n:this.state.n+1, edit_item: item.id, xkey:"manager" }):""}>
-                            {item.id === this.state.edit_item && this.state.xkey === "manager" ?
+                            className={manager.id === this.state.edit_item  && this.state.xkey=="manager" ? "element-card selected" : "element-card"}
+                            onClick={() => manager.id !== this.state.edit_item ? this.setState({ n:this.state.n+1, edit_item: manager.id, xkey:"manager" }):""}>
+                            {manager.id === this.state.edit_item && this.state.xkey === "manager" ?
                                 <form id="edit_item">
                                 <div className="row">
                                     
                                     
 									<div className="col-md-12 mb-3">
 										<label className="form-label">Имя Фамилия</label>
-                                    <input type="text" name="name" className="form-control form-control-lg" defaultValue={item.name}/>
+                                    <input type="text" name="name" className="form-control form-control-lg" defaultValue={manager.name}/>
                                     </div>
                                     <div className="col-md-12 mb-3">
 										<label className="form-label">Telegram (без @)</label>
 										<input type="text" name="tg" className="form-control form-control-lg"
-										defaultValue={item.tg}/>
+										defaultValue={manager.tg}/>
                                     </div>
                                     </div>
 
@@ -147,8 +154,8 @@ export class ItemsManage extends React.Component<IItemsManageProps, IItemsManage
                                     <button type="button" onClick={()=>this.setState({edit_item:-1})} className="btn btn-secondary btn-lg">
                                         Отмена</button></div>
                                 </div></form>
-                                :<div>{item.id===0 ? <span>Добавить</span> :
-                                    <span>{item.name}</span>}</div>}
+                                :<div>{manager.id===0 ? <span>Добавить</span> :
+                                    <span>{manager.name}</span>}</div>}
                         </div>)
                     }
                  </div>

@@ -17,7 +17,7 @@ interface IItem {
   name: string;
 }
 
-interface IField {
+export interface IField {
   label: string;
   name: string;
   typ: React.HTMLInputTypeAttribute | undefined;
