@@ -4,10 +4,7 @@ import { dummieControls } from "./dummieObj";
 
 export default {
   title: 'Components/StarterOther',
-  component: Starter,
-  argTypes: {
-    backgroundColor: { control: 'color' },
-  },
+  component: Starter
 } as ComponentMeta<typeof Starter>;
 
 export const StarterOtherStory: ComponentStory<any> = () => {

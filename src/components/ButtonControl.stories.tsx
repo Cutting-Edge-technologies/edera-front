@@ -4,10 +4,7 @@ import { dummieControls } from "./dummieObj";
 
 export default {
   title: 'Components/ButtonControl',
-  component: ButtonControl,
-  argTypes: {
-    backgroundColor: { control: 'color' },
-  },
+  component: ButtonControl
 } as ComponentMeta<typeof ButtonControl>;
 
 const title = dummieControls[0].title;

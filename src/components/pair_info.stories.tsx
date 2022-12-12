@@ -4,10 +4,7 @@ import { ItemsManage } from "./pair_info";
 
 export default {
   title: 'Components/pair_info',
-  component: ItemsManage,
-  argTypes: {
-    backgroundColor: { control: 'color' },
-  },
+  component: ItemsManage
 } as ComponentMeta<typeof ItemsManage>;
 
 export const Pair_InfoStory: ComponentStory<any> = () => {

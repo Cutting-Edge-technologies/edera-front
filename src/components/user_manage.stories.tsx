@@ -4,10 +4,7 @@ import { dummieStrinds, dummieServices, dummieAddUserChats, dummieAddUserPairs, 
 
 export default {
   title: 'Components/Add_User',
-  component: AddUser,
-  argTypes: {
-    backgroundColor: { control: 'color' },
-  },
+  component: AddUser
 } as ComponentMeta<typeof AddUser>;
 
 

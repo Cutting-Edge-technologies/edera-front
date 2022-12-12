@@ -4,10 +4,7 @@ import { dummieItems } from "./dummieObj";
 
 export default {
   title: 'Components/timezone_manager',
-  component: ItemsManage,
-  argTypes: {
-    backgroundColor: { control: 'color' },
-  },
+  component: ItemsManage
 } as ComponentMeta<typeof ItemsManage>;
 
 export const Timezone_ManagerStory: ComponentStory<any> = () => {

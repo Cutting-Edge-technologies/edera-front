@@ -4,10 +4,7 @@ import { dummieAll_dicts, dummieCosts, dummieUsers, dummieStudentService } from 
 
 export default {
   title: 'Components/Student_Service',
-  component: ItemsManage,
-  argTypes: {
-    backgroundColor: { control: 'color' },
-  },
+  component: ItemsManage
 } as ComponentMeta<typeof ItemsManage>;
 
 

@@ -158,7 +158,8 @@ export class DemoSchedule extends React.Component <ISchaduleProps, ISchaduleStat
       show_item: initialData,
       days:["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
       zoom:0,
-      can_edit:false
+      //hard coded
+      can_edit:true
     };
 	console.log(this.state);
 

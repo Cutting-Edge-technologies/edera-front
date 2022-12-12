@@ -4,10 +4,7 @@ import { dummieUsers} from "./dummieObj";
 
 export default {
   title: 'Components/UserCopyLessons',
-  component: UserCopyLessons,
-  argTypes: {
-    backgroundColor: { control: 'color' },
-  },
+  component: UserCopyLessons
 } as ComponentMeta<typeof UserCopyLessons>;
 
 const dummieDubleNumberArray: number[][] = [

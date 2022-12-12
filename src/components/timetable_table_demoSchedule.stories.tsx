@@ -4,10 +4,7 @@ import { dummieServices, dummieGroups, dummieStrinds, dummieSchaduleData  } from
 
 export default {
   title: 'Components/DemoSchedule',
-  component: DemoSchedule,
-  argTypes: {
-    backgroundColor: { control: 'color' },
-  },
+  component: DemoSchedule
 } as ComponentMeta<typeof DemoSchedule>;
 
 

@@ -4,10 +4,7 @@ import { dummieLesson, dummieStrinds, dummieServices } from "./dummieObj";
 
 export default {
   title: 'Components/LessonEditor',
-  component: LessonEditor,
-  argTypes: {
-    backgroundColor: { control: 'color' },
-  },
+  component: LessonEditor
 } as ComponentMeta<typeof LessonEditor>;
 
 

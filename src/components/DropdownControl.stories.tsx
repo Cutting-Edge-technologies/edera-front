@@ -4,10 +4,7 @@ import { dummieControls } from "./dummieObj";
 
 export default {
   title: 'Components/DropdownControl',
-  component: DropdownControl,
-  argTypes: {
-    backgroundColor: { control: 'color' },
-  },
+  component: DropdownControl
 } as ComponentMeta<typeof DropdownControl>;
 
 const title = dummieControls[2].title;

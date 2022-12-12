@@ -4,10 +4,7 @@ import { dummieItems } from "./dummieObj";
 
 export default {
   title: 'Components/zoom_account',
-  component: ItemsManage,
-  argTypes: {
-    backgroundColor: { control: 'color' },
-  },
+  component: ItemsManage
 } as ComponentMeta<typeof ItemsManage>;
 
 export const Zoom_accountStory: ComponentStory<any> = () => {

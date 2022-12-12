@@ -4,10 +4,7 @@ import { dummieAll_dicts, dummieServices } from "./dummieObj";
 
 export default {
   title: 'Components/Service',
-  component: Service,
-  argTypes: {
-    backgroundColor: { control: 'color' },
-  },
+  component: Service
 } as ComponentMeta<typeof Service>;
 
 
