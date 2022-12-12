@@ -495,7 +495,7 @@ export const dummieControls: IControlDetails[] = [
     ]
   },
   {
-    title: "Копирова",
+    title: "Копировать",
     controlType: ControlType.Button,
     onClick: () => console.log("Копировать"),
     isActive: false
