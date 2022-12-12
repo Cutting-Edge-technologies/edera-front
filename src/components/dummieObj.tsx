@@ -7,6 +7,7 @@ import { IUserInfoFamily, IUserInfoTeacher, IUserInfoUser } from "./user"
 import { ILesson, ILessonInfo } from "./lessonEditor"
 import { IAddUserChat, IAddUserPair, IAddUserUser } from "./user_manage"
 import { ControlType, IControlDetails } from "./starter"
+import { IField } from "./items_admin"
 
 
 export const dummieGroups: IGroup[] = [
@@ -553,5 +554,18 @@ export const dummieControls: IControlDetails[] = [
     controlType: ControlType.Button,
     onClick: () => console.log("Выйти"),
     isActive: false
+  },
+]
+
+export const dummieFelds: IField[] =[
+  {
+    label: "Example Label 1",
+    name: "Example Name 1",
+    typ: "color"
+  },
+  {
+    label: "Example Label 2",
+    name: "Example Name 2",
+    typ: "color"
   },
 ]
