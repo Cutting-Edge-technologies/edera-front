@@ -8,7 +8,7 @@ export default {
 } as ComponentMeta<typeof DemoSchedule>;
 
 const days: string[] = ['15','16', '17', '18', '19', '20', '21' ];
-export const ScheduleNormalViewStory: ComponentStory<any> = () => {
+export const Schedule_Table_View_Story: ComponentStory<any> = () => {
   return (
     <DemoSchedule
     token={""}
