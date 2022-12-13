@@ -9,6 +9,6 @@ export default {
 
 export const Currency_5_7_Story: ComponentStory<any> = () => {
   return (
-    <ItemsManage token={""} desc={""} fields={dummieFelds} items={dummieGroups}/>
+    <ItemsManage token={""} fields={dummieFelds} items={dummieGroups} desc={{name:"Currency"}}/>
   )
 }

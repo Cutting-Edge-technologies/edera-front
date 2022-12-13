@@ -4,7 +4,7 @@ import { IHaveToken } from "../shared/typings";
 interface IItemsManageProps extends IHaveToken {
     items: IItem[];
     fields: IField[];
-    desc: any;
+    desc: {name:string};
 }
 
 interface IItemsManageState {

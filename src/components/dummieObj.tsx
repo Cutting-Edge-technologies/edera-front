@@ -13,7 +13,7 @@ import { IMentorManageItem } from "./mentors"
 
 export const dummieGroups: IGroup[] = [
   {
-    id: 11111111,
+    id: 1,
     name: `DummieGroup1`
   },
   {
@@ -562,12 +562,12 @@ export const dummieFelds: IField[] =[
   {
     label: "Example Label 1",
     name: "Example Name 1",
-    typ: "color"
+    typ: "number"
   },
   {
     label: "Example Label 2",
     name: "Example Name 2",
-    typ: "color"
+    typ: "number"
   },
 ]
 
