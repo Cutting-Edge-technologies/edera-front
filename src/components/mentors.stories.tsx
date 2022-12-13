@@ -3,11 +3,11 @@ import { dummieMentorManageItems } from "./dummieObj";
 import { ItemsManage } from "./mentors";
 
 export default {
-  title: 'Components/ItemsManage',
+  title: 'PageStories/5 Setting',
   component: ItemsManage
 } as ComponentMeta<typeof ItemsManage>;
 
-export const ItemsManageStory: ComponentStory<any> = () => {
+export const MentorsAndManagers_5_5_Story: ComponentStory<any> = () => {
   return (
     <ItemsManage token={""} items={dummieMentorManageItems} managers={dummieMentorManageItems}/>
   )

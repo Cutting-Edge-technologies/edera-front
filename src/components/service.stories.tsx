@@ -3,12 +3,12 @@ import { Service } from "./service";
 import { dummieAll_dicts, dummieServices } from "./dummieObj";
 
 export default {
-  title: 'Components/Service',
+  title: 'PageStories/5 Setting',
   component: Service
 } as ComponentMeta<typeof Service>;
 
 
-export const ServiceteStory: ComponentStory<any> = () => {
+export const Service_5_1_Story: ComponentStory<any> = () => {
   return (
     <Service token={""} services={dummieServices} all_dicts={dummieAll_dicts} />
   )

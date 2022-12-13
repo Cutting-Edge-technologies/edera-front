@@ -3,7 +3,7 @@ import { UserCopyLessons } from "./user_copy_lessons";
 import { dummieUsers} from "./dummieObj";
 
 export default {
-  title: 'Components/UserCopyLessons',
+  title: 'PageStories/4 Copy Lessons',
   component: UserCopyLessons
 } as ComponentMeta<typeof UserCopyLessons>;
 
@@ -14,7 +14,7 @@ const dummieDubleNumberArray: number[][] = [
 ]
 
 
-export const UserCopyLessonsStory: ComponentStory<any> = () => {
+export const CopyLessonsStory: ComponentStory<any> = () => {
   return (
     <UserCopyLessons
     token={""}

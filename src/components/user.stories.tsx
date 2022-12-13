@@ -3,7 +3,7 @@ import { UserInfo } from "./user";
 import { dummieGroups, dummieUserInfoUsers, dummieUserInfoTeachers, dummieUserInfoFamilies} from "./dummieObj";
 
 export default {
-  title: 'PageStories/1_StudentsAndFamilies',
+  title: 'PageStories/2 Students And Families',
   component: UserInfo,
 } as ComponentMeta<typeof UserInfo>;
 

@@ -8,7 +8,7 @@ export default {
 } as ComponentMeta<typeof ButtonControl>;
 
 const title = dummieControls[0].title;
-const onClick = dummieControls[0].onClick || (() => console.log("Fuction dont exist"));
+const onClick = ()=>window.location.href = "http://localhost:6006/?path=/story/components-dropdowncontrol--dropdown-control-story";
 const isActive = dummieControls[0].isActive || true;
 
 export const ButtonControlStory: ComponentStory<any> = () => {

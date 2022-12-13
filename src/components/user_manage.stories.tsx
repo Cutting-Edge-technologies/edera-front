@@ -3,12 +3,12 @@ import { AddUser } from "./user_manage";
 import { dummieStrinds, dummieServices, dummieAddUserChats, dummieAddUserPairs, dummieAddUserUsers } from "./dummieObj";
 
 export default {
-  title: 'Components/Add_User',
+  title: 'PageStories/1 Pair Students',
   component: AddUser
 } as ComponentMeta<typeof AddUser>;
 
 
-export const Add_UserStory: ComponentStory<any> = () => {
+export const Pair_StudentsStory: ComponentStory<any> = () => {
   return (
     <AddUser
     token={""}

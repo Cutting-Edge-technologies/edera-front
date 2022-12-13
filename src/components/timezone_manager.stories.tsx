@@ -3,11 +3,11 @@ import { ItemsManage } from "./timezone_manager";
 import { dummieItems } from "./dummieObj";
 
 export default {
-  title: 'Components/timezone_manager',
+  title: 'PageStories/5 Setting',
   component: ItemsManage
 } as ComponentMeta<typeof ItemsManage>;
 
-export const Timezone_ManagerStory: ComponentStory<any> = () => {
+export const Timezone_5_3_Story: ComponentStory<any> = () => {
   return (
     <ItemsManage token={""} items={dummieItems} />
   )
