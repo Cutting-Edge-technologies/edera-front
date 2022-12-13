@@ -129,7 +129,7 @@ export class ItemsManage extends React.Component<IItemsManageProps, IItemsManage
                   return (
                     <div
                       className={isEditing ? "element-card selected" : "element-card"}
-                      onClick={() => isEditing ? this.setState({edit_item: item.id}):""}
+                      onClick={() =>this.setState({edit_item: item.id})}
                     >
                       {isEditing ? <ItemForm item={item} fields={this.props.fields} onSave={onSave} onCancel={onCancel} /> : <AddItemName item={item} />}
                     </div>
