@@ -291,7 +291,7 @@ export class DemoSchedule extends React.Component <ISchaduleProps, ISchaduleStat
 				  <thead>
 					  <tr>
 						  <th style={{width: "2%"}}></th>
-						  {this.state.days.map((item, index)=><th style={{width: "14%"}}>{item}, {this.state.days[index]}</th>)}
+						  {this.state.days.map((item, index)=><th style={{width: "14%"}}>{item}, {this.props.days[index]}</th>)}
 					  </tr>
 				  </thead>
 				  <tbody>

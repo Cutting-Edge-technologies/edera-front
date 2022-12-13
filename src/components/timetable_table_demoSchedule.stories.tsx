@@ -7,7 +7,7 @@ export default {
   component: DemoSchedule
 } as ComponentMeta<typeof DemoSchedule>;
 
-const days: string[] = ['Mon','Tue', 'Wen', 'Thu', 'Fri', 'Sat', 'San' ];
+const days: string[] = ['15','16', '17', '18', '19', '20', '21' ];
 export const ScheduleNormalViewStory: ComponentStory<any> = () => {
   return (
     <DemoSchedule
