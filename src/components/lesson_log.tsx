@@ -1,12 +1,12 @@
 import React from "react";
 import { IHaveToken } from "../shared/typings";
 
-interface ILessonLogProps extends IHaveToken {
+export interface ILessonLogProps extends IHaveToken {
 	dt_from: any;
 	dt_to: any;
 }
 
-interface ILessonLogState {
+export interface ILessonLogState {
 	action: string;
 	order_by: string;
 	dt_from: any;
