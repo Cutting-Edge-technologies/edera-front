@@ -4,6 +4,9 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import { Starter } from './components/starter';
+import { ZoomAccount } from './HOC/zoom_account';
+import { dummieControls } from './components/dummieObj';
 
 // urlpatterns = [
 //   path('signup/', views.signup, name='signup'),
@@ -74,7 +77,7 @@ const router = createBrowserRouter([
     path: 'services/', element: (<>Services</>)
   },
   {
-    path: 'zoom_account/', element: (<>Zoom Account</>)
+    path: 'zoom_account/', element: (<ZoomAccount/>)
   },
   {
     path: 'pair_info/', element: (<>Pair Info</>)
@@ -126,8 +129,9 @@ const router = createBrowserRouter([
 function App() {
   return (
     <div className="App">
-      {/* <>Starter</> */}
-      <RouterProvider router={router}/>
+      <Starter controls={dummieControls}>
+        <RouterProvider router={router}/>
+      </Starter>
     </div>
   );
 }
