@@ -6,7 +6,18 @@ import {
 } from "react-router-dom";
 import { Starter } from './components/starter';
 import { ZoomAccount } from './HOC/zoom_account';
-import { dummieControls } from './components/dummieObj';
+import { controls, dummieControls } from './components/dummieObj';
+import { StudentsAndFamilies } from './HOC/studentsAndFamilies';
+import { TimeTable } from './HOC/timetable_table';
+import { PairStudents } from './HOC/pairStudents';
+import { CopyLesson } from './HOC/copyLesson';
+import { TimeZone } from './HOC/timeZone';
+import { PairsAndChats } from './HOC/pairsAndChats';
+import { Services } from './HOC/services';
+import { Mentors } from './HOC/mentors';
+import { Log } from './HOC/log';
+import { TeacherService } from './HOC/teacherService';
+import { StudentService } from './HOC/studentService';
 
 // urlpatterns = [
 //   path('signup/', views.signup, name='signup'),
@@ -50,22 +61,22 @@ import { dummieControls } from './components/dummieObj';
 
 const router = createBrowserRouter([
   {
-    path: 'manage/', element: (<>Manage</>)
+    path: 'manage/', element: (<PairStudents/>)
   },
   {
     path: 'lk/', element: (<>LK</>)
   },
   {
-    path: 'users/', element: (<>Users</>)
+    path: 'users/', element: (<StudentsAndFamilies/>)
   },
   {
-    path: 'mentors/', element: (<>Mentors</>)
+    path: 'mentors/', element: (<Mentors/>)
   },
   {
-    path: 'manage/copy/', element: (<>Manage/Copy</>)
+    path: 'manage/copy/', element: (<CopyLesson/>)
   },
   {
-    path: 'timetable/', element: (<>Timetable</>)
+    path: 'timetable/', element: (<TimeTable/>)
   },
   {
     path: 'teacher/', element: (<>Teacker</>)
@@ -74,16 +85,16 @@ const router = createBrowserRouter([
     path: 'teacher/timetable/', element: (<>Teacher Timetable</>)
   },
   {
-    path: 'services/', element: (<>Services</>)
+    path: 'services/', element: (<Services/>)
   },
   {
     path: 'zoom_account/', element: (<ZoomAccount/>)
   },
   {
-    path: 'pair_info/', element: (<>Pair Info</>)
+    path: 'pair_info/', element: (<PairsAndChats/>)
   },
   {
-    path: 'timezone/', element: (<>Timezone</>)
+    path: 'timezone/', element: (<TimeZone/>)
   },
   {
     path: 'activate/', element: (<>Activate</>)
@@ -101,13 +112,13 @@ const router = createBrowserRouter([
     path: 'log/init/', element: (<>LogInit</>)
   },
   {
-    path: 'log/', element: (<>Log</>)
+    path: 'log/', element: (<Log/>)
   },
   {
-    path: 'teacher/service/', element: (<>TeacherService</>)
+    path: 'teacher/service/', element: (<TeacherService/>)
   },
   {
-    path: 'student/service/', element: (<>StudentService</>)
+    path: 'student/service/', element: (<StudentService/>)
   },
   {
     path: 'items/<str:name>/', element: (<>Item</>)
@@ -129,7 +140,7 @@ const router = createBrowserRouter([
 function App() {
   return (
     <div className="App">
-      <Starter controls={dummieControls}>
+      <Starter controls={controls}>
         <RouterProvider router={router}/>
       </Starter>
     </div>
