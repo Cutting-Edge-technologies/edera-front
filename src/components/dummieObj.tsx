@@ -557,6 +557,98 @@ export const dummieControls: IControlDetails[] = [
     isActive: false
   },
 ]
+export const controls: IControlDetails[] = [
+  {
+    title: "Пары учеников",
+    controlType: ControlType.Button,
+    onClick: () => document.location.pathname = 'manage/',
+    isActive: false
+  },
+  {
+    title: "Ученики и семьи",
+    controlType: ControlType.Button,
+    onClick: () => document.location.pathname = 'users/',
+    isActive: false
+  },
+  {
+    title: "Расписание",
+    controlType: ControlType.DropDown,
+    options: [
+      {
+        title: "Обычное",
+        onClick: () => document.location.pathname = 'timetable/',
+      },
+      {
+        title: "Таблица",
+        onClick: () => document.location.pathname = 'timetable/',
+      }
+    ]
+  },
+  {
+    title: "Копировать",
+    controlType: ControlType.Button,
+    onClick: () => document.location.pathname = 'manage/copy/',
+    isActive: false
+  },
+  {
+    title: "Настройки",
+    controlType: ControlType.DropDown,
+    options: [
+      {
+        title: "Service",
+        onClick: () => document.location.pathname = 'services/',
+      },
+      {
+        title: "Zoom аккаунты",
+        onClick: () => document.location.pathname = 'zoom_account/',
+      },
+      {
+        title: "Тайм-зоны",
+        onClick: () => document.location.pathname = 'timezone/',
+      },
+      {
+        title: "Пары и чаты",
+        onClick: () => document.location.pathname = 'pair_info/',
+      },
+      {
+        title: "Менторы и менеджеры", 
+        onClick: () => document.location.pathname = 'mentors/',
+      },
+      {
+        title: "Лог создания и удаления",
+        onClick: () => document.location.pathname = 'log/',
+      },
+      {
+        title: "Currency",
+        onClick: () => document.location.pathname = 'pair_info/',
+      },
+      {
+        title: "Service Group",
+        onClick: () => document.location.pathname = 'pair_info/',
+      }
+    ]
+  },
+  {
+    title: "Finance",
+    controlType: ControlType.DropDown,
+    options: [
+      {
+        title: "Teacher service cost",
+        onClick: () => document.location.pathname = 'teacher/service/',
+      },
+      {
+        title: "Student service revenue",
+        onClick: () => document.location.pathname = 'student/service/',
+      }
+    ]
+  },
+  {
+    title: "Выйти",
+    controlType: ControlType.Button,
+    onClick: () => console.log("Выйти"),
+    isActive: false
+  },
+]
 
 export const dummieFelds: IField[] =[
   {
