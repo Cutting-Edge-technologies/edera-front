@@ -3,11 +3,8 @@ import { UserCopyLessons } from "./user_copy_lessons";
 import { dummieUsers} from "./dummieObj";
 
 export default {
-  title: 'Components/UserCopyLessons',
-  component: UserCopyLessons,
-  argTypes: {
-    backgroundColor: { control: 'color' },
-  },
+  title: 'PageStories/4 Copy Lessons',
+  component: UserCopyLessons
 } as ComponentMeta<typeof UserCopyLessons>;
 
 const dummieDubleNumberArray: number[][] = [
@@ -17,7 +14,7 @@ const dummieDubleNumberArray: number[][] = [
 ]
 
 
-export const ActivateStory: ComponentStory<any> = () => {
+export const CopyLessonsStory: ComponentStory<any> = () => {
   return (
     <UserCopyLessons
     token={""}

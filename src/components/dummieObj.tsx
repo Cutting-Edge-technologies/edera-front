@@ -2,12 +2,18 @@ import { IUser } from "./activate"
 import { IItem } from "./pair_info"
 import { IGroup, IService } from "./service"
 import { ICost, IServiceWithGroup, IStudentService } from "./student_service"
-import { ILesson, ISchaduleData} from "./timetable_table"
+import { ISchaduleData} from "./timetable_table"
 import { IUserInfoFamily, IUserInfoTeacher, IUserInfoUser } from "./user"
+import { ILesson, ILessonInfo } from "./lessonEditor"
+import { IAddUserChat, IAddUserPair, IAddUserUser } from "./user_manage"
+import { ControlType, IControlDetails } from "./starter"
+import { IField } from "./items_admin"
+import { IMentorManageItem } from "./mentors"
+
 
 export const dummieGroups: IGroup[] = [
   {
-    id: 11111111,
+    id: 1,
     name: `DummieGroup1`
   },
   {
@@ -168,12 +174,41 @@ export const dummieStudentService: IStudentService[] = [
   },
 ]
 
+export const dummieLessonInfo: ILessonInfo[] =
+[
+  {
+    start: "10.05",
+    end: "12.05",
+    name: "John",
+    break: "15",
+    duration_cost: "128",
+    repeat: "1",
+    id: 900,
+    tz_name: "Moscov",
+    teacher: "Liza",
+    notification: "Send"
+  },
+  {
+    start: "20.02",
+    end: "25.02",
+    name: "Down",
+    break: "30",
+    duration_cost: "894",
+    repeat: "0",
+    id: 50,
+    tz_name: "London",
+    teacher: "John",
+    notification: ""
+  }
+
+]
+
 export const dummieLesson: ILesson = {
   id:22,
   pair_id: 33,
-  info: 'aaa',
+  info: dummieLessonInfo[0],
   name: 'bbb',
-  old_info: 'ccc',
+  old_info: dummieLessonInfo[1],
   repeat: 'ddd',
   break_duration:"eee",
   break_start:"fff",
@@ -348,4 +383,209 @@ export const dummieUserInfoUsers: IUserInfoUser[] = [
       tg: "@Po",
       color: "green"
       },
+]
+
+export const dummieAddUserChats: IAddUserChat[] = [
+  {
+    chat: {
+      id:55
+    },
+    date: "15-42-2086",
+    pair: {
+      id:89
+    },
+    text: "Loren Ipsum foreve fun"
+  },
+  {
+    chat: {
+      id:110
+    },
+    date: "1198-55-62",
+    pair: {
+      id:65080
+    },
+    text: "John Down like to noir"
+  },
+  {
+    chat: {
+      id:2
+    },
+    date: "1945-02-31",
+    pair: {
+      id:99
+    },
+    text: "It rains often"
+  },
+]
+
+export const dummieAddUserPairs: IAddUserPair[] = [
+  {
+    chat_id: 154,
+    pair_id: 568,
+    user_id: 5,
+    student: 66,
+    teacher: 7,
+    name: "John Dow"
+  },
+  {
+    chat_id: 99,
+    pair_id: 2,
+    user_id: 8995,
+    student: 25,
+    teacher: 789,
+    name: "Liza Up Said"
+  },
+  {
+    chat_id: 2556,
+    pair_id: 5638,
+    user_id: 75,
+    student: 36,
+    teacher: 12,
+    name: "Loreb next to door"
+  }
+]
+
+export const dummieAddUserUsers: IAddUserUser[] = [
+  {
+    user_id: 156,
+    tg: 875,
+    modal: false,
+    name: "Loren Betwen",
+    role: "student"
+  },
+  {
+    user_id: 66,
+    tg: 7852,
+    modal: true,
+    name: "Laura of top",
+    role: "teacher"
+  },
+  {
+    user_id: 2,
+    tg: 63,
+    modal: false,
+    name: "John Olh",
+    role: "manager"
+  }
+]
+
+export const dummieControls: IControlDetails[] = [
+  {
+    title: "Пары учеников",
+    controlType: ControlType.Button,
+    onClick: () => console.log("Пары учеников"),
+    isActive: false
+  },
+  {
+    title: "Ученики и семьи",
+    controlType: ControlType.Button,
+    onClick: () => console.log("Ученики и семьи"),
+    isActive: false
+  },
+  {
+    title: "Расписание",
+    controlType: ControlType.DropDown,
+    options: [
+      {
+        title: "Обычное",
+        onClick: () => console.log("Обычное")
+      },
+      {
+        title: "Таблица",
+        onClick: () => console.log("Таблица")
+      }
+    ]
+  },
+  {
+    title: "Копировать",
+    controlType: ControlType.Button,
+    onClick: () => console.log("Копировать"),
+    isActive: false
+  },
+  {
+    title: "Настройки",
+    controlType: ControlType.DropDown,
+    options: [
+      {
+        title: "Zoom аккаунты",
+        onClick: () => console.log("Zoom аккаунты")
+      },
+      {
+        title: "Тайм-зоны",
+        onClick: () => console.log("Тайм-зоны")
+      },
+      {
+        title: "Пары и чаты",
+        onClick: () => console.log("Пары и чаты")
+      },
+      {
+        title: "Менторы и менеджеры",
+        onClick: () => console.log("Менторы и менеджеры")
+      },
+      {
+        title: "Лог создания и удаления",
+        onClick: () => console.log("Лог создания и удаления")
+      },
+      {
+        title: "Currency",
+        onClick: () => console.log("Currency")
+      },
+      {
+        title: "Service Group",
+        onClick: () => console.log("Service Group")
+      }
+    ]
+  },
+  {
+    title: "Finance",
+    controlType: ControlType.DropDown,
+    options: [
+      {
+        title: "Teacher service cost",
+        onClick: () => console.log("Teacher service cost")
+      },
+      {
+        title: "Student service revenue",
+        onClick: () => console.log("Student service revenue")
+      }
+    ]
+  },
+  {
+    title: "Выйти",
+    controlType: ControlType.Button,
+    onClick: () => console.log("Выйти"),
+    isActive: false
+  },
+]
+
+export const dummieFelds: IField[] =[
+  {
+    label: "Example Label 1",
+    name: "Example Name 1",
+    typ: "number"
+  },
+  {
+    label: "Example Label 2",
+    name: "Example Name 2",
+    typ: "number"
+  },
+]
+
+export const dummieMentorManageItems: IMentorManageItem[] =[
+  {
+    id:15,
+    name: "John",
+    tg: "johnTG",
+    manager: 42
+  },
+  {
+    id:45,
+    name: "Down",
+    tg: "DownTeG",
+  },
+  {
+    id:99,
+    name: "Loren",
+    tg: "ipsumTg"
+  }
 ]
