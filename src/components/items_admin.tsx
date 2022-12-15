@@ -4,7 +4,7 @@ import { IHaveToken } from "../shared/typings";
 interface IItemsManageProps extends IHaveToken {
     items: IItem[];
     fields: IField[];
-    desc: any;
+    desc: {name:string};
 }
 
 interface IItemsManageState {
@@ -17,7 +17,7 @@ interface IItem {
   name: string;
 }
 
-interface IField {
+export interface IField {
   label: string;
   name: string;
   typ: React.HTMLInputTypeAttribute | undefined;
@@ -129,7 +129,7 @@ export class ItemsManage extends React.Component<IItemsManageProps, IItemsManage
                   return (
                     <div
                       className={isEditing ? "element-card selected" : "element-card"}
-                      onClick={() => isEditing ? this.setState({edit_item: item.id}):""}
+                      onClick={() =>this.setState({edit_item: item.id})}
                     >
                       {isEditing ? <ItemForm item={item} fields={this.props.fields} onSave={onSave} onCancel={onCancel} /> : <AddItemName item={item} />}
                     </div>

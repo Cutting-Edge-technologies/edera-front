@@ -3,15 +3,12 @@ import { DemoSchedule } from "./timetable_table";
 import { dummieServices, dummieGroups, dummieStrinds, dummieSchaduleData  } from "./dummieObj";
 
 export default {
-  title: 'Components/DemoSchedule',
-  component: DemoSchedule,
-  argTypes: {
-    backgroundColor: { control: 'color' },
-  },
+  title: 'PageStories/3 Schedule',
+  component: DemoSchedule
 } as ComponentMeta<typeof DemoSchedule>;
 
-
-export const ActivateStory: ComponentStory<any> = () => {
+const days: string[] = ['15','16', '17', '18', '19', '20', '21' ];
+export const Schedule_Table_View_Story: ComponentStory<any> = () => {
   return (
     <DemoSchedule
     token={""}
@@ -20,7 +17,7 @@ export const ActivateStory: ComponentStory<any> = () => {
     students = {dummieGroups}
     teachers = {dummieGroups}
     currentDate= "22-55-1988"
-    days={dummieStrinds}
+    days={days}
     responsibles = {dummieStrinds}
     zooms = {dummieGroups}
     appointments = {dummieSchaduleData}
