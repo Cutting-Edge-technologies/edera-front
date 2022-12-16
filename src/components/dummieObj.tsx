@@ -620,11 +620,11 @@ export const controls: IControlDetails[] = [
       },
       {
         title: "Currency",
-        onClick: () => document.location.pathname = 'pair_info/',
+        onClick: () => document.location.pathname = 'items/currency/',
       },
       {
         title: "Service Group",
-        onClick: () => document.location.pathname = 'pair_info/',
+        onClick: () => document.location.pathname = 'items/servicegroup/',
       }
     ]
   },
