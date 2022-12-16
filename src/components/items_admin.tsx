@@ -1,18 +1,18 @@
 import React from "react";
 import { IHaveToken } from "../shared/typings";
 
-interface IItemsManageProps extends IHaveToken {
+export interface IItemsManageProps extends IHaveToken {
     items: IItem[];
     fields: IField[];
     desc: {name:string};
 }
 
-interface IItemsManageState {
+export interface IItemsManageState {
     items: IItem[];
     edit_item: number;
 }
 
-interface IItem {
+export interface IItem {
   id: number;
   name: string;
 }
@@ -22,14 +22,14 @@ export interface IField {
   name: string;
   typ: React.HTMLInputTypeAttribute | undefined;
 }
-interface IItemFormProps {
+export interface IItemFormProps {
   item: IItem;
   fields: IField[];
   onSave: () => any;
   onCancel: () => any;
 }
 
-const ItemForm: React.FC<IItemFormProps> = ({item, fields, onSave, onCancel}) => {
+export const ItemForm: React.FC<IItemFormProps> = ({item, fields, onSave, onCancel}) => {
   return (
     <form id="edit_item">
       <div className="row">
@@ -56,11 +56,11 @@ const ItemForm: React.FC<IItemFormProps> = ({item, fields, onSave, onCancel}) =>
   )
 }
 
-interface IHaveItem {
+export interface IHaveItem {
   item: IItem;
 }
 
-const AddItemName: React.FC<IHaveItem> = ({item}) => {
+export const AddItemName: React.FC<IHaveItem> = ({item}) => {
   const hasNoId = item.id===0;
   return (
     <div>
