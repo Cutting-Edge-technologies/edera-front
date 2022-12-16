@@ -18,6 +18,8 @@ import { Mentors } from './HOC/mentors';
 import { Log } from './HOC/log';
 import { TeacherService } from './HOC/teacherService';
 import { StudentService } from './HOC/studentService';
+import { Currency } from './HOC/currency';
+import { ServiceGroups } from './HOC/serviceGroup';
 
 // urlpatterns = [
 //   path('signup/', views.signup, name='signup'),
@@ -121,7 +123,10 @@ const router = createBrowserRouter([
     path: 'student/service/', element: (<StudentService/>)
   },
   {
-    path: 'items/<str:name>/', element: (<>Item</>)
+    path: 'items/currency/', element: (<Currency/>)
+  },
+  {
+    path: 'items/servicegroup/', element: (<ServiceGroups/>)
   },
   {
     path: 'signup/', element: (<>signup</>)
