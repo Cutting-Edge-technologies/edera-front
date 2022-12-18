@@ -14,13 +14,15 @@ export abstract class CommonHOC<Props, State> extends React.Component<{}, State>
   }
 }
 
-export abstract class  CommonHOCWrapper<Props> extends React.Component<any, Props | {}>{
-  abstract fethInitialProps: ()=> Promise<Props>;
-  public abstract RenderComponent: typeof React.Component<Props, any>;
+export type CommandPropsMap = { [key: string]: (...args: any[]) => void };
+
+export abstract class  CommonHOCWrapper<DataProps, CommandProps extends CommandPropsMap> extends React.Component<any, DataProps | {}>{
+  abstract fethInitialProps: ()=> Promise<DataProps>;
+  public abstract RenderComponent: typeof React.Component<DataProps, any>;
 
   constructor() {
     super({});
-    this.state = {};
+    this.state = undefined as DataProps;
   }
 
   componentDidMount(): void {
@@ -29,15 +31,17 @@ export abstract class  CommonHOCWrapper<Props> extends React.Component<any, Prop
       this.setState(initialData)
     });
   }
+
+  abstract correspondingUrl: string;
+
+  abstract commandProps: CommandProps;
   
   render() {
-    const Component = this.RenderComponent as any;
+    const Component = this.RenderComponent;
     const haveRecievedInitialData = !!Object.keys(this.state).length;
 
-    console.log(this.state);
-
     return haveRecievedInitialData ? (
-      <Component {...this.state} />
+      <Component {...this.state as any} />
     ) : (<></>)
   }
 }

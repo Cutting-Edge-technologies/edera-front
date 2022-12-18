@@ -4,7 +4,7 @@ import { dummieDubleNumberArray } from "../components/dummieObj";
 import { CommonHOCWrapper } from "../shared/commonHOC";
 
 
-export class CopyLesson extends CommonHOCWrapper<IUserCopyLessonsProps> {
+export class CopyLesson extends CommonHOCWrapper<IUserCopyLessonsProps, {}> {
   fethInitialProps = async () => {
     const initialData: IUserCopyLessonsProps = {
       token: '',
@@ -16,4 +16,6 @@ export class CopyLesson extends CommonHOCWrapper<IUserCopyLessonsProps> {
   };
 
   RenderComponent = UserCopyLessons;
+  correspondingUrl = '';
+  commandProps = {};
 }
