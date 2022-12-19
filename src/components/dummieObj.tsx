@@ -9,6 +9,7 @@ import { IAddUserChat, IAddUserPair, IAddUserUser } from "./user_manage"
 import { ControlType, IControlDetails } from "./starter"
 import { IField } from "./items_admin"
 import { IMentorManageItem } from "./mentors"
+import { IForm } from "./signUp"
 
 
 export const dummieGroups: IGroup[] = [
@@ -687,3 +688,19 @@ export const dummieDubleNumberArray: number[][] = [
   [5,6,7,8],
   [9,10,11,12]
 ]
+
+export const dummieForm: IForm = {
+  errors: [],
+  username: {
+    name: "string",
+    errors: [],
+  },
+  password1: {
+    password1: "string2",
+    errors: [],
+  },
+  password2: {
+    password2: "string3",
+    errors: [],
+  },
+}
