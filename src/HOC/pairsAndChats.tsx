@@ -4,6 +4,7 @@ import { CommonHOCWrapper } from "../shared/commonHOC";
 
 
 export class PairsAndChats extends CommonHOCWrapper<IItemsManageProps> {
+  correspondingUrl = 'pair_info/';
   fethInitialProps = async () => {
     const initialData: IItemsManageProps = {
       items: dummieItems,

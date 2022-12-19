@@ -4,6 +4,7 @@ import { CommonHOCWrapper } from "../shared/commonHOC";
 
 
 export class Currency extends CommonHOCWrapper<IItemsManageProps> {
+  correspondingUrl = 'items/currency/';
   fethInitialProps = async () => {
     const initialData: IItemsManageProps = {
       token: '',

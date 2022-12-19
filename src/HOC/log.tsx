@@ -3,6 +3,7 @@ import { CommonHOCWrapper } from "../shared/commonHOC";
 
 
 export class Log extends CommonHOCWrapper<ILessonLogProps> {
+  correspondingUrl = 'log/';
   fethInitialProps = async () => {
     const initialData: ILessonLogProps = {
       token: '',

@@ -5,6 +5,7 @@ import { CommonHOCWrapper } from "../shared/commonHOC";
 
 
 export class CopyLesson extends CommonHOCWrapper<IUserCopyLessonsProps> {
+  correspondingUrl = 'manage/copy/';
   fethInitialProps = async () => {
     const initialData: IUserCopyLessonsProps = {
       token: '',

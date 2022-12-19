@@ -5,6 +5,7 @@ import { CommonHOCWrapper } from "../shared/commonHOC";
 
 
 export class TimeZone extends CommonHOCWrapper<IItemsManageProps> {
+  correspondingUrl = 'timezone/';
   fethInitialProps = async () => {
     const initialData: IItemsManageProps = {
       items: dummieItems,

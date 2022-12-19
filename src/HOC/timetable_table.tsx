@@ -3,6 +3,7 @@ import { DemoSchedule, ISchaduleProps } from "../components/timetable_table";
 import { CommonHOCWrapper } from "../shared/commonHOC";
 
 export class TimeTable extends CommonHOCWrapper<ISchaduleProps> {
+  correspondingUrl = 'timetable/';
   fethInitialProps = async () => {
     const initialData: ISchaduleProps = {
       token: '',

@@ -4,6 +4,7 @@ import { CommonHOCWrapper } from "../shared/commonHOC";
 
 
 export class ServiceGroups extends CommonHOCWrapper<IItemsManageProps> {
+  correspondingUrl = 'items/servicegroup/';
   fethInitialProps = async () => {
     const initialData: IItemsManageProps = {
       token: '',

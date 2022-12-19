@@ -5,6 +5,7 @@ import { CommonHOCWrapper } from "../shared/commonHOC";
 
 
 export class Services extends CommonHOCWrapper<IServiceProps> {
+  correspondingUrl = 'services/';
   fethInitialProps = async () => {
     const initialData: IServiceProps = {
       token: '',

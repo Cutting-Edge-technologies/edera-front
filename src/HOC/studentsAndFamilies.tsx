@@ -3,6 +3,7 @@ import { IUserInfoProps, UserInfo } from "../components/user";
 import { dummieGroups, dummieUserInfoFamilies, dummieUserInfoTeachers, dummieUserInfoUsers } from "../components/dummieObj";
 
 export class StudentsAndFamilies extends CommonHOCWrapper<IUserInfoProps> {
+  correspondingUrl = 'users/';
   fethInitialProps = async () => {
     const initialData: IUserInfoProps = {
       token: "",
