@@ -29,6 +29,8 @@ export abstract class  CommonHOCWrapper<Props> extends React.Component<any, Prop
       this.setState(initialData)
     });
   }
+
+  abstract correspondingUrl: string;
   
   render() {
     const Component = this.RenderComponent as any;
