@@ -29,12 +29,14 @@ export class ItemsManage extends React.Component <IItemsManageProps, IItemsManag
   }
 
   render() {
+    const items = this.state.items.slice();
+    items.push({id:0, name:'', account_id:'', client_id:'', client_secret:'', chat_id:"", hours:0});
     return (
       <div className="container">
         <div className="row">
           <div className="col-12">
             <h2>Zoom аккаунты</h2>
-            {this.props.items.map((item, index) =>
+            {items.map((item, index) =>
               <div
                 className={item.id === this.state.edit_item ? "element-card selected" : "element-card"}
                 onClick={() => item.id !== this.state.edit_item ? this.setState({edit_item: item.id}):""}

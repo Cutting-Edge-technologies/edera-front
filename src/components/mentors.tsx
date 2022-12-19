@@ -8,7 +8,7 @@ export interface IMentorManageItem {
     manager?: number;
 }
 
-interface IItemsManageState {
+export interface IItemsManageState {
     items: IMentorManageItem[];
 	managers: IMentorManageItem[]
     edit_item: number;
@@ -16,7 +16,7 @@ interface IItemsManageState {
 	n: number;
 }
 
-interface IItemsManageProps extends IHaveToken {
+export interface IItemsManageProps extends IHaveToken {
     items: IMentorManageItem[];
     managers: IMentorManageItem[];
 }

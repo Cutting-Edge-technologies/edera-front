@@ -1,4 +1,5 @@
 import React from "react";
+import { PropsWithChildren } from "react";
 import { ButtonControl } from "./ButtonControl";
 import {DropdownControl } from "./DropdownControl";
 
@@ -21,13 +22,14 @@ export interface IControlDetails {
   isActive?: boolean;
 }
 
-export interface IStarterProps {
-  controls: IControlDetails[]
+export interface IStarterProps extends PropsWithChildren {
+  controls: IControlDetails[];
 }
 
-export const Starter: React.FC<IStarterProps> = ({controls}) => {
+export const Starter: React.FC<IStarterProps> = ({controls, children}) => {
   return (
-    <div className="navbar">
+    <>
+      <div className="navbar">
       {
         controls.map((control)=> {
           if (control.controlType === ControlType.Button){
@@ -37,6 +39,9 @@ export const Starter: React.FC<IStarterProps> = ({controls}) => {
           }        
         })
       }
-    </div>
+      </div>
+      {children}
+    </>
+    
   )
 }
