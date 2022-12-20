@@ -1,14 +1,14 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { SingUp } from "./signUp";
+import { SignUp } from "./signUp";
 import { dummieForm } from "./dummieObj";
 
 export default {
   title: 'Components/SingUp',
-  component: SingUp
-} as ComponentMeta<typeof SingUp>;
+  component: SignUp
+} as ComponentMeta<typeof SignUp>;
 
-export const SingUpStory: ComponentStory<any> = () => {
+export const SignUpStory: ComponentStory<any> = () => {
   return (
-    <SingUp crf_token="" form={dummieForm} signUp={()=>console.log("submit")} />
+    <SignUp crf_token="" form={dummieForm} signUp={()=>console.log("submit")} />
   )
 }
