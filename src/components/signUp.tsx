@@ -1,7 +1,4 @@
-import { string } from "prop-types";
 import React from "react";
-import { InputGroupText } from "reactstrap";
-import { IHaveToken } from "../shared/typings";
 
 export interface IForm {
   errors: string[];
@@ -31,7 +28,7 @@ export interface ISingUpState {
   password2: string;
 }
 
- export class SingUp extends React.Component <ISingUpProps, ISingUpState> {
+ export class SignUp extends React.Component <ISingUpProps, ISingUpState> {
   constructor(props: ISingUpProps) {
     super(props);
     this.state = 
@@ -50,11 +47,13 @@ export interface ISingUpState {
           <div className="form-group">
             <>
               <label>Email</label>
-              { !!this.props.form.username.errors.length?
+              { (!!this.props.form.username.errors.length)?
                 <div className="invalid-feedback">
                   Данный email уже занят.
-                </div>: (<input type="text" onChange={(e)=>{e.target.value}}/>)
-              //value={form.username.name} 
+                  </div>: <input type="text" onChange={(e)=>{
+                  this.setState({name:e.target.value});
+                  return(e.target.value)}
+                }/>
               }
             </>
           </div>
@@ -65,8 +64,10 @@ export interface ISingUpState {
                 <div className="invalid-feedback">
                   Пароль должен:
                   {this.props.form.password1.errors}
-                </div>: (<input type="password" onChange={(e)=>{e.target.value}}/>)
-                //<>{form.password1.password1}</>)
+                </div>: (<input type="password" onChange={(e)=>{
+                  this.setState({password1:e.target.value});
+                  return(e.target.value);
+                }}/>)
               }
             </>
           </div>
@@ -75,9 +76,11 @@ export interface ISingUpState {
               <label>Повторите пароль</label>
               {!!this.props.form.password2.errors.length?
                 <div className="invalid-feedback">
-                  {this.props.form.password2.errors}
-                </div>: (<input type="password" onChange={(e)=>{e.target.value}}/>)
-                //<>{form.password2.password2}</>
+                {this.props.form.password2.errors}
+                </div>: <input type="password" onChange={(e)=>{
+                  this.setState({password2:e.target.value});
+                  return(e.target.value)}
+                }/>
               }
             </>
           </div>
@@ -98,7 +101,6 @@ export interface ISingUpState {
            </div>
           {this.props.form.errors}
           <button onClick={this.props.signUp} className = "btn btn-lg btn-info">Sign up</button>
-          <button onClick={()=>console.log(name)}>Sign up info</button>
         </form>
       </div>
     )
