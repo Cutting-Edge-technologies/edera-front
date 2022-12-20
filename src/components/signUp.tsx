@@ -40,17 +40,17 @@ export interface ISingUpState {
   }
   render(): React.ReactNode {
     return (
-      <div>
+      <div className = "card mx-auto" max-width = "500px" margin-top = "50px">
         <h2>Sign up</h2>
         <form>
           { this.props.csrf_token }
-          <div className="form-group">
+          <div className="form-group" >
             <>
               <label>Email</label>
               { (!!this.props.form.username.errors.length)?
                 <div className="invalid-feedback">
                   Данный email уже занят.
-                  </div>: <input type="text" onChange={(e)=>{
+                  </div>: <input  className="form-control" type="text" onChange={(e)=>{
                   this.setState({name:e.target.value});
                   return(e.target.value)}
                 }/>
@@ -64,7 +64,7 @@ export interface ISingUpState {
                 <div className="invalid-feedback">
                   Пароль должен:
                   {this.props.form.password1.errors}
-                </div>: (<input type="password" onChange={(e)=>{
+                </div>: (<input  className="form-control" type="password" onChange={(e)=>{
                   this.setState({password1:e.target.value});
                   return(e.target.value);
                 }}/>)
@@ -77,7 +77,7 @@ export interface ISingUpState {
               {!!this.props.form.password2.errors.length?
                 <div className="invalid-feedback">
                 {this.props.form.password2.errors}
-                </div>: <input type="password" onChange={(e)=>{
+                </div>: <input  className="form-control" type="password" onChange={(e)=>{
                   this.setState({password2:e.target.value});
                   return(e.target.value)}
                 }/>
@@ -93,7 +93,7 @@ export interface ISingUpState {
           </div>
           <div className="form-group">
             <label>Code</label>
-            <input name="code" type="password" className="" placeholder="for admin"/>
+            <input  name="code" type="password"  className="form-control" placeholder="for admin"/>
             { !!this.props.form.username.errors.length&&
             <div className="invalid-feedback">
               Данный email уже занят.
