@@ -9,6 +9,6 @@ export default {
 
 export const SignUpStory: ComponentStory<any> = () => {
   return (
-    <SignUp crf_token="" form={dummieForm} signUp={()=>console.log("submit")} />
+    <SignUp csrf_token="" form={dummieForm} signUp={()=>console.log("submit")} />
   )
 }
