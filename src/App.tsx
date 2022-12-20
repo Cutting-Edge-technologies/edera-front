@@ -21,6 +21,7 @@ import { StudentService } from './HOC/studentService';
 import { Currency } from './HOC/currency';
 import { ServiceGroups } from './HOC/serviceGroup';
 import { SingUpHOC } from './HOC/signUp';
+import { LogInHOC } from './HOC/logIn';
 
 // urlpatterns = [
 //   path('signup/', views.signup, name='signup'),
@@ -63,6 +64,9 @@ import { SingUpHOC } from './HOC/signUp';
 // ]
 
 const router = createBrowserRouter([
+  {
+    path: 'login/', element: (<LogInHOC/>)
+  },
   {
     path: 'manage/', element: (<PairStudents/>)
   },
