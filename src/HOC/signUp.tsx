@@ -8,7 +8,7 @@ export class SingUpHOC extends CommonHOCWrapper<ISingUpProps> {
   correspondingUrl = 'signup/';
   fethInitialProps = async () => {
     const initialData: ISingUpProps = {
-      crf_token: "",
+      csrf_token: "",
       form: dummieForm,
       signUp: ()=>console.log("SignUp")
     }

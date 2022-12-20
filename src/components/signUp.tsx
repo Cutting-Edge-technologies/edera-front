@@ -17,7 +17,7 @@ export interface IForm {
 }
 
 export interface ISingUpProps{
-  crf_token: string;
+  csrf_token: string;
   signUp: () => void;
   form: IForm;
 }
@@ -43,7 +43,7 @@ export interface ISingUpState {
       <div>
         <h2>Sign up</h2>
         <form>
-          { this.props.crf_token }
+          { this.props.csrf_token }
           <div className="form-group">
             <>
               <label>Email</label>
