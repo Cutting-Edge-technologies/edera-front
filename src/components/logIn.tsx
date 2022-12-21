@@ -23,7 +23,7 @@ export interface ILogInState {
   }
   render(): React.ReactNode {
     return (
-      <div className = "card mx-auto" max-width = "500px" margin-top = "50px">
+      <div className = "card mx-auto" style={{ maxWidth:"500px", marginTop:"50px", padding:"20px"}}>
         <div className="card-body">
           <form method="post" className="form-signin" action="{ url 'login' }">
 			      { this.props.csrf_token }

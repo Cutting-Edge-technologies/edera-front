@@ -40,7 +40,7 @@ export interface ISingUpState {
   }
   render(): React.ReactNode {
     return (
-      <div className = "card mx-auto" max-width = "500px" margin-top = "50px">
+      <div className = "card mx-auto" style={{ maxWidth:"500px", marginTop:"50px", padding:"20px"}}>
         <h2>Sign up</h2>
         <form>
           { this.props.csrf_token }
