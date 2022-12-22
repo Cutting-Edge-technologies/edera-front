@@ -561,13 +561,13 @@ export const controls: IControlDetails[] = [
   {
     title: "Пары учеников",
     controlType: ControlType.Button,
-    onClick: () => document.location.pathname = 'manage/',
+    onClick: (navigate) =>  navigate('manage/'),
     isActive: false
   },
   {
     title: "Ученики и семьи",
     controlType: ControlType.Button,
-    onClick: () => document.location.pathname = 'users/',
+    onClick: (navigate) =>  navigate('users/'),
     isActive: false
   },
   {
@@ -576,18 +576,18 @@ export const controls: IControlDetails[] = [
     options: [
       {
         title: "Обычное",
-        onClick: () => document.location.pathname = 'timetable/',
+        onClick: (navigate) =>  navigate('timetable/'),
       },
       {
         title: "Таблица",
-        onClick: () => document.location.pathname = 'timetable/',
+        onClick: (navigate) =>  navigate('timetable/'),
       }
     ]
   },
   {
     title: "Копировать",
     controlType: ControlType.Button,
-    onClick: () => document.location.pathname = 'manage/copy/',
+    onClick: (navigate) =>  navigate('manage/copy/'),
     isActive: false
   },
   {
@@ -596,35 +596,35 @@ export const controls: IControlDetails[] = [
     options: [
       {
         title: "Service",
-        onClick: () => document.location.pathname = 'services/',
+        onClick: (navigate) =>  navigate('services/'),
       },
       {
         title: "Zoom аккаунты",
-        onClick: () => document.location.pathname = 'zoom_account/',
+        onClick: (navigate) =>  navigate('zoom_account/'),
       },
       {
         title: "Тайм-зоны",
-        onClick: () => document.location.pathname = 'timezone/',
+        onClick: (navigate) =>  navigate('timezone/'),
       },
       {
         title: "Пары и чаты",
-        onClick: () => document.location.pathname = 'pair_info/',
+        onClick: (navigate) =>  navigate('pair_info/'),
       },
       {
         title: "Менторы и менеджеры", 
-        onClick: () => document.location.pathname = 'mentors/',
+        onClick: (navigate) =>  navigate('mentors/'),
       },
       {
         title: "Лог создания и удаления",
-        onClick: () => document.location.pathname = 'log/',
+        onClick: (navigate) =>  navigate('log/'),
       },
       {
         title: "Currency",
-        onClick: () => document.location.pathname = 'items/currency/',
+        onClick: (navigate) =>  navigate('items/currency/'),
       },
       {
         title: "Service Group",
-        onClick: () => document.location.pathname = 'items/servicegroup/',
+        onClick: (navigate) =>  navigate('items/servicegroup/'),
       }
     ]
   },
@@ -634,11 +634,11 @@ export const controls: IControlDetails[] = [
     options: [
       {
         title: "Teacher service cost",
-        onClick: () => document.location.pathname = 'teacher/service/',
+        onClick: (navigate) =>  navigate('teacher/service/'),
       },
       {
         title: "Student service revenue",
-        onClick: () => document.location.pathname = 'student/service/',
+        onClick: (navigate) =>  navigate('student/service/'),
       }
     ]
   },

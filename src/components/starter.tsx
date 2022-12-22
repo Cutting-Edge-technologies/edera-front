@@ -1,5 +1,6 @@
 import React from "react";
 import { PropsWithChildren } from "react";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 import { ButtonControl } from "./ButtonControl";
 import {DropdownControl } from "./DropdownControl";
 
@@ -11,12 +12,12 @@ export enum ControlType {
 
 export interface IDropDowmOption {
   title: string;
-  onClick: () => void;
+  onClick: (navigate:NavigateFunction) => void;
 }
 
 export interface IControlDetails {
   title: string;
-  onClick?: () => void;
+  onClick?: (navigate:NavigateFunction) => void;
   controlType: ControlType;
   options?: IDropDowmOption[];
   isActive?: boolean;
@@ -27,13 +28,14 @@ export interface IStarterProps extends PropsWithChildren {
 }
 
 export const Starter: React.FC<IStarterProps> = ({controls, children}) => {
+  const navigate = useNavigate();
   return (
     <>
       <div className="navbar">
       {
         controls.map((control)=> {
           if (control.controlType === ControlType.Button){
-            return <ButtonControl title={control.title} onClick={control.onClick||(()=>console.log("NOOOO"))} isActive={control.isActive||true}/>
+            return <ButtonControl title={control.title} onClick={()=>control.onClick && control.onClick(navigate)} isActive={control.isActive||true}/>
           } else {
             return <DropdownControl title={control.title} isActive={control.isActive||true} options={control.options||[]}/>
           }        

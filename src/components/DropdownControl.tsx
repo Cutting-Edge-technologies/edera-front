@@ -1,5 +1,6 @@
 
 import Dropdown from "react-bootstrap/Dropdown";
+import { useNavigate } from "react-router-dom";
 import { IDropDowmOption } from "./starter";
 
 export interface IDropdownControlProps {
@@ -9,6 +10,7 @@ export interface IDropdownControlProps {
 }
 
 export const DropdownControl: React.FC<IDropdownControlProps> = ({title, options, isActive}) => {
+  const navigate = useNavigate();
   return (
     <Dropdown>
     <Dropdown.Toggle variant="succefull">
@@ -18,7 +20,7 @@ export const DropdownControl: React.FC<IDropdownControlProps> = ({title, options
     <Dropdown.Menu>
     {options.map((option) => {
       return(
-        <Dropdown.Item onClick={option.onClick}>{option.title}</Dropdown.Item>
+        <Dropdown.Item  onClick={()=>option.onClick && option.onClick(navigate)}>{option.title}</Dropdown.Item>
       )})}
     </Dropdown.Menu>
   </Dropdown>
