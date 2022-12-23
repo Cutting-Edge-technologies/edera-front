@@ -1,15 +1,15 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import {DropdownControl } from "./DropdownControl";
-import { dummieControls } from "./dummieObj";
+import { controls } from "./dummieObj";
 
 export default {
   title: 'Components/DropdownControl',
   component: DropdownControl
 } as ComponentMeta<typeof DropdownControl>;
 
-const title = dummieControls[2].title;
-const options = dummieControls[2].options || [{onClick:()=>console.log("AAAA"), title:"AAAA"}, {onClick:()=>console.log("NOOOO"), title:"NOOO"}];
-const isActive = dummieControls[2].isActive || true;
+const title = controls[2].title;
+const options = controls[2].options || [{reference:"manage/", title:"NOOO"}];
+const isActive = controls[2].isActive || true;
 
 export const DropdownControlStory: ComponentStory<any> = () => {
   

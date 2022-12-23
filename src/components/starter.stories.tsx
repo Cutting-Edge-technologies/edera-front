@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import {Starter } from "./starter";
-import { dummieControls } from "./dummieObj";
+import { controls } from "./dummieObj";
 
 export default {
   title: 'Components/StarterOther',
@@ -9,6 +9,6 @@ export default {
 
 export const StarterOtherStory: ComponentStory<any> = () => {
   return (
-    <Starter controls={dummieControls}/>
+    <Starter controls={controls}/>
   )
 }
