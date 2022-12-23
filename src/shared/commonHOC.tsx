@@ -14,6 +14,9 @@ export abstract class CommonHOC<Props, State> extends React.Component<{}, State>
   }
 }
 
+
+export const hostName = "http://127.0.0.1:8000/";
+
 export abstract class  CommonHOCWrapper<Props> extends React.Component<any, Props | {}>{
   abstract fethInitialProps: ()=> Promise<Props>;
   public abstract RenderComponent: typeof React.Component<Props, any>;
