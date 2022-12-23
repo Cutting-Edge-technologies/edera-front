@@ -1,13 +1,15 @@
+import { Link } from "react-router-dom";
+
 export interface IButtonControlProps {
   title: string;
-  onClick: () => void;
+  reference?: string;
   isActive: boolean;
 }
 
-export const ButtonControl: React.FC<IButtonControlProps> = ({title, onClick, isActive}) => {
+export const ButtonControl: React.FC<IButtonControlProps> = ({title, reference, isActive}) => {
   return (
-    <button onClick={onClick} disabled={!isActive}> 
+    <Link to={ reference || '' }> 
       {title}
-    </button>
+    </Link>
   )
 }

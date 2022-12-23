@@ -469,105 +469,17 @@ export const dummieAddUserUsers: IAddUserUser[] = [
   }
 ]
 
-export const dummieControls: IControlDetails[] = [
-  {
-    title: "Пары учеников",
-    controlType: ControlType.Button,
-    onClick: () => console.log("Пары учеников"),
-    isActive: false
-  },
-  {
-    title: "Ученики и семьи",
-    controlType: ControlType.Button,
-    onClick: () => console.log("Ученики и семьи"),
-    isActive: false
-  },
-  {
-    title: "Расписание",
-    controlType: ControlType.DropDown,
-    options: [
-      {
-        title: "Обычное",
-        onClick: () => console.log("Обычное")
-      },
-      {
-        title: "Таблица",
-        onClick: () => console.log("Таблица")
-      }
-    ]
-  },
-  {
-    title: "Копировать",
-    controlType: ControlType.Button,
-    onClick: () => console.log("Копировать"),
-    isActive: false
-  },
-  {
-    title: "Настройки",
-    controlType: ControlType.DropDown,
-    options: [
-      {
-        title: "Zoom аккаунты",
-        onClick: () => console.log("Zoom аккаунты")
-      },
-      {
-        title: "Тайм-зоны",
-        onClick: () => console.log("Тайм-зоны")
-      },
-      {
-        title: "Пары и чаты",
-        onClick: () => console.log("Пары и чаты")
-      },
-      {
-        title: "Менторы и менеджеры",
-        onClick: () => console.log("Менторы и менеджеры")
-      },
-      {
-        title: "Лог создания и удаления",
-        onClick: () => console.log("Лог создания и удаления")
-      },
-      {
-        title: "Currency",
-        onClick: () => console.log("Currency")
-      },
-      {
-        title: "Service Group",
-        onClick: () => console.log("Service Group")
-      }
-    ]
-  },
-  {
-    title: "Finance",
-    controlType: ControlType.DropDown,
-    options: [
-      {
-        title: "Teacher service cost",
-        onClick: () => console.log("Teacher service cost")
-      },
-      {
-        title: "Student service revenue",
-        onClick: () => console.log("Student service revenue")
-      }
-    ]
-  },
-  {
-    title: "Выйти",
-    controlType: ControlType.Button,
-    onClick: () => console.log("Выйти"),
-    isActive: false
-  },
-]
 export const controls: IControlDetails[] = [
   {
     title: "Пары учеников",
     controlType: ControlType.Button,
-    onClick: () => document.location.pathname = 'manage/',
+    reference: '/manage/',
     isActive: false
   },
   {
     title: "Ученики и семьи",
     controlType: ControlType.Button,
-    onClick: () => document.location.pathname = 'users/',
+    reference: '/users/',
     isActive: false
   },
   {
@@ -576,18 +488,18 @@ export const controls: IControlDetails[] = [
     options: [
       {
         title: "Обычное",
-        onClick: () => document.location.pathname = 'timetable/',
+        reference: '/timetable/',
       },
       {
         title: "Таблица",
-        onClick: () => document.location.pathname = 'timetable/',
+        reference: '/timetable/',
       }
     ]
   },
   {
     title: "Копировать",
     controlType: ControlType.Button,
-    onClick: () => document.location.pathname = 'manage/copy/',
+    reference: '/manage/copy/',
     isActive: false
   },
   {
@@ -596,35 +508,35 @@ export const controls: IControlDetails[] = [
     options: [
       {
         title: "Service",
-        onClick: () => document.location.pathname = 'services/',
+        reference: '/services/',
       },
       {
         title: "Zoom аккаунты",
-        onClick: () => document.location.pathname = 'zoom_account/',
+        reference: '/zoom_account/',
       },
       {
         title: "Тайм-зоны",
-        onClick: () => document.location.pathname = 'timezone/',
+        reference: '/timezone/',
       },
       {
         title: "Пары и чаты",
-        onClick: () => document.location.pathname = 'pair_info/',
+        reference: '/pair_info/',
       },
       {
         title: "Менторы и менеджеры", 
-        onClick: () => document.location.pathname = 'mentors/',
+        reference: '/mentors/',
       },
       {
         title: "Лог создания и удаления",
-        onClick: () => document.location.pathname = 'log/',
+        reference: '/log/',
       },
       {
         title: "Currency",
-        onClick: () => document.location.pathname = 'items/currency/',
+        reference: '/items/currency/',
       },
       {
         title: "Service Group",
-        onClick: () => document.location.pathname = 'items/servicegroup/',
+        reference: '/items/servicegroup/',
       }
     ]
   },
@@ -634,18 +546,17 @@ export const controls: IControlDetails[] = [
     options: [
       {
         title: "Teacher service cost",
-        onClick: () => document.location.pathname = 'teacher/service/',
+        reference: '/teacher/service/',
       },
       {
         title: "Student service revenue",
-        onClick: () => document.location.pathname = 'student/service/',
+        reference: '/student/service/',
       }
     ]
   },
   {
     title: "Выйти",
     controlType: ControlType.Button,
-    onClick: () => console.log("Выйти"),
     isActive: false
   },
 ]

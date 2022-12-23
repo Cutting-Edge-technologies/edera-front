@@ -11,12 +11,12 @@ export enum ControlType {
 
 export interface IDropDowmOption {
   title: string;
-  onClick: () => void;
+  reference?: string;
 }
 
 export interface IControlDetails {
   title: string;
-  onClick?: () => void;
+  reference?: string;
   controlType: ControlType;
   options?: IDropDowmOption[];
   isActive?: boolean;
@@ -33,7 +33,7 @@ export const Starter: React.FC<IStarterProps> = ({controls, children}) => {
       {
         controls.map((control)=> {
           if (control.controlType === ControlType.Button){
-            return <ButtonControl title={control.title} onClick={control.onClick||(()=>console.log("NOOOO"))} isActive={control.isActive||true}/>
+            return <ButtonControl title={control.title} reference={ control.reference} isActive={control.isActive||true}/>
           } else {
             return <DropdownControl title={control.title} isActive={control.isActive||true} options={control.options||[]}/>
           }        
