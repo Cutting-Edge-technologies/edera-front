@@ -1,17 +1,14 @@
 
-import { dummieAll_dicts, dummieServices } from "../components/dummieObj";
 import { IServiceProps, Service } from "../components/service";
-import { CommonHOCWrapper } from "../shared/commonHOC";
+import { CommonHOCWrapper, hostName } from "../shared/commonHOC";
 
 
 export class Services extends CommonHOCWrapper<IServiceProps> {
-  correspondingUrl = 'services/';
+  
+  correspondingUrl =  `${hostName}services/ `;
   fethInitialProps = async () => {
-    const initialData: IServiceProps = {
-      token: '',
-      services: dummieServices,
-      all_dicts: dummieAll_dicts,
-    }
+    const response = await fetch(this.correspondingUrl);
+    const initialData = await response.json();
     return initialData;
   };
 
