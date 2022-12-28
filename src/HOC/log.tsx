@@ -11,6 +11,5 @@ export class Log extends CommonHOCWrapper<ILessonLogProps> {
     return initialData;
   };
 
-
   RenderComponent = LessonLog;
 }
