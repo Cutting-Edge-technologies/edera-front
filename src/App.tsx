@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import { Starter } from './components/starter';
 import { ZoomAccount } from './HOC/zoom_account';
-import { controls, dummieControls } from './components/dummieObj';
+import { controls } from './components/dummieObj';
 import { StudentsAndFamilies } from './HOC/studentsAndFamilies';
 import { TimeTable } from './HOC/timetable_table';
 import { PairStudents } from './HOC/pairStudents';
@@ -63,22 +63,22 @@ import { ServiceGroups } from './HOC/serviceGroup';
 
 const router = createBrowserRouter([
   {
-    path: 'manage/', element: (<PairStudents/>)
+    path: 'manage/', element: (<Starter controls={controls}><PairStudents/></Starter>)
   },
   {
     path: 'lk/', element: (<>LK</>)
   },
   {
-    path: 'users/', element: (<StudentsAndFamilies/>)
+    path: 'users/', element: (<Starter controls={controls}><StudentsAndFamilies/></Starter>)
   },
   {
-    path: 'mentors/', element: (<Mentors/>)
+    path: 'mentors/', element: (<Starter controls={controls}><Mentors/></Starter>)
   },
   {
-    path: 'manage/copy/', element: (<CopyLesson/>)
+    path: 'manage/copy/', element: (<Starter controls={controls}><CopyLesson/></Starter>)
   },
   {
-    path: 'timetable/', element: (<TimeTable/>)
+    path: 'timetable/', element: (<Starter controls={controls}><TimeTable/></Starter>)
   },
   {
     path: 'teacher/', element: (<>Teacker</>)
@@ -87,16 +87,16 @@ const router = createBrowserRouter([
     path: 'teacher/timetable/', element: (<>Teacher Timetable</>)
   },
   {
-    path: 'services/', element: (<Services/>)
+    path: 'services/', element: (<Starter controls={controls}><Services/></Starter>)
   },
   {
-    path: 'zoom_account/', element: (<ZoomAccount/>)
+    path: 'zoom_account/', element: (<Starter controls={controls}><ZoomAccount/></Starter>)
   },
   {
-    path: 'pair_info/', element: (<PairsAndChats/>)
+    path: 'pair_info/', element: (<Starter controls={controls}><PairsAndChats/></Starter>)
   },
   {
-    path: 'timezone/', element: (<TimeZone/>)
+    path: 'timezone/', element: (<Starter controls={controls}><TimeZone/></Starter>)
   },
   {
     path: 'activate/', element: (<>Activate</>)
@@ -114,19 +114,19 @@ const router = createBrowserRouter([
     path: 'log/init/', element: (<>LogInit</>)
   },
   {
-    path: 'log/', element: (<Log/>)
+    path: 'log/', element: (<Starter controls={controls}><Log/></Starter>)
   },
   {
-    path: 'teacher/service/', element: (<TeacherService/>)
+    path: 'teacher/service/', element: (<Starter controls={controls}><TeacherService/></Starter>)
   },
   {
-    path: 'student/service/', element: (<StudentService/>)
+    path: 'student/service/', element: (<Starter controls={controls}><StudentService/></Starter>)
   },
   {
-    path: 'items/currency/', element: (<Currency/>)
+    path: 'items/currency/', element: (<Starter controls={controls}><Currency/></Starter>)
   },
   {
-    path: 'items/servicegroup/', element: (<ServiceGroups/>)
+    path: 'items/servicegroup/', element: (<Starter controls={controls}><ServiceGroups/></Starter>)
   },
   {
     path: 'signup/', element: (<>signup</>)
@@ -140,14 +140,15 @@ const router = createBrowserRouter([
   {
     path: 'integrate/meetings/', element: (<>integrate/meetings/</>)
   },
+  {
+    path : '/', element: (<Starter controls={controls}></Starter>), 
+  }
 ])
 
 function App() {
   return (
     <div className="App">
-      <Starter controls={controls}>
         <RouterProvider router={router}/>
-      </Starter>
     </div>
   );
 }

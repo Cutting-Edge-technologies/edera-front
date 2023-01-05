@@ -28,9 +28,9 @@ export class UserCopyLessons extends React.Component <IUserCopyLessonsProps, IUs
   constructor(props: IUserCopyLessonsProps) {
     super(props);
     this.state = {
-      user_id: this.props.users[0].user_id,
-      week_from: this.props.weeks_from[0][0],
-      week_to: this.props.weeks_to[0][0],
+      user_id: this.props.users && this.props.users[0] ? this.props.users[0].user_id : "",
+      week_from: this.props.weeks_from && this.props.weeks_from[0] && this.props.weeks_from[0][0]? this.props.weeks_from[0][0] : 0,
+      week_to: this.props.weeks_to && this.props.weeks_to[0] && this.props.weeks_to[0][0]? this.props.weeks_to[0][0] : 0,
       lessons:[]
     };
   }

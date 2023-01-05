@@ -1,15 +1,12 @@
-import { CommonHOCWrapper } from "../shared/commonHOC";
+import { CommonHOCWrapper, hostName } from "../shared/commonHOC";
 import { IItemsManageProps, ItemsManage} from "../components/mentors";
-import { dummieMentorManageItems } from "../components/dummieObj";
 
 export class Mentors extends CommonHOCWrapper<IItemsManageProps> {
-  correspondingUrl = 'mentors/';
+
+  correspondingUrl =  `${hostName}mentors/ `;
   fethInitialProps = async () => {
-    const initialData: IItemsManageProps = {
-      token: '',
-      items: dummieMentorManageItems,
-      managers: dummieMentorManageItems
-    }
+    const response = await fetch(this.correspondingUrl);
+    const initialData = await response.json();
     return initialData;
   };
 

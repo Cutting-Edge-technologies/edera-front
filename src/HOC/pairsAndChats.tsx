@@ -1,15 +1,13 @@
-import { dummieItems } from "../components/dummieObj";
 import { IItemsManageProps, ItemsManage } from "../components/pair_info";
-import { CommonHOCWrapper } from "../shared/commonHOC";
+import { CommonHOCWrapper, hostName } from "../shared/commonHOC";
 
 
 export class PairsAndChats extends CommonHOCWrapper<IItemsManageProps> {
-  correspondingUrl = 'pair_info/';
+
+  correspondingUrl =  `${hostName}pair_info/ `;
   fethInitialProps = async () => {
-    const initialData: IItemsManageProps = {
-      items: dummieItems,
-      token: '',
-    }
+    const response = await fetch(this.correspondingUrl);
+    const initialData = await response.json();
     return initialData;
   };
 

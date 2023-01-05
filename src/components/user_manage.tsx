@@ -75,8 +75,8 @@ export class AddUser extends React.Component<IAddUserProps, IAddUserState>{
       add_pair:{student:0, teacher:0},
       add_chat:{pair:{id:0}, chat:{id:0}},
       add_lesson: initialLesson,
-      user_id:this.props.users ? this.props.users[0].user_id : 0,
-      user_tg:this.props.users ? this.props.users[0].tg : 0,
+      user_id:this.props.users[0] ? this.props.users[0].user_id : 0,
+      user_tg:this.props.users[0] ? this.props.users[0].tg : 0,
       timetable_text:""
     };
     this.save_lesson=this.save_lesson.bind(this);
