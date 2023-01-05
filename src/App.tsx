@@ -20,6 +20,8 @@ import { TeacherService } from './HOC/teacherService';
 import { StudentService } from './HOC/studentService';
 import { Currency } from './HOC/currency';
 import { ServiceGroups } from './HOC/serviceGroup';
+import { SingUpHOC } from './HOC/signUp';
+import { LogInHOC } from './HOC/logIn';
 
 // urlpatterns = [
 //   path('signup/', views.signup, name='signup'),
@@ -63,7 +65,10 @@ import { ServiceGroups } from './HOC/serviceGroup';
 
 const router = createBrowserRouter([
   {
-    path: 'manage/', element: (<Starter controls={controls}><PairStudents/></Starter>)
+    path: 'login/', element: (<LogInHOC/>)
+  },
+  {
+    path: 'manage/', element: (<PairStudents/>)
   },
   {
     path: 'lk/', element: (<>LK</>)
@@ -129,7 +134,7 @@ const router = createBrowserRouter([
     path: 'items/servicegroup/', element: (<Starter controls={controls}><ServiceGroups/></Starter>)
   },
   {
-    path: 'signup/', element: (<>signup</>)
+    path: 'signup/', element: (<SingUpHOC/>)
   },
   {
     path: 'bot/msg/', element: (<>bot/msg/</>)
