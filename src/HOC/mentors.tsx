@@ -4,7 +4,7 @@ import { IItemsManageProps, ItemsManage} from "../components/mentors";
 export class Mentors extends CommonHOCWrapper<IItemsManageProps> {
 
   correspondingUrl =  `${hostName}mentors/ `;
-  fethInitialProps = async () => {
+  fetchInitialProps = async () => {
     const response = await fetch(this.correspondingUrl);
     const initialData = await response.json();
     return initialData;

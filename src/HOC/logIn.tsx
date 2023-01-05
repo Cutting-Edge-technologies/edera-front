@@ -5,7 +5,7 @@ import { CommonHOCWrapper, hostName } from "../shared/commonHOC";
 
 
 export class LogInHOC extends CommonHOCWrapper<ILogInProps> {
-  correspondingUrl =  `${hostName}login/ `;
+  correspondingUrl =  `${hostName}api/v1/login/`;
   fetchInitialProps = async () => {
     const initialData: ILogInProps = {
       csrf_token: "",
@@ -15,8 +15,7 @@ export class LogInHOC extends CommonHOCWrapper<ILogInProps> {
           method: 'POST',
           body: JSON.stringify(data),
         } 
-        const newURL = "http://127.0.0.1:8000/api/v1/login/"
-        await fetch( newURL, fetchOptions);
+        await fetch( this.correspondingUrl, fetchOptions);
       }
     }
     return initialData;

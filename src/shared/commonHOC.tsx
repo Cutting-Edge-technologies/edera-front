@@ -18,7 +18,7 @@ export abstract class CommonHOC<Props, State> extends React.Component<{}, State>
 export const hostName = "http://127.0.0.1:8000/";
 
 export abstract class  CommonHOCWrapper<Props> extends React.Component<any, Props | {}>{
-  abstract fethInitialProps: ()=> Promise<Props>;
+  abstract fetchInitialProps: ()=> Promise<Props>;
   public abstract RenderComponent: typeof React.Component<Props, any>;
 
   constructor() {
@@ -27,7 +27,7 @@ export abstract class  CommonHOCWrapper<Props> extends React.Component<any, Prop
   }
 
   componentDidMount(): void {
-    this.fethInitialProps()
+    this.fetchInitialProps()
     .then((initialData)=> {
       this.setState(initialData)
     });

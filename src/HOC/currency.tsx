@@ -5,7 +5,7 @@ import { CommonHOCWrapper, hostName } from "../shared/commonHOC";
 export class Currency extends CommonHOCWrapper<IItemsManageProps> {
   
   correspondingUrl =  `${hostName}items/currency/`;
-  fethInitialProps = async () => {
+  fetchInitialProps = async () => {
     const response = await fetch(this.correspondingUrl);
     const initialData = await response.json();
     return initialData;

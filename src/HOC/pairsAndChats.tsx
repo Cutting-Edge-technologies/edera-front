@@ -5,7 +5,7 @@ import { CommonHOCWrapper, hostName } from "../shared/commonHOC";
 export class PairsAndChats extends CommonHOCWrapper<IItemsManageProps> {
 
   correspondingUrl =  `${hostName}pair_info/ `;
-  fethInitialProps = async () => {
+  fetchInitialProps = async () => {
     const response = await fetch(this.correspondingUrl);
     const initialData = await response.json();
     return initialData;

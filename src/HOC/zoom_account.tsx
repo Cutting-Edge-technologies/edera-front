@@ -7,7 +7,7 @@ import { CommonHOCWrapper, hostName } from "../shared/commonHOC";
 export class ZoomAccount extends CommonHOCWrapper<IItemsManageProps> {
 
   correspondingUrl =  `${hostName}zoom_account/ `;
-  fethInitialProps = async () => {
+  fetchInitialProps = async () => {
     const response = await fetch(this.correspondingUrl);
     const initialData = await response.json();
     return initialData;

@@ -5,7 +5,7 @@ import { CommonHOCWrapper, hostName } from "../shared/commonHOC";
 export class StudentService extends CommonHOCWrapper<IStudentsServiceItemsManageProps> {
 
   correspondingUrl =  `${hostName}student/service/`;
-  fethInitialProps = async () => {
+  fetchInitialProps = async () => {
     const response = await fetch(this.correspondingUrl);
     const initialData = await response.json();
     return initialData;
