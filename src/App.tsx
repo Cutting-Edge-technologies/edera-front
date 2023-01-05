@@ -68,7 +68,7 @@ const router = createBrowserRouter([
     path: 'login/', element: (<LogInHOC/>)
   },
   {
-    path: 'manage/', element: (<PairStudents/>)
+    path: 'manage/', element: (<Starter controls={controls}><PairStudents/></Starter>)
   },
   {
     path: 'lk/', element: (<>LK</>)
