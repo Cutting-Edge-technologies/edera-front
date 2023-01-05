@@ -1,9 +1,13 @@
 import React from "react";
 import { IForm } from "./signUp";
 
+export interface ILogInData{
+  name: string;
+  password: string;
+}
 export interface ILogInProps{
   csrf_token: string;
-  logIn: () => void;
+  logIn: (data: ILogInData) => void;
   form: IForm;
 }
 
@@ -25,16 +29,20 @@ export interface ILogInState {
     return (
       <div className = "card mx-auto" style={{ maxWidth:"500px", marginTop:"50px", padding:"20px"}}>
         <div className="card-body">
-          <form method="post" className="form-signin" action="{ url 'login' }">
-			      { this.props.csrf_token }
+          <form className="form-signin">
             <h2>Welcome</h2>
             <br/>
             <div className="form-label-group">
-              <input type="text" id="id_username" 
-                name = "username" className="form-control" placeholder="username" required
+              <input
+                type="text"
+                id="id_username" 
+                name = "username"
+                className="form-control"
+                placeholder="username"
+                required
+                value={this.state.name}
                 onChange={(e)=>{
                   this.setState({name:e.target.value});
-                  return(e.target.value);
                 }}/>
             </div>
             <br/>
@@ -43,7 +51,6 @@ export interface ILogInState {
               name = "password" className="form-control" placeholder="password" required
               onChange={(e)=>{
                 this.setState({password:e.target.value});
-                return(e.target.value);
               }}/>
             </div>
             { !!this.props.form.errors.length&&
@@ -54,10 +61,15 @@ export interface ILogInState {
             <br/>
             <hr className="my-2"/>
             <div className = "my-2">
-              <button className="btn btn-lg btn-primary btn-block text-uppercase" onClick={this.props.logIn}>
-                Sign in
+              <button
+                className="btn btn-lg btn-primary btn-block text-uppercase"
+                onClick={()=> {
+                  console.warn('warning');
+                  this.props.logIn({name: this.state.name, password: this.state.password})
+                }}
+              >
+                Log in
               </button>
-              <input type="hidden" name="next" value="{{ next }}"/>
             </div>
           </form>
         </div>
