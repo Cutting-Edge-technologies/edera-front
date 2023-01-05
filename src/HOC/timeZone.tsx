@@ -1,16 +1,14 @@
-import { dummieItems } from "../components/dummieObj";
 import { IItemsManageProps } from "../components/pair_info";
 import { ItemsManage } from "../components/timezone_manager";
-import { CommonHOCWrapper } from "../shared/commonHOC";
+import { CommonHOCWrapper, hostName } from "../shared/commonHOC";
 
 
 export class TimeZone extends CommonHOCWrapper<IItemsManageProps> {
-  correspondingUrl = 'timezone/';
+
+  correspondingUrl =  `${hostName}timezone/ `;
   fethInitialProps = async () => {
-    const initialData: IItemsManageProps = {
-      items: dummieItems,
-      token: '',
-    }
+    const response = await fetch(this.correspondingUrl);
+    const initialData = await response.json();
     return initialData;
   };
 

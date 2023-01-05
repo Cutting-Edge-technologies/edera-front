@@ -1,17 +1,13 @@
-import { dummieGroups, dummieFelds } from "../components/dummieObj";
 import { ItemsManage, IItemsManageProps } from "../components/items_admin";
-import { CommonHOCWrapper } from "../shared/commonHOC";
+import { CommonHOCWrapper, hostName } from "../shared/commonHOC";
 
 
 export class Currency extends CommonHOCWrapper<IItemsManageProps> {
-  correspondingUrl = 'items/currency/';
+  
+  correspondingUrl =  `${hostName}items/currency/`;
   fethInitialProps = async () => {
-    const initialData: IItemsManageProps = {
-      token: '',
-      fields: [dummieFelds[0]], 
-      items: dummieGroups,
-      desc: {name:"Currency"}
-    }
+    const response = await fetch(this.correspondingUrl);
+    const initialData = await response.json();
     return initialData;
   };
 

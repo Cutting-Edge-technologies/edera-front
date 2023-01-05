@@ -1,15 +1,13 @@
 import { ILessonLogProps, LessonLog } from "../components/lesson_log";
-import { CommonHOCWrapper } from "../shared/commonHOC";
+import { CommonHOCWrapper, hostName } from "../shared/commonHOC";
 
 
 export class Log extends CommonHOCWrapper<ILessonLogProps> {
-  correspondingUrl = 'log/';
+
+  correspondingUrl =  `${hostName}log/ `;
   fethInitialProps = async () => {
-    const initialData: ILessonLogProps = {
-      token: '',
-      dt_from: "15-02-2022",
-      dt_to: "18-02-2056"
-    }
+    const response = await fetch(this.correspondingUrl);
+    const initialData = await response.json();
     return initialData;
   };
 
