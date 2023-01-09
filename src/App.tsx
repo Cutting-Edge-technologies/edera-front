@@ -22,6 +22,7 @@ import { Currency } from './HOC/currency';
 import { ServiceGroups } from './HOC/serviceGroup';
 import { SingUpHOC } from './HOC/signUp';
 import { LogInHOC } from './HOC/logIn';
+import { LogInButton } from './components/LogInButton';
 
 // urlpatterns = [
 //   path('signup/', views.signup, name='signup'),
@@ -71,7 +72,7 @@ const router = createBrowserRouter([
     path: 'manage/', element: (<Starter controls={controls}><PairStudents/></Starter>)
   },
   {
-    path: 'lk/', element: (<>LK</>)
+    path: 'lk/', element: (<LogInButton/>)
   },
   {
     path: 'users/', element: (<Starter controls={controls}><StudentsAndFamilies/></Starter>)
@@ -151,10 +152,15 @@ const router = createBrowserRouter([
 ])
 
 function App() {
+  const token = "sdfdf";
   return (
-    <div className="App">
-        <RouterProvider router={router}/>
-    </div>
+    <>
+      {!!token ? 
+        <div className="App">
+          <RouterProvider router={router}/>
+        </div> : <LogInHOC/>
+      }
+    </>
   );
 }
 
