@@ -21,8 +21,8 @@ export abstract class  CommonHOCWrapper<Props> extends React.Component<any, Prop
   abstract fetchInitialProps: ()=> Promise<Props>;
   public abstract RenderComponent: typeof React.Component<Props, any>;
 
-  constructor() {
-    super({});
+  constructor(parameters: Props) {
+    super(parameters);
     this.state = {};
   }
 
