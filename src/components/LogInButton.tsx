@@ -1,14 +1,15 @@
 import React from "react";
+import { ILogInData } from "./logIn";
 
- export class LogInButton extends React.Component {
+ export class LogInButton extends React.Component <ILogInData> {
   render(): React.ReactNode {
     const onClick = async () => {
       var myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
       var urlencoded = new URLSearchParams();
-      urlencoded.append("username", "roma1997z");
-      urlencoded.append("password", "1234");
+      urlencoded.append("username", this.props.name);
+      urlencoded.append("password",  this.props.password);
 
       const requestOptions = {
         method: 'POST',
