@@ -10,12 +10,25 @@ export class LogInHOC extends CommonHOCWrapper<ILogInProps> {
     const initialData: ILogInProps = {
       csrf_token: "",
       form: dummieForm,
+
       logIn: async (data)=> {
-        const fetchOptions = {
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+        var urlencoded = new URLSearchParams();
+        urlencoded.append("username", `${data.name}`);
+        urlencoded.append("password", `${data.password}`);
+
+        const requestOptions = {
           method: 'POST',
-          body: JSON.stringify(data),
-        } 
-        await fetch( this.correspondingUrl, fetchOptions);
+          headers: myHeaders,
+          body: urlencoded,
+        };
+
+        await fetch("http://127.0.0.1:8000/api/v1/login/", requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
       }
     }
     return initialData;
