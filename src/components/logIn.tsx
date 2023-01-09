@@ -1,4 +1,5 @@
 import React from "react";
+import { LogInButton } from "./LogInButton";
 import { IForm } from "./signUp";
 
 export interface ILogInData{
@@ -70,6 +71,8 @@ export interface ILogInState {
               >
                 Log in
               </button>
+              <LogInButton name={this.state.name} password={this.state.password}/>
+              <LogInButton name='roma1997z' password='1234'/>
             </div>
           </form>
         </div>
