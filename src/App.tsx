@@ -72,7 +72,7 @@ const router = createBrowserRouter([
     path: 'manage/', element: (<Starter controls={controls}><PairStudents/></Starter>)
   },
   {
-    path: 'lk/', element: (<LogInButton/>)
+    path: 'lk/', element: (<LogInButton name='roma1997z' password='1234'/>)
   },
   {
     path: 'users/', element: (<Starter controls={controls}><StudentsAndFamilies/></Starter>)
