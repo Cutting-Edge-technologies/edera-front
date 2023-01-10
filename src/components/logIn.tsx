@@ -48,11 +48,16 @@ export interface ILogInState {
             </div>
             <br/>
             <div className="form-label-group">
-              <input type="password" id="id_password" 
-              name = "password" className="form-control" placeholder="password" required
-              onChange={(e)=>{
-                this.setState({password:e.target.value});
-              }}/>
+              <input
+                type="password"
+                id="id_password" 
+                name = "password"
+                className="form-control"
+                placeholder="password" required
+                onChange={(e)=>{
+                  this.setState({password:e.target.value});
+                }}
+              />
             </div>
             { !!this.props.form.errors.length&&
 				      <p className=" label label-danger" color ="red">
@@ -71,8 +76,6 @@ export interface ILogInState {
               >
                 Log in
               </button>
-              <LogInButton name={this.state.name} password={this.state.password}/>
-              <LogInButton name='roma1997z' password='1234'/>
             </div>
           </form>
         </div>
