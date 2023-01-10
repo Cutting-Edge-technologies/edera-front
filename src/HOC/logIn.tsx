@@ -1,38 +1,64 @@
+import React, { useContext, useState } from "react";
+import { AuthContext } from "../App";
+import { LogInButton } from "../components/LogInButton";
+import { IForm } from "../components/signUp";
 
-import { dummieForm } from "../components/dummieObj";
-import { LogIn, ILogInProps } from "../components/logIn";
-import { CommonHOCWrapper, hostName } from "../shared/commonHOC";
+export interface ILogInData{
+  name: string;
+  password: string;
+}
+export interface ILogInProps{
+  csrf_token: string;
+  logIn: (data: ILogInData) => void;
+  form: IForm;
+}
 
+export interface ILogInState {
+  name: string;
+  password: string;
+}
 
-export class LogInHOC extends CommonHOCWrapper<ILogInProps> {
-  correspondingUrl =  `${hostName}api/v1/login/`;
-  fetchInitialProps = async () => {
-    const initialData: ILogInProps = {
-      csrf_token: "",
-      form: dummieForm,
+interface ILoginResponce {
+  token: string;
+}
 
-      logIn: async (data)=> {
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+export const LogInHOC: React.FC<{}> = () => {
+  const [username, setUserName] = useState('');
+  const [password, setPassword] = useState('');
 
-        var urlencoded = new URLSearchParams();
-        urlencoded.append("username", `${data.name}`);
-        urlencoded.append("password", `${data.password}`);
+  const {setToken, token} = useContext(AuthContext)
 
-        const requestOptions = {
-          method: 'POST',
-          headers: myHeaders,
-          body: urlencoded,
-        };
-
-        await fetch("http://127.0.0.1:8000/api/v1/login/", requestOptions)
-        .then(response => response.text())
-        .then(result => console.log(result))
-        .catch(error => console.log('error', error));
-      }
+  const login = async () => {
+    const body = {
+      username,
+      password,
     }
-    return initialData;
-  };
+    const bodyEncoded = new URLSearchParams(body);
+    console.warn(bodyEncoded);
+    const requestOptions = {
+      method: 'POST',
+      // headers: myHeaders,
+      body: bodyEncoded,
+      redirect: "error" as any,
+    };
 
-  RenderComponent = LogIn;
+    const response = await fetch("http://127.0.0.1:8000/api/v1/login/", requestOptions);
+    const result = await response.text();
+    const {token}: ILoginResponce = JSON.parse(result);
+    console.log(result);
+    setToken(token);
+
+  }
+
+  return (
+    <div className="container">
+      <label htmlFor="username">Login</label>
+      <input id="username" type="text" className="login" value={username} onChange={(e) => setUserName(e.target.value)}/>
+      <br/>
+      <label htmlFor="password">Password</label>
+      <input id="password" type="password" className="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+      <br/>
+      <button className="login" onClick={login}>Login</button>
+    </div>
+  )
 }
