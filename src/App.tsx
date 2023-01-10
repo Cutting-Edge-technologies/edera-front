@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import {
   createBrowserRouter,
@@ -22,7 +22,6 @@ import { Currency } from './HOC/currency';
 import { ServiceGroups } from './HOC/serviceGroup';
 import { SingUpHOC } from './HOC/signUp';
 import { LogInHOC } from './HOC/logIn';
-import { LogInButton } from './components/LogInButton';
 
 // urlpatterns = [
 //   path('signup/', views.signup, name='signup'),
@@ -72,7 +71,7 @@ const router = createBrowserRouter([
     path: 'manage/', element: (<Starter controls={controls}><PairStudents/></Starter>)
   },
   {
-    path: 'lk/', element: (<LogInButton name='roma1997z' password='1234'/>)
+    path: 'lk/', element: (<>LK</>)
   },
   {
     path: 'users/', element: (<Starter controls={controls}><StudentsAndFamilies/></Starter>)
@@ -149,18 +148,29 @@ const router = createBrowserRouter([
   {
     path : '/', element: (<Starter controls={controls}></Starter>), 
   }
-])
+]);
 
-function App() {
-  const token = "sdfdf";
+interface IAuthContext {
+  token: string,
+  setToken: (token: string) => void,
+}
+
+export const AuthContext = React.createContext<IAuthContext>({
+  token: '',
+  setToken: () => undefined,
+});
+
+const App: React.FC<{}> = () => {
+  const [token, setToken] = useState('');
+
   return (
-    <>
+    <AuthContext.Provider value={{token: token, setToken: setToken}}>
       {!!token ? 
         <div className="App">
           <RouterProvider router={router}/>
-        </div> : <LogInHOC/>
+        </div> : <LogInHOC />
       }
-    </>
+    </AuthContext.Provider>
   );
 }
 
