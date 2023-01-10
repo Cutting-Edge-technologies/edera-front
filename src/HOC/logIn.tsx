@@ -1,22 +1,5 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../App";
-import { LogInButton } from "../components/LogInButton";
-import { IForm } from "../components/signUp";
-
-export interface ILogInData{
-  name: string;
-  password: string;
-}
-export interface ILogInProps{
-  csrf_token: string;
-  logIn: (data: ILogInData) => void;
-  form: IForm;
-}
-
-export interface ILogInState {
-  name: string;
-  password: string;
-}
 
 interface ILoginResponce {
   token: string;
@@ -37,7 +20,6 @@ export const LogInHOC: React.FC<{}> = () => {
     console.warn(bodyEncoded);
     const requestOptions = {
       method: 'POST',
-      // headers: myHeaders,
       body: bodyEncoded,
       redirect: "error" as any,
     };
