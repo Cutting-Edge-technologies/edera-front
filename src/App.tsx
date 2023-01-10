@@ -22,6 +22,7 @@ import { Currency } from './HOC/currency';
 import { ServiceGroups } from './HOC/serviceGroup';
 import { SingUpHOC } from './HOC/signUp';
 import { LogInHOC } from './HOC/logIn';
+import { GetServicesButton } from './components/getServucesButton';
 
 // urlpatterns = [
 //   path('signup/', views.signup, name='signup'),
@@ -71,7 +72,7 @@ const router = createBrowserRouter([
     path: 'manage/', element: (<Starter controls={controls}><PairStudents/></Starter>)
   },
   {
-    path: 'lk/', element: (<>LK</>)
+    path: 'lk/', element: (<GetServicesButton/>)
   },
   {
     path: 'users/', element: (<Starter controls={controls}><StudentsAndFamilies/></Starter>)
@@ -150,7 +151,7 @@ const router = createBrowserRouter([
   }
 ]);
 
-interface IAuthContext {
+export interface IAuthContext {
   token: string,
   setToken: (token: string) => void,
 }
