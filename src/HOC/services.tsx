@@ -3,12 +3,13 @@ import { useSelector } from "react-redux";
 import { IServiceProps, Service } from "../components/service";
 import { tokenSelector } from "../selectors/token";
 import { CommonHOCWrapper, hostName } from "../shared/commonHOC";
+import { tokenStore } from "../store";
 
 
 export class Services extends CommonHOCWrapper<IServiceProps> {
   correspondingUrl =  `${hostName}api/v1/services/ `;
   fetchInitialProps = async () => {
-    const token = useSelector(tokenSelector);
+    const token = tokenSelector(tokenStore.getState());
     console.log(token);
     console.log(this.context);
     var myHeaders = new Headers();
