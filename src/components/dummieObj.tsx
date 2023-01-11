@@ -557,7 +557,7 @@ export const controls: IControlDetails[] = [
   },
   {
     title: "Выйти",
-    controlType: ControlType.Button,
+    controlType: ControlType.LogOut,
     isActive: false
   },
 ]
