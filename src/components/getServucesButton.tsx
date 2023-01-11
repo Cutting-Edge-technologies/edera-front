@@ -1,12 +1,12 @@
-import React, { useContext, useState } from "react";
-import { AuthContext } from "../App";
+import { useSelector } from "react-redux";
+import { tokenSelector } from "../selectors/token";
 import { hostName } from "../shared/commonHOC";
 
 
 export const GetServicesButton: React.FC<{}> = () => {
 
-   const {token} = useContext(AuthContext);
-   const correspondingUrl =  `${hostName}api/v1/services/ `;
+   const token = useSelector(tokenSelector);
+   const correspondingUrl =  `${hostName}api/v1/services/`;
 
 var myHeaders = new Headers();
 myHeaders.append("Authorization", `Token ${token}`);
@@ -14,7 +14,6 @@ myHeaders.append("Authorization", `Token ${token}`);
 var requestOptions = {
   method: 'GET',
   headers: myHeaders,
-  //redirect: 'follow'
 };
 
 const getServices = async() => { 
