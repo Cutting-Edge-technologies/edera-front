@@ -7,10 +7,10 @@ export const tokenSlice = createSlice({
   },
   reducers: {
     setToken: (state) => {
-      state.value = '17606f36ad237d52809d9f4576f0b009990f0718'
+      return ({value: '17606f36ad237d52809d9f4576f0b009990f0718'});
     },
     resetToken: (state) => {
-      state.value = ''
+      return ({value: ''});
     },
   },
 })
