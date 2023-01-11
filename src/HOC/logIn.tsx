@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { tokenSelector } from "../selectors/token";
-import { resetToken, setToken } from "../slices/tokenSlice";
-import { tokenStore } from "../store";
+import { setToken } from "../slices/tokenSlice";
+import { Navigate } from "react-router-dom";
 
 interface ILoginResponce {
   token: string;
@@ -42,6 +42,7 @@ export const LogInHOC: React.FC<{}> = () => {
   //}
 
   return (
+    <>{!token? 
     <div className="container">
       <label htmlFor="username">Login</label>
       <input id="username" type="text" className="login" value={username} onChange={(e) => setUserName(e.target.value)}/>
@@ -50,6 +51,7 @@ export const LogInHOC: React.FC<{}> = () => {
       <input id="password" type="password" className="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
       <br/>
       <button className="login" onClick={login}>Login</button>
-    </div>
+    </div> : <Navigate to ="/"/>}
+    </>
   )
 }
