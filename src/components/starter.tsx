@@ -1,12 +1,13 @@
 import React from "react";
 import { PropsWithChildren } from "react";
-import { ButtonControl } from "./ButtonControl";
+import { ButtonControl, ButtonLogOut } from "./ButtonControl";
 import {DropdownControl } from "./DropdownControl";
 
 
 export enum ControlType {
   Button = "button",
   DropDown = "dropdown",
+  LogOut = "logout"
 }
 
 export interface IDropDowmOption {
@@ -34,9 +35,11 @@ export const Starter: React.FC<IStarterProps> = ({controls, children}) => {
         controls.map((control)=> {
           if (control.controlType === ControlType.Button){
             return <ButtonControl title={control.title} reference={ control.reference} isActive={control.isActive||true}/>
-          } else {
+          } else if (control.controlType === ControlType.DropDown){
             return <DropdownControl title={control.title} isActive={control.isActive||true} options={control.options||[]}/>
-          }        
+          } else {
+            return <ButtonLogOut title={control.title} isActive={control.isActive||true}/>
+          }             
         })
       }
       </div>
