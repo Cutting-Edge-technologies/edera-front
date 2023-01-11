@@ -3,16 +3,15 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 
-import store from './store'
+import {tokenStore} from './store'
 import { Provider } from 'react-redux'
 
-// As of React 18
 const root = ReactDOM.createRoot(
   document.getElementById('root')  as HTMLElement
   );
 
 root.render(
-  <Provider store={store}>
+  <Provider store={tokenStore}>
     <App />
   </Provider>
 )
