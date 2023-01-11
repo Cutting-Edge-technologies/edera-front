@@ -1,5 +1,8 @@
-import React, { useContext, useState } from "react";
-import { AuthContext } from "../App";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { tokenSelector } from "../selectors/token";
+import { resetToken, setToken } from "../slices/tokenSlice";
+import { tokenStore } from "../store";
 
 interface ILoginResponce {
   token: string;
@@ -9,28 +12,34 @@ export const LogInHOC: React.FC<{}> = () => {
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
 
-  const {setToken, token} = useContext(AuthContext)
+  const dispatch = useDispatch();
+  const token = useSelector(tokenSelector);
 
-  const login = async () => {
-    const body = {
-      username,
-      password,
-    }
-    const bodyEncoded = new URLSearchParams(body);
-    console.warn(bodyEncoded);
-    const requestOptions = {
-      method: 'POST',
-      body: bodyEncoded,
-      redirect: "error" as any,
-    };
+  const login = () => {
+    console.log(token);
+    dispatch(setToken());
+  };
 
-    const response = await fetch("http://127.0.0.1:8000/api/v1/login/", requestOptions);
-    const result = await response.text();
-    const {token}: ILoginResponce = JSON.parse(result);
-    console.log(result);
-    setToken(token);
+  // const login = async () => {
+  //   const body = {
+  //     username,
+  //     password,
+  //   }
+  //   const bodyEncoded = new URLSearchParams(body);
+  //   console.warn(bodyEncoded);
+  //   const requestOptions = {
+  //     method: 'POST',
+  //     body: bodyEncoded,
+  //     redirect: "error" as any,
+  //   };
 
-  }
+  //   const response = await fetch("http://127.0.0.1:8000/api/v1/login/", requestOptions);
+  //   const result = await response.text();
+  //   const {token}: ILoginResponce = JSON.parse(result);
+  //   console.log(result);
+  //   setToken(token);
+
+  //}
 
   return (
     <div className="container">
