@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
 import {
   createBrowserRouter,
@@ -23,6 +23,8 @@ import { ServiceGroups } from './HOC/serviceGroup';
 import { SingUpHOC } from './HOC/signUp';
 import { LogInHOC } from './HOC/logIn';
 import { GetServicesButton } from './components/getServucesButton';
+import { tokenSelector } from './selectors/token';
+import { useSelector } from 'react-redux';
 
 // urlpatterns = [
 //   path('signup/', views.signup, name='signup'),
@@ -65,9 +67,6 @@ import { GetServicesButton } from './components/getServucesButton';
 // ]
 
 const router = createBrowserRouter([
-  {
-    path: 'login/', element: (<LogInHOC/>)
-  },
   {
     path: 'manage/', element: (<Starter controls={controls}><PairStudents/></Starter>)
   },
@@ -151,27 +150,19 @@ const router = createBrowserRouter([
   }
 ]);
 
-export interface IAuthContext {
-  token: string,
-  setToken: (token: string) => void,
-}
 
-export const AuthContext = React.createContext<IAuthContext>({
-  token: '',
-  setToken: () => undefined,
-});
 
 const App: React.FC<{}> = () => {
-  const [token, setToken] = useState('');
-
+  const token = useSelector(tokenSelector);
+  console.log("rerender")
   return (
-    <AuthContext.Provider value={{token: token, setToken: setToken}}>
+    <>
       {!!token ? 
         <div className="App">
           <RouterProvider router={router}/>
         </div> : <LogInHOC />
       }
-    </AuthContext.Provider>
+    </>
   );
 }
 
