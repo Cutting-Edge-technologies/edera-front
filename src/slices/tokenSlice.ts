@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-
 export const tokenSlice = createSlice({
   name: 'token',
   initialState: {
@@ -15,7 +14,6 @@ export const tokenSlice = createSlice({
   },
 })
 
-// Action creators are generated for each case reducer function
 export const { setToken, resetToken } = tokenSlice.actions
 
 export default tokenSlice.reducer
