@@ -1,15 +1,14 @@
 
-import { useContext } from "react";
-import { AuthContext, IAuthContext } from "../App";
+import { useSelector } from "react-redux";
 import { IServiceProps, Service } from "../components/service";
+import { tokenSelector } from "../selectors/token";
 import { CommonHOCWrapper, hostName } from "../shared/commonHOC";
 
 
 export class Services extends CommonHOCWrapper<IServiceProps> {
-  static contextType = AuthContext;
   correspondingUrl =  `${hostName}api/v1/services/ `;
   fetchInitialProps = async () => {
-    const {token} = this.context as IAuthContext;
+    const token = useSelector(tokenSelector);
     console.log(token);
     console.log(this.context);
     var myHeaders = new Headers();
