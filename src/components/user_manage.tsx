@@ -54,6 +54,7 @@ export interface IAddUserProps extends IHaveToken {
   services:IAddUserService[];
   responsibles:string[];
   today: string;
+  add_lesson:IAddUserLesson;
 }
 
 export interface IAddUserState {
