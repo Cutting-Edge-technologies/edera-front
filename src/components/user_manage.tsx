@@ -1,12 +1,11 @@
 import React from "react";
 import { IHaveToken } from "../shared/typings";
-import {ILesson, ILessonEditorService, LessonEditor, } from "./lessonEditor"
+import {ILesson, LessonEditor, } from "./lessonEditor"
 import { initialLesson, initialLessonInfo } from "./timetable_table";
 
 export interface IAddUserUser{
   name: string;
   user_id: number;
-  modal: boolean;
   tg: number;
   role: string;
 
@@ -16,8 +15,7 @@ export interface IAddUserPair{
   user_id: number;
   chat_id: number;
   pair_id: number;
-  student: number;
-  teacher: number;
+  send_timetable: number;
 }
 
 export interface IAddUserAdd_Pair{
@@ -26,17 +24,26 @@ export interface IAddUserAdd_Pair{
 }
 
 export interface IAddUserChat{
+  chat_id: number;
   text: string;
   date: string;
-  pair:{id:number}
-  chat:{id:number}
 }
 
 export interface IAddUserAdd_Chat{
-  pair:{id:number}
-  chat:{id:number}
+  chat_id: number;
+  text: string;
+  date: string;
 }
-export interface IAddUserService extends ILessonEditorService{}
+export interface IAddUserService {
+    note_id: number;
+    name: string;
+    group: {
+        id: number;
+        name: string;
+    },
+    cost: number;
+    earn: number;
+}
 export interface IAddUserLesson extends ILesson{
 } 
 
@@ -46,6 +53,7 @@ export interface IAddUserProps extends IHaveToken {
   chats:IAddUserChat[];
   services:IAddUserService[];
   responsibles:string[];
+  today: string;
 }
 
 export interface IAddUserState {
@@ -71,9 +79,9 @@ export class AddUser extends React.Component<IAddUserProps, IAddUserState>{
       pairs:this.props.pairs,
       chats:this.props.chats,
       services:this.props.services,
-      add_user:{modal:false, user_id:0, tg:0, role:"", name:""},
+      add_user:{ user_id:0, tg:0, role:"", name:""},
       add_pair:{student:0, teacher:0},
-      add_chat:{pair:{id:0}, chat:{id:0}},
+      add_chat:{chat_id:0, date:'', text:''},
       add_lesson: initialLesson,
       user_id:this.props.users[0] ? this.props.users[0].user_id : 0,
       user_tg:this.props.users[0] ? this.props.users[0].tg : 0,
@@ -126,19 +134,19 @@ export class AddUser extends React.Component<IAddUserProps, IAddUserState>{
     console.log(this.state.add_chat);
     var formData = new FormData();
     formData.append("csrfmiddlewaretoken", this.props.token);
-    formData.append("pair_id",`${this.state.add_chat.pair.id}`);
-    formData.append("chat_id", `${this.state.add_chat.chat.id}`);
+    formData.append("pair_id",`${this.state.add_chat.chat_id}`);
+    formData.append("chat_id", `${this.state.add_chat.chat_id}`);
     formData.append("add_chat", `1`);
     fetch("", {method: "POST", body: formData}).then(response => response.json()).then((resp) => {
       console.log(resp);
       if (resp.ok) {
         var pairs = this.state.pairs.slice();
-        var pair_id = this.state.add_chat.pair.id
+        var pair_id = this.state.add_chat.chat_id
         var index = pairs.findIndex(function(el){return el.pair_id===pair_id})
         pairs[index]= resp.chat_id;
         var chats = this.state.chats.slice();
-        chats.splice(this.state.add_chat.chat.id, 1)
-        this.setState({add_chat: {pair: {id: 0}, chat: {id: 0}}, pairs: pairs, chats: chats});
+        chats.splice(this.state.add_chat.chat_id, 1)
+        this.setState({add_chat: {chat_id:0, date:'', text:''}, pairs: pairs, chats: chats});
       }
     })
   }
@@ -335,7 +343,7 @@ export class AddUser extends React.Component<IAddUserProps, IAddUserState>{
             manage_url='/manage/'
             add_lesson={this.state.add_lesson}
             save_lesson={this.save_lesson}
-            today="10-12-286"
+            today={this.props.today}
            // edit_lesson={this.edit_lesson}
             //cancel_lesson={this.cancel_lesson}
             />
@@ -413,16 +421,17 @@ export class AddUser extends React.Component<IAddUserProps, IAddUserState>{
           <div className="col-md-6">
             <h2>Пары учитель-ученик без чата</h2>
             {this.state.pairs.filter(function (pair) {return pair.chat_id === 0}).map((pair, index)=>
-              <div className={pair.pair_id===this.state.add_chat.pair.id?"element-card selected":"element-card"}
-                onClick={()=>this.setState({add_chat:{pair:{id:pair.pair_id}, chat:this.state.add_chat.chat}})}>{pair.name}</div>
+              <div className={pair.pair_id===this.state.add_chat.chat_id?"element-card selected":"element-card"}
+                onClick={()=>this.setState({add_chat:{chat_id:0, date:'', text:''}})}>{pair.name}</div>
             )}
           </div>
           <div className="col-md-6">
             <h2>Чаты с ботом без пары</h2>
-            {this.state.chats.map((chat, index)=>
-              <div className={chat.chat.id===this.state.add_chat.chat.id?"element-card selected":"element-card"}
-                onClick={()=>this.setState({add_chat:{pair:this.state.add_chat.pair, chat:{id:chat.chat.id}}})}><span>{chat.text} ({chat.date})</span><br/><small>{chat.chat.id}</small></div>
-            )}
+            {this.state.chats.map((chat)=>{
+              return(
+              <div className={chat.chat_id===this.state.add_chat.chat_id?"element-card selected":"element-card"}
+                onClick={()=>this.setState({add_chat:{chat_id:0, date:'', text:''}})}><span>{chat.text} ({chat.date})</span><br/><small>{chat.chat_id}</small></div>
+            )})}
             <p>Чтобы добавить групповой чат:<br/>
               <ul><li>Добавьте @Edera_bot в групповой чат</li>
                   <li>Дайте боту права администратора</li>
@@ -439,7 +448,7 @@ export class AddUser extends React.Component<IAddUserProps, IAddUserState>{
           </div>
         </div>
         <button type="button" className="btn btn-success" onClick={()=>this.add_chat()}
-          disabled={!this.state.add_chat.pair.id || !this.state.add_chat.chat.id}>
+          disabled={!this.state.add_chat.chat_id || !this.state.add_chat.chat_id}>
           Связать пару и чат
         </button>
         <br/>
