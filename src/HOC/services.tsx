@@ -1,23 +1,28 @@
 
-import { useSelector } from "react-redux";
 import { authorizedFetch } from "../commands/API";
-import { IServiceProps, Service } from "../components/service";
-import { tokenSelector } from "../selectors/token";
+import { dummieAll_dicts, dummieServices } from "../components/dummieObj";
+import { IServiceTrueProps, Service } from "../components/service";
 import { CommonHOCWrapper, hostName } from "../shared/commonHOC";
-import { tokenStore } from "../store";
 
 
-export class Services extends CommonHOCWrapper<IServiceProps> {
+export class Services extends CommonHOCWrapper<IServiceTrueProps> {
   correspondingUrl =  `${hostName}api/v1/services/ `;
   fetchInitialProps = async () => {
-    const responseData = await authorizedFetch(this.correspondingUrl)
-    const initialData: IServiceProps = {
-      all_dicts: responseData.data.all_dicts,
-      services: responseData.data.services,
-      token: responseData.token
-    };
-    console.log(initialData);
-    return initialData;
+    const responseData = await authorizedFetch(this.correspondingUrl);
+    if (responseData) {
+      const initialData: IServiceTrueProps = {
+        all_dicts: responseData.data.all_dicts,
+        services: responseData.data.services,
+        token: responseData.token
+      };
+      return initialData;
+    } else {
+      return ({
+        all_dicts: dummieAll_dicts,
+        services: dummieServices,
+        token: ""
+      })
+    }
   };
   
   RenderComponent = Service;
