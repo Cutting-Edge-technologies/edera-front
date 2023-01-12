@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { UserCopyLessons } from "./user_copy_lessons";
-import { dummieDubleNumberArray, dummieUsers} from "./dummieObj";
+import { dummieStrinds, dummieUsers} from "./dummieObj";
 
 export default {
   title: 'PageStories/4 Copy Lessons',
@@ -13,8 +13,8 @@ export const CopyLessonsStory: ComponentStory<any> = () => {
     <UserCopyLessons
     token={""}
     users={dummieUsers}
-    weeks_from = {dummieDubleNumberArray}
-    weeks_to ={dummieDubleNumberArray}
+    weeks_from = {[dummieStrinds]}
+    weeks_to ={[dummieStrinds]}
     />
   )
 }

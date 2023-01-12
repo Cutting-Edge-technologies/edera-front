@@ -13,14 +13,14 @@ export interface IUserLesson {
 
 export interface IUserCopyLessonsProps extends IHaveToken {
   users: IUser[];
-  weeks_from: number[][];
-  weeks_to: number[][];
+  weeks_from: string[][];
+  weeks_to: string[][];
 }
 
 export interface IUserCopyLessonsState {
   user_id: string;
-  week_from: number;
-  week_to: number;
+  week_from: string;
+  week_to: string;
   lessons: IUserLesson[];
 }
 
@@ -29,8 +29,8 @@ export class UserCopyLessons extends React.Component <IUserCopyLessonsProps, IUs
     super(props);
     this.state = {
       user_id: this.props.users && this.props.users[0] ? this.props.users[0].user_id : "",
-      week_from: this.props.weeks_from && this.props.weeks_from[0] && this.props.weeks_from[0][0]? this.props.weeks_from[0][0] : 0,
-      week_to: this.props.weeks_to && this.props.weeks_to[0] && this.props.weeks_to[0][0]? this.props.weeks_to[0][0] : 0,
+      week_from: this.props.weeks_from && this.props.weeks_from[0] && this.props.weeks_from[0][0]? this.props.weeks_from[0][0] : '',
+      week_to: this.props.weeks_to && this.props.weeks_to[0] && this.props.weeks_to[0][0]? this.props.weeks_to[0][0] : '',
       lessons:[]
     };
   }
@@ -88,7 +88,7 @@ export class UserCopyLessons extends React.Component <IUserCopyLessonsProps, IUs
           <div className="col-md-4">
             <label htmlFor="week_from">Неделя</label>
             <select id="week_from" className="form-control form-control-lg"
-              onChange={(e) => this.setState({week_from: parseInt(e.target.value)})}
+              onChange={(e) => this.setState({week_from: e.target.value})}
               value={this.state.week_from}>
                 {this.props.weeks_from.map((week, index) =>
                   <option value={week[0]}>{week[0]} &ndash; {week[1]}</option>)
@@ -117,7 +117,7 @@ export class UserCopyLessons extends React.Component <IUserCopyLessonsProps, IUs
             <div className="col-md-4">
               <label htmlFor="week_to">Неделя куда</label>
               <select id="week_to" className="form-control form-control-lg"
-                onChange={(e) => this.setState({week_to: parseInt(e.target.value)})}
+                onChange={(e) => this.setState({week_to: e.target.value})}
                 value={this.state.week_to}>
                   {this.props.weeks_to.map((week, index) =>
                     <option value={week[0]}>{week[0]} &ndash; {week[1]}</option>)
