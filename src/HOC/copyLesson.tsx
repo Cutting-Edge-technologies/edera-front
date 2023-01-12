@@ -1,3 +1,4 @@
+import { authorizedFetch } from "../commands/API";
 import { IUserCopyLessonsProps, UserCopyLessons } from "../components/user_copy_lessons";
 import { tokenSelector } from "../selectors/token";
 import { CommonHOCWrapper, hostName } from "../shared/commonHOC";
@@ -8,23 +9,13 @@ export class CopyLesson extends CommonHOCWrapper<IUserCopyLessonsProps> {
 
   correspondingUrl =  `${hostName}api/v1/manage/copy/`;
   fetchInitialProps = async () => {
-    const token = tokenSelector(tokenStore.getState());
-    var myHeaders = new Headers();
-    myHeaders.append("Authorization", `Token ${token}`);
-    var requestOptions = {
-      method: 'GET',
-      headers: myHeaders,
-    };
-    const response = await fetch(this.correspondingUrl, requestOptions);
-    const result = await response.text()
-    const responseData = JSON.parse(result)
+    const responseData = await authorizedFetch(this.correspondingUrl)
     const initialData: IUserCopyLessonsProps = {
-      token: token,
-      users: responseData.users,
-      weeks_from: responseData.weeks_from,
-      weeks_to: responseData.weeks_to
+      token: responseData.token,
+      users: responseData.data.users,
+      weeks_from: responseData.data.weeks_from,
+      weeks_to: responseData.data.weeks_to
     };
-    console.log(initialData);
     return initialData;
   };
 
