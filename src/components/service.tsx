@@ -19,11 +19,9 @@ export interface IService {
   group: IGroup;
 }
 
-export interface IServiceProps extends IHaveToken {
+export interface IServiceTrueProps extends IHaveToken {
   all_dicts:{
     groups: IGroup[]
-    services: IServiceAll_dict[];
-    currency: ICurrencyAll_dict[];
   };
   services: IService[];
 };
@@ -34,8 +32,8 @@ export interface IServiceState {
   family: number
 };
 
-export class Service extends React.Component <IServiceProps, IServiceState> {
-  constructor(props: IServiceProps) {
+export class Service extends React.Component <IServiceTrueProps, IServiceState> {
+  constructor(props: IServiceTrueProps) {
     super(props);
     this.state = {
       users: this.props.services,
