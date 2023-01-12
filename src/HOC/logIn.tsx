@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { tokenSelector } from "../selectors/token";
 import { setToken } from "../slices/tokenSlice";
 import { Navigate } from "react-router-dom";
+import { ILogInData } from "../components/logIn";
+import { logIn } from "../commands/login";
 
 interface ILoginResponce {
   token: string;
@@ -13,33 +15,12 @@ export const LogInHOC: React.FC<{}> = () => {
   const [password, setPassword] = useState('');
 
   const dispatch = useDispatch();
-  const token = useSelector(tokenSelector);
+  let token = useSelector(tokenSelector);
 
-  const login = () => {
-    console.log(token);
-    dispatch(setToken());
+  const login = async (data:ILogInData) => {
+    token = await logIn(data);
+    dispatch(setToken(token));
   };
-
-  // const login = async () => {
-  //   const body = {
-  //     username,
-  //     password,
-  //   }
-  //   const bodyEncoded = new URLSearchParams(body);
-  //   console.warn(bodyEncoded);
-  //   const requestOptions = {
-  //     method: 'POST',
-  //     body: bodyEncoded,
-  //     redirect: "error" as any,
-  //   };
-
-  //   const response = await fetch("http://127.0.0.1:8000/api/v1/login/", requestOptions);
-  //   const result = await response.text();
-  //   const {token}: ILoginResponce = JSON.parse(result);
-  //   console.log(result);
-  //   setToken(token);
-
-  //}
 
   return (
     <>{!token? 
@@ -50,7 +31,7 @@ export const LogInHOC: React.FC<{}> = () => {
       <label htmlFor="password">Password</label>
       <input id="password" type="password" className="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
       <br/>
-      <button className="login" onClick={login}>Login</button>
+      <button className="login" onClick={()=> login({username:username, password:password})}>Login</button>
     </div> : <Navigate to ="/"/>}
     </>
   )
