@@ -17,6 +17,7 @@ export const Pair_StudentsStory: ComponentStory<any> = () => {
     chats={dummieAddUserChats}
     pairs={dummieAddUserPairs}
     users={dummieAddUserUsers}
+    today="12/10"
     />
   )
 }

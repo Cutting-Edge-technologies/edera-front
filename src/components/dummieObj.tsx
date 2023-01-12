@@ -388,34 +388,19 @@ export const dummieUserInfoUsers: IUserInfoUser[] = [
 
 export const dummieAddUserChats: IAddUserChat[] = [
   {
-    chat: {
-      id:55
-    },
-    date: "15-42-2086",
-    pair: {
-      id:89
-    },
-    text: "Loren Ipsum foreve fun"
+    chat_id: 23,
+    date: '15/25',
+    text: "tfgcjgg"
   },
   {
-    chat: {
-      id:110
-    },
-    date: "1198-55-62",
-    pair: {
-      id:65080
-    },
-    text: "John Down like to noir"
+    chat_id: 354,
+    date: '22/333',
+    text: "dddddd"
   },
   {
-    chat: {
-      id:2
-    },
-    date: "1945-02-31",
-    pair: {
-      id:99
-    },
-    text: "It rains often"
+    chat_id: 1111,
+    date: '123345/30',
+    text: "aaaass"
   },
 ]
 
@@ -424,24 +409,21 @@ export const dummieAddUserPairs: IAddUserPair[] = [
     chat_id: 154,
     pair_id: 568,
     user_id: 5,
-    student: 66,
-    teacher: 7,
+    send_timetable: 7,
     name: "John Dow"
   },
   {
     chat_id: 99,
     pair_id: 2,
     user_id: 8995,
-    student: 25,
-    teacher: 789,
+    send_timetable: 789,
     name: "Liza Up Said"
   },
   {
     chat_id: 2556,
     pair_id: 5638,
     user_id: 75,
-    student: 36,
-    teacher: 12,
+    send_timetable: 12,
     name: "Loreb next to door"
   }
 ]
@@ -450,21 +432,18 @@ export const dummieAddUserUsers: IAddUserUser[] = [
   {
     user_id: 156,
     tg: 875,
-    modal: false,
     name: "Loren Betwen",
     role: "student"
   },
   {
     user_id: 66,
     tg: 7852,
-    modal: true,
     name: "Laura of top",
     role: "teacher"
   },
   {
     user_id: 2,
     tg: 63,
-    modal: false,
     name: "John Olh",
     role: "manager"
   }
