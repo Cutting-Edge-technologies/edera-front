@@ -300,9 +300,10 @@ export class LessonEditor extends React.Component <ILessonEditorProps, ILessonEd
             <div className="col-md-4 col-sm-6 col-12 mb-3">
               <select name="responsible" className="form-control form-control-lg mx-1"
                 onChange={(e)=>this.change_lesson({responsible: e.target.value})}
-                value={this.state.add_lesson.responsible?this.state.add_lesson.responsible:"A, E"}
+                value={
+                  this.state.add_lesson.responsible ? this.state.add_lesson.responsible:"A, E"}
               >
-                {this.props.responsibles.map((value, index)=>
+                { this.props.responsibles&&this.props.responsibles.map((value)=>
                 <option value={value}>{value}</option>)
                 }
               </select>
