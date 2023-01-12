@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { logOut } from "../commands/login";
 import { resetToken } from "../slices/tokenSlice";
 
 export interface IButtonControlProps {
@@ -18,7 +19,8 @@ export const ButtonControl: React.FC<IButtonControlProps> = ({title, reference, 
 
 export const ButtonLogOut: React.FC<IButtonControlProps> = ({title, reference, isActive}) => {
   const dispatch = useDispatch();
-  const logout = () =>{
+  const logout = async () =>{
+    await logOut();
     dispatch(resetToken());
   }
   return (
