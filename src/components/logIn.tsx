@@ -1,9 +1,8 @@
 import React from "react";
-import { LogInButton } from "./LogInButton";
 import { IForm } from "./signUp";
 
 export interface ILogInData{
-  name: string;
+  username: string;
   password: string;
 }
 export interface ILogInProps{
@@ -71,7 +70,7 @@ export interface ILogInState {
                 className="btn btn-lg btn-primary btn-block text-uppercase"
                 onClick={()=> {
                   console.warn('warning');
-                  this.props.logIn({name: this.state.name, password: this.state.password})
+                  this.props.logIn({username: this.state.name, password: this.state.password})
                 }}
               >
                 Log in
